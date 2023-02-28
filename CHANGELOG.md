@@ -1,8 +1,9 @@
 # Changelog
 
-## `v0.0.1`
+## `v0.0.2`
 
-### Added `CHANGELOG.md`
+### Added error handling module
+  - `/src/error.scss`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.
