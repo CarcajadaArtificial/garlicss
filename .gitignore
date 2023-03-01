@@ -1,2 +1,5 @@
 .DS_Store
 test/result.css
+node_modules
+package-lock.json
+docs

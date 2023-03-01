@@ -1,10 +1,10 @@
 # Changelog
 
-## `v0.0.6`
+## `v0.0.7`
 
-### Added the True library submodule
-  - `.gitmodules`
-  - `lib/true`
+### Added Node backend for process running.
+  - `package.json`
+  - `.gitignore`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.
