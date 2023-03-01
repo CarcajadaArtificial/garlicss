@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.0.2`
+## `v0.0.3`
 
-### Added error handling module
-  - `/src/error.scss`
+### Added .gitignore
+  - `.gitignore`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.
