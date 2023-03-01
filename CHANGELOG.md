@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.0.4`
+## `v0.0.5`
 
-### Added utilities module and the `next-key-in-map` function
-  - `src/util.scss`
+### Added the media-queries module.
+  - `src/media-queries.scss`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.

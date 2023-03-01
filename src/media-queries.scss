@@ -1,0 +1,125 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'util';
+@use 'error';
+
+// -----------------------------------------------------------------------------------------------------
+/// The $breakpoints variable is a Sass map containing the screen sizes for different devices.
+/// @type map
+/// @group media-queries
+$breakpoints: (
+  hand: 1px,
+  page: 600px,
+  book: 900px,
+  desk: 1200px,
+  wide: 1800px,
+) !default;
+
+// -----------------------------------------------------------------------------------------------------
+/// The mq mixin is a simple utility in Sass that generates a media query with a given query string and wraps the content inside it.
+/// @param $query A string representing the media query to be generated.
+/// @group media-queries
+/// @content
+@mixin mq($query) {
+  @media #{$query} {
+    @content;
+  }
+}
+
+// -----------------------------------------------------------------------------------------------------
+/// The `only-on` mixin is a Sass utility that allows you to create media queries for specific breakpoints defined in the $breakpoints map. The mixin uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
+/// @param $breakpoint One of the keys in the `$breakpoints` map.
+/// @group media-queries
+/// @content
+@mixin only-on($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    $breakpoint-start: map.get($breakpoints, $breakpoint);
+    $breakpoint-end: map.get(
+      $breakpoints,
+      util.next-key-in-map($breakpoints, $breakpoint)
+    );
+    @if $breakpoint-end == null {
+      @include mq('screen and (min-width: #{$breakpoint-start})') {
+        @content;
+      }
+    } @else if $breakpoint-start == 1px {
+      @include mq('screen and (max-width: #{$breakpoint-end - 1px})') {
+        @content;
+      }
+    } @else {
+      @include mq(
+        'screen and (min-width: #{$breakpoint-start}) and (max-width: #{$breakpoint-end - 1px})'
+      ) {
+        @content;
+      }
+    }
+  } @else {
+    content: error.throw(
+      'The breakpoint named "#{$breakpoint}" was not found.',
+      'indexing'
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------------------------------
+/// This mixin generates a media query with a `min-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens larger than a specific breakpoint.
+/// @param $breakpoint One of the keys in the `$breakpoints` map.
+/// @group media-queries
+/// @content
+@mixin larger-than($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @include mq(
+      'screen and (min-width: #{map.get($breakpoints, $breakpoint)})'
+    ) {
+      @content;
+    }
+  } @else {
+    content: error.throw(
+      'The breakpoint named "#{$breakpoint}" was not found.',
+      'indexing'
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------------------------------
+/// This mixin generates a media query with a `max-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens smaller than a specific breakpoint.
+/// @param $breakpoint One of the keys in the `$breakpoints` map.
+/// @group media-queries
+/// @content
+@mixin smaller-than($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @include mq(
+      'screen and (max-width: #{map.get($breakpoints, $breakpoint) - 1px})'
+    ) {
+      @content;
+    }
+  } @else {
+    content: error.throw(
+      'The breakpoint named "#{$breakpoint}" was not found.',
+      'indexing'
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------------------------------
+/// This mixin generates media queries with the specified min-width and max-width values based on a `$breakpoints` map. It is designed to simplify the process of creating responsive styles by allowing developers to easily define media queries using named breakpoints instead of specific pixel values.
+/// @param $breakpoint-start One of the keys in the `$breakpoints` map.
+/// @param $breakpoint-end One of the keys in the `$breakpoints` map.
+/// @group media-queries
+/// @content
+@mixin between($breakpoint-start, $breakpoint-end) {
+  @if map.has-key($breakpoints, $breakpoint-start) and
+    map.has-key($breakpoints, $breakpoint-end)
+  {
+    @include mq(
+      'screen and (min-width: #{map.get($breakpoints, $breakpoint-start)}) and (max-width: #{map.get($breakpoints, $breakpoint-end) - 1px})'
+    ) {
+      @content;
+    }
+  } @else {
+    content: error.throw(
+      'The breakpoint named "#{$breakpoint-start}" or "#{$breakpoint-end} was not found.',
+      'indexing'
+    );
+  }
+}
