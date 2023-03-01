@@ -1,0 +1,9 @@
+dest: docs/
+src: src/
+
+display:
+  access: public
+
+groups:
+  responsive-web-design:
+    media-queries: 'Media Queries'

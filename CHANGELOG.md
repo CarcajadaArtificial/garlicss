@@ -1,10 +1,9 @@
 # Changelog
 
-## `v0.0.7`
+## `v0.0.8`
 
-### Added Node backend for process running.
-  - `package.json`
-  - `.gitignore`
+### Added Sassdoc module
+  - `.sassdocrc`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.
