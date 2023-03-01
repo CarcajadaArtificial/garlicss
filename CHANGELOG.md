@@ -1,9 +1,11 @@
 # Changelog
 
-## `v0.0.8`
+## `v0.0.9`
 
-### Added Sassdoc module
-  - `.sassdocrc`
+### Updated module documentaiton
+  - `src/error.scss`
+  - `src/media-queries.scss`
+  - `src/util.scss`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.
