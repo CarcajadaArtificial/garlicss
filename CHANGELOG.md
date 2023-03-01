@@ -1,9 +1,10 @@
 # Changelog
 
-## `v0.0.5`
+## `v0.0.6`
 
-### Added the media-queries module.
-  - `src/media-queries.scss`
+### Added the True library submodule
+  - `.gitmodules`
+  - `lib/true`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.
