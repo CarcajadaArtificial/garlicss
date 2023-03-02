@@ -20,10 +20,7 @@
 /// @group utils
 @function next-key-in-map($map, $current-key) {
   @if map.has-key($map, $current-key) {
-    @return error.throw(
-      'The breakpoint named "#{$breakpoint-start}" or "#{$breakpoint-end} was not found.',
-      'indexing'
-    );
+    @return error.throw('The key "#{$current-key}" was not found.', 'indexing');
   }
   $keys: map.keys($map);
   $current-index: list.index($keys, $current-key);

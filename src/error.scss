@@ -60,7 +60,7 @@ $error-types: ('value', 'handling', 'indexing');
 /// @example scss - Sass
 ///   @mixin set-width($width) {
 ///     @if ($width == 0) {
-///       content: throw('Can't convert value 0 to pixels.', value);
+///       content: error.throw('Can't convert value 0 to pixels.', value);
 ///     } @else {
 ///       width: $width;
 ///     }

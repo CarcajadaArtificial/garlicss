@@ -1,11 +1,11 @@
 # Changelog
 
-## `v0.0.9`
+## `v0.0.10`
 
-### Updated module documentaiton
+### Minor updates
   - `src/error.scss`
-  - `src/media-queries.scss`
   - `src/util.scss`
+  - `package.json`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.

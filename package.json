@@ -1,6 +1,6 @@
 {
   "name": "bone",
-  "version": "0.0.5",
+  "version": "0.0.10",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/CarcajadaArtificial/bone#readme",
   "devDependencies": {
     "sass": "^1.58.3",
-    "sassdoc": "^2.7.4",
-    "sassdoc-theme-herman": "^5.0.1"
+    "sass-true": "^7.0.0",
+    "sassdoc": "^2.7.4"
   }
 }
