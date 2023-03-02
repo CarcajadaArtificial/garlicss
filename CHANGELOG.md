@@ -1,16 +1,17 @@
 # Changelog
 
-## `v0.0.12`
+## `v0.0.14`
 
-### Minor updates
-  - `index.scss`
-  - `src/index.scss`
-  - `package.json`
-  - `README.md`
+### Added a playground test file.
+  - `test/playground/index.scss`
+  - `.gitignore`
 
 ## Goals for `v0.1.0` - Media Queries
-  - Create a breakpoint map.
-  - Mixin that targets a specific breakpoint block.
-  - Mixin that targets all screens lower/higher than a breakpoint.
-  - Mixin that targets alls creens between two breakpoints.
-  - Implement guidelines to the config.scss where the user customizes its nap.
+  - [x] Create a breakpoint map.
+  - [x] Mixin that targets a specific breakpoint block.
+  - [x] Mixin that targets all screens lower/higher than a breakpoint.
+  - [x] Mixin that targets all screens between two breakpoints.
+  - [x] Generalize the error module. `throw.error-type()`
+  - [] Unit test mixins and functions.
+  - [] Publish documentation page.
+  - [] Publish to NPM (test import).

@@ -1,0 +1,7 @@
+@use '../../src/media-queries.scss' as mq;
+
+@include mq.only-on('book') {
+  .test {
+    display: block;
+  }
+}
