@@ -1,0 +1,84 @@
+//   _____ _
+//  |_   _| |_  _ _ _____ __ __
+//    | | | ' \| '_/ _ \ V  V /
+//    |_| |_||_|_| \___/\_/\_/
+//
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This variable sets the default value for whether error messages should be caught and displayed. It can be overridden to false to disable this feature.
+///
+/// @type bool
+///
+/// @todo - Example annotation
+///
+$catching-enabled: true !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Simplifies error handling by generating a custom error message and throwing an exception.
+///
+/// @param {string} $message ['']
+///   The content of the message to be displayed.
+///
+/// @param {bool} $catch [$catching-enabled]
+///   Throws @error if true.
+///
+/// @return {string}
+///   Returns the `$message` by default.
+///
+/// @throw
+///   The global throw, this is what every exception will use to handle an error.
+///
+/// @todo - Example annotation
+///
+@function error($message: '', $catch: $catching-enabled) {
+  @if $catch {
+    @error $message;
+  }
+  @return $message;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin does what the function `throw.error()` does, but applied to a `--bone-error` property.
+///
+/// @param {string} $message ['']
+///   The content of the message to be displayed.
+///
+/// @param {bool} $catch [$catching-enabled]
+///   Throws @error if true.
+///
+/// @todo - Example annotation
+///
+@mixin error($message, $catch: $catching-enabled) {
+  --bone-error: '#{error($message, $catch)}';
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates a `(Value Error)`, these are used for incorrect values (e.g. incorrect types, values out of a range, not null, a string with a wrong format, etc).
+///
+/// @param {string} $value [null]
+///   The incorrect value.
+///
+/// @param {string} $expected [null]
+///   A guide on what the correct value must be.
+///
+/// @todo - Example annotation
+///
+@function value-msg($value, $expected) {
+  @return '(Value Error) The value #{$value} is invalid. Expected: #{$expected}';
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates an `(Indexing Error)`, these are used for missing keys or values that must be present on a map or a list.
+///
+/// @param {string} $key [null]
+///   The key or value that wasn't found.
+///
+/// @param {string} $container [null]
+///   The list or map there `$key` wasn't found.
+///
+/// @todo - Example annotation
+///
+@function index-msg($key, $container) {
+  @return '(Indexing Error) The value #{$key} was not found inside #{$container}';
+}

@@ -1,6 +1,6 @@
 {
   "name": "bone",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A SCSS library",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
@@ -15,6 +15,7 @@
   "repository": "CarcajadaArtificial/bone",
   "scripts": {
     "doc": "sassdoc src/",
+    "play": "sass test/playground/index.scss test/playground/result.css --no-source-map",
     "json": "pretty-package-json",
     "test": "mocha"
   },

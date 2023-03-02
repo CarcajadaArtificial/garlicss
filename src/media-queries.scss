@@ -7,7 +7,7 @@
 @use 'sass:map';
 @use 'sass:list';
 @use 'util';
-@use 'error';
+@use 'throw';
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The $breakpoints variable is a Sass map containing the screen sizes for different devices.
@@ -109,10 +109,7 @@ $breakpoints: (
       }
     }
   } @else {
-    content: error.throw(
-      'The breakpoint named "#{$breakpoint}" was not found.',
-      'indexing'
-    );
+    @include throw.error(throw.index-msg($breakpoint, '$breakpoints'));
   }
 }
 
@@ -145,10 +142,7 @@ $breakpoints: (
       @content;
     }
   } @else {
-    content: error.throw(
-      'The breakpoint named "#{$breakpoint}" was not found.',
-      'indexing'
-    );
+    @include throw.error(throw.index-msg($breakpoint, '$breakpoints'));
   }
 }
 
@@ -181,10 +175,7 @@ $breakpoints: (
       @content;
     }
   } @else {
-    content: error.throw(
-      'The breakpoint named "#{$breakpoint}" was not found.',
-      'indexing'
-    );
+    @include throw.error(throw.index-msg($breakpoint, '$breakpoints'));
   }
 }
 
@@ -213,18 +204,15 @@ $breakpoints: (
 ///
 /// @group media-queries
 @mixin between($breakpoint-start, $breakpoint-end) {
-  @if map.has-key($breakpoints, $breakpoint-start) and
-    map.has-key($breakpoints, $breakpoint-end)
-  {
+  @if not map.has-key($breakpoints, $breakpoint-start) {
+    @include throw.error(throw.index-msg($breakpoint-start, '$breakpoints'));
+  } @else if not map.has-key($breakpoints, $breakpoint-end) {
+    @include throw.error(throw.index-msg($breakpoint-end, '$breakpoints'));
+  } @else {
     @include mq(
       'screen and (min-width: #{map.get($breakpoints, $breakpoint-start)}) and (max-width: #{map.get($breakpoints, $breakpoint-end) - 1px})'
     ) {
       @content;
     }
-  } @else {
-    content: error.throw(
-      'The breakpoint named "#{$breakpoint-start}" or "#{$breakpoint-end} was not found.',
-      'indexing'
-    );
   }
 }

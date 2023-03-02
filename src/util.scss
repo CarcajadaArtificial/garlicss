@@ -6,7 +6,7 @@
 // =====================================================================================================
 @use 'sass:map';
 @use 'sass:list';
-@use 'error';
+@use 'throw';
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Returns the next key in a map given the current key. Returns null if `$current-key` is the last. It throws an error if the current key is not found in the map.
@@ -17,10 +17,10 @@
 /// @param {string} $current-key [null]
 ///   The current key in the map.
 ///
-/// @group utils
+/// @group util
 @function next-key-in-map($map, $current-key) {
-  @if map.has-key($map, $current-key) {
-    @return error.throw('The key "#{$current-key}" was not found.', 'indexing');
+  @if not map.has-key($map, $current-key) {
+    @return throw.error(throw.index-msg($current-key, '$map'));
   }
   $keys: map.keys($map);
   $current-index: list.index($keys, $current-key);
@@ -28,4 +28,28 @@
     @return null;
   }
   @return list.nth($keys, $current-index + 1);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Turns the first letter of a word into uppercase.
+///
+/// @param {string} $string [null]
+///   The word that is going to be capitalized.
+///
+/// @example scss - Sass
+///   p {
+///     &::after {
+///       content: capitalize(word);
+///     }
+///   }
+///
+/// @example css - Compiled CSS
+///   p::after {
+///     content: "Word";
+///   }
+///
+/// @group util
+///
+@function capitalize($string: null) {
+  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
 }
