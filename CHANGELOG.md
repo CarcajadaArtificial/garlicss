@@ -1,19 +1,12 @@
 # Changelog
 
-## `v0.0.11`
+## `v0.0.12`
 
-### Added `True` DevDependency for unit testing.
-  - `test/index.js`
-  - `test/index.scss`
-  - `test/media-queries.test.scss`
-
-### Added `pretty-package-json` to format the project json.
+### Minor updates
+  - `index.scss`
+  - `src/index.scss`
   - `package.json`
-
-### Removed True submodule in favor of full node backend.
-  - `.gitmodules`
-  - `lib/true`
-  - `package.json`
+  - `README.md`
 
 ## Goals for `v0.1.0` - Media Queries
   - Create a breakpoint map.
