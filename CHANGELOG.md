@@ -1,17 +1,16 @@
 # Changelog
 
-## `v0.0.15`
+## `v0.0.16`
 
-### Removed unused index
-  - `src/index.scss`
-  - `index.scss`
+### Renamed util module to utils
+  - `src/utils.scss`
+  - `src/media-queries.scss`
 
-### Added media-query module unit tests
-  - `test/media-queries.test.scss`
+### Added utils module unit tests
+  - `test/utils.test.scss`
+  - `test/index.scss`
 
 ### Minor updates
-  - `src/media-queries.scss`
-  - `src/throw.scss`
   - `package.json`
 
 ## Goals for `v0.1.0` - Media Queries

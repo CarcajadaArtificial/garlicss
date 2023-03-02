@@ -1,0 +1,47 @@
+@use 'true' as *;
+@use '../src/throw';
+@use '../src/utils' as *;
+
+@include test-module('utils') {
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // next-key-in-map($key, $map) [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('mq()') {
+    $map: (
+      A: 'value-A',
+      B: 'value-B',
+      C: 'value-C',
+    );
+    // Correct input
+    @include it('Returns the next key when found.') {
+      @include assert-equal(next-key-in-map($map, 'A'), 'B');
+    }
+    // Correct input - last
+    @include it('Returns null when the key is the last.') {
+      @include assert-equal(next-key-in-map($map, 'C'), null);
+    }
+    // Incorrect input - missing
+    @include it(
+      '[Indexing Error] Throws when the key is not found in the map.'
+    ) {
+      @include assert-equal(
+        next-key-in-map($map, 'X'),
+        throw.error(throw.index-msg('X', '$map'))
+      );
+    }
+    // Incorrect input - incorrect type
+    @include it('[Value Error] Throws when the input is not a map') {
+      @include assert-equal(
+        next-key-in-map(0, 'A'),
+        throw.error(throw.value-msg(0, 'map'))
+      );
+    }
+    // Incorrect input - incorrect type
+    @include it('[Value Error] Throws when the input is not a string') {
+      @include assert-equal(
+        next-key-in-map($map, 0),
+        throw.error(throw.value-msg(0, 'string'))
+      );
+    }
+  }
+}

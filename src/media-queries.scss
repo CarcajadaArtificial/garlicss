@@ -6,7 +6,7 @@
 // =====================================================================================================
 @use 'sass:map';
 @use 'sass:list';
-@use 'util';
+@use 'utils' as *;
 @use 'throw';
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -95,7 +95,7 @@ $breakpoints: (
     $breakpoint-start: map.get($breakpoints, $breakpoint);
     $breakpoint-end: map.get(
       $breakpoints,
-      util.next-key-in-map($breakpoints, $breakpoint)
+      next-key-in-map($breakpoints, $breakpoint)
     );
     @if $breakpoint-end == null {
       @include mq('screen and (min-width: #{$breakpoint-start})') {

@@ -19,7 +19,11 @@
 ///
 /// @group util
 @function next-key-in-map($map, $current-key) {
-  @if not map.has-key($map, $current-key) {
+  @if not(type-of($map) == 'map') {
+    @return throw.error(throw.value-msg($map, 'map'));
+  } @else if not(type-of($current-key) == 'string') {
+    @return throw.error(throw.value-msg($current-key, 'string'));
+  } @else if not(map.has-key($map, $current-key)) {
     @return throw.error(throw.index-msg($current-key, '$map'));
   }
   $keys: map.keys($map);
