@@ -1,16 +1,12 @@
 # Changelog
 
-## `v0.0.16`
+## `v0.0.17`
 
-### Renamed util module to utils
-  - `src/utils.scss`
-  - `src/media-queries.scss`
-
-### Added utils module unit tests
+### Updated utils module unit tests
   - `test/utils.test.scss`
-  - `test/index.scss`
 
 ### Minor updates
+  - `src/utils.scss`
   - `package.json`
 
 ## Goals for `v0.1.0` - Media Queries
@@ -19,6 +15,6 @@
   - [x] Mixin that targets all screens lower/higher than a breakpoint.
   - [x] Mixin that targets all screens between two breakpoints.
   - [x] Generalize the error module. `throw.error-type()`
-  - [] Unit test mixins and functions.
+  - [x] Unit test mixins and functions.
   - [] Publish documentation page.
   - [] Publish to NPM (test import).

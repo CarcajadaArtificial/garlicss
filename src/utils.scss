@@ -37,7 +37,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Turns the first letter of a word into uppercase.
 ///
-/// @param {string} $string [null]
+/// @param {string} $string -
 ///   The word that is going to be capitalized.
 ///
 /// @example scss - Sass
@@ -54,6 +54,9 @@
 ///
 /// @group util
 ///
-@function capitalize($string: null) {
+@function capitalize($string) {
+  @if not(type-of($string) == 'string') {
+    @return throw.error(throw.value-msg($string, 'string'));
+  }
   @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
 }

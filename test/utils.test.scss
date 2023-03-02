@@ -6,7 +6,7 @@
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // next-key-in-map($key, $map) [Function]
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @include describe('mq()') {
+  @include describe('next-key-in-map()') {
     $map: (
       A: 'value-A',
       B: 'value-B',
@@ -40,6 +40,28 @@
     @include it('[Value Error] Throws when the input is not a string') {
       @include assert-equal(
         next-key-in-map($map, 0),
+        throw.error(throw.value-msg(0, 'string'))
+      );
+    }
+  }
+
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // capitalize($string) [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('capitalize()') {
+    $map: (
+      A: 'value-A',
+      B: 'value-B',
+      C: 'value-C',
+    );
+    // Correct input
+    @include it('Returns a string with the first letter turned to uppercase.') {
+      @include assert-equal(capitalize('test test'), 'Test test');
+    }
+    // Incorrect input
+    @include it('[Value Error] Throws when the input is not a string') {
+      @include assert-equal(
+        capitalize(0),
         throw.error(throw.value-msg(0, 'string'))
       );
     }
