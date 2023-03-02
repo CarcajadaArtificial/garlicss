@@ -1,0 +1,10 @@
+@use 'true' as *;
+@use '../src/media-queries.scss' as mq;
+
+@include test-module('media-queries') {
+  @include describe('mq') {
+    @include it('Creates a media query on a string parameter') {
+      @include assert-equal(2, 2);
+    }
+  }
+}

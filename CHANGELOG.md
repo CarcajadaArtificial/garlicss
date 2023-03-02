@@ -1,10 +1,18 @@
 # Changelog
 
-## `v0.0.10`
+## `v0.0.11`
 
-### Minor updates
-  - `src/error.scss`
-  - `src/util.scss`
+### Added `True` DevDependency for unit testing.
+  - `test/index.js`
+  - `test/index.scss`
+  - `test/media-queries.test.scss`
+
+### Added `pretty-package-json` to format the project json.
+  - `package.json`
+
+### Removed True submodule in favor of full node backend.
+  - `.gitmodules`
+  - `lib/true`
   - `package.json`
 
 ## Goals for `v0.1.0` - Media Queries

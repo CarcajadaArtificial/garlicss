@@ -1,28 +1,26 @@
 {
   "name": "bone",
-  "version": "0.0.10",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "scripts": {
-    "test": "sass test/test.scss test/result.css --no-source-map",
-    "doc": "sassdoc src/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CarcajadaArtificial/bone.git"
-  },
-  "author": "Oscar Alfonso Guerrero Nuñez",
+  "version": "0.0.11",
+  "description": "A SCSS library",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CarcajadaArtificial/bone/issues"
+  "author": "Oscar Alfonso Guerrero Nuñez",
+  "files": [
+    "src/*",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "repository": "CarcajadaArtificial/bone",
+  "scripts": {
+    "doc": "sassdoc src/",
+    "json": "pretty-package-json",
+    "test": "mocha"
   },
-  "homepage": "https://github.com/CarcajadaArtificial/bone#readme",
   "devDependencies": {
+    "mocha": "^10.2.0",
     "sass": "^1.58.3",
     "sass-true": "^7.0.0",
     "sassdoc": "^2.7.4"
-  }
+  },
+  "title": "bone"
 }
