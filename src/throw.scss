@@ -12,7 +12,7 @@
 ///
 /// @todo - Example annotation
 ///
-$catching-enabled: true !default;
+$catching-enabled: false !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Simplifies error handling by generating a custom error message and throwing an exception.
@@ -41,7 +41,7 @@ $catching-enabled: true !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin does what the function `throw.error()` does, but applied to a `--bone-error` property.
 ///
-/// @param {string} $message ['']
+/// @param {string} $message -
 ///   The content of the message to be displayed.
 ///
 /// @param {bool} $catch [$catching-enabled]

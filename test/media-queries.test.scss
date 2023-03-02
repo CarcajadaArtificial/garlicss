@@ -1,10 +1,264 @@
 @use 'true' as *;
-@use '../src/media-queries.scss' as mq;
+@use '../src/throw';
+@use '../src/media-queries' as mq;
 
 @include test-module('media-queries') {
-  @include describe('mq') {
-    @include it('Creates a media query on a string parameter') {
-      @include assert-equal(2, 2);
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // mq.mq($query) [Mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('mq()') {
+    // Correct input
+    @include it('Creates a media query when the input is correct.') {
+      @include assert() {
+        @include output {
+          @include mq.mq(print) {
+            display: block;
+          }
+        }
+        @include expect {
+          @media print {
+            display: block;
+          }
+        }
+      }
+    }
+    // Incorrect input
+    @include it(
+      'Creates a non-compilable media query when the input is incorrect.'
+    ) {
+      @include assert() {
+        @include output {
+          @include mq.mq(asdf) {
+            display: block;
+          }
+        }
+        @include expect {
+          @media asdf {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // mq.only-on($breakpoint) [Mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('only-on()') {
+    // Middle breakpoint
+    @include it('Creates a media query when the input is correct.') {
+      @include assert() {
+        @include output() {
+          @include mq.only-on(book) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include mq.mq(
+            'screen and (min-width: 900px) and (max-width: 1199px)'
+          ) {
+            display: block;
+          }
+        }
+      }
+    }
+    // Smallest
+    @include it(
+      'Creates a max-width media query when the input is the smallest breakpoint.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.only-on(hand) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include mq.mq('screen and (max-width: 599px)') {
+            display: block;
+          }
+        }
+      }
+    }
+    // Largest
+    @include it(
+      'Creates a min-width media query when the input is the largest breakpoint.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.only-on(wide) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include mq.mq('screen and (min-width: 1800px)') {
+            display: block;
+          }
+        }
+      }
+    }
+    // Incorrect
+    @include it(
+      '[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.only-on(asdf) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
+        }
+      }
+    }
+  }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // mq.larger-than($breakpoint) [Mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('larger-than()') {
+    // Correct
+    @include it('Creates a media query when the input is correct.') {
+      @include assert() {
+        @include output() {
+          @include mq.larger-than(book) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include mq.mq('screen and (min-width: 900px)') {
+            display: block;
+          }
+        }
+      }
+    }
+    // Incorrect
+    @include it(
+      '[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.larger-than(asdf) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
+        }
+      }
+    }
+  }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // mq.smaller-than($breakpoint) [Mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('smaller-than()') {
+    // Correct
+    @include it('Creates a media query when the input is correct.') {
+      @include assert() {
+        @include output() {
+          @include mq.smaller-than(book) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include mq.mq('screen and (max-width: 899px)') {
+            display: block;
+          }
+        }
+      }
+    }
+    // Incorrect
+    @include it(
+      '[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.smaller-than(asdf) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
+        }
+      }
+    }
+  }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // mq.between($breakpoint) [Mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('between()') {
+    // Correct
+    @include it('Creates a media query when the input is correct.') {
+      @include assert() {
+        @include output() {
+          @include mq.between(page, book) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include mq.mq(
+            'screen and (min-width: 600px) and (max-width: 899px)'
+          ) {
+            display: block;
+          }
+        }
+      }
+    }
+    // Incorrect start
+    @include it(
+      '[Indexing Error] Throws when $breakpoint-start is not a key in $breakpoints.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.between(asdf, book) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
+        }
+      }
+    }
+    // Incorrect start
+    @include it(
+      '[Indexing Error] Throws when $breakpoint-end is not a key in $breakpoints.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.between(page, asdf) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
+        }
+      }
+    }
+    // Same value
+    @include it(
+      '[Indexing Error] Throws when $breakpoint-start and $breakpoint-end are equal.'
+    ) {
+      @include assert() {
+        @include output() {
+          @include mq.between(page, page) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include throw.error(throw.value-msg(page, 'different breakpoints'));
+        }
+      }
     }
   }
 }

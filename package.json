@@ -1,15 +1,14 @@
 {
   "name": "bone",
-  "version": "0.0.14",
-  "description": "A SCSS library",
+  "version": "0.0.15",
+  "description": "An SCSS library",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
   "files": [
     "src/*",
     "CHANGELOG.md",
     "LICENSE",
-    "README.md",
-    "index.scss"
+    "README.md"
   ],
   "type": "module",
   "repository": "CarcajadaArtificial/bone",

@@ -1,10 +1,18 @@
 # Changelog
 
-## `v0.0.14`
+## `v0.0.15`
 
-### Added a playground test file.
-  - `test/playground/index.scss`
-  - `.gitignore`
+### Removed unused index
+  - `src/index.scss`
+  - `index.scss`
+
+### Added media-query module unit tests
+  - `test/media-queries.test.scss`
+
+### Minor updates
+  - `src/media-queries.scss`
+  - `src/throw.scss`
+  - `package.json`
 
 ## Goals for `v0.1.0` - Media Queries
   - [x] Create a breakpoint map.

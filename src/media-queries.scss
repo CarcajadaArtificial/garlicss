@@ -59,9 +59,13 @@ $breakpoints: (
 ///   }
 ///
 /// @group media-queries
-@mixin mq($query) {
-  @media #{$query} {
-    @content;
+@mixin mq($query: null) {
+  @if (type-of($query) == string) and not ($query == '') {
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @include throw.error(throw.value-msg($query, 'string and not empty'));
   }
 }
 
@@ -208,6 +212,10 @@ $breakpoints: (
     @include throw.error(throw.index-msg($breakpoint-start, '$breakpoints'));
   } @else if not map.has-key($breakpoints, $breakpoint-end) {
     @include throw.error(throw.index-msg($breakpoint-end, '$breakpoints'));
+  } @else if $breakpoint-start == $breakpoint-end {
+    @include throw.error(
+      throw.value-msg($breakpoint-end, 'different breakpoints')
+    );
   } @else {
     @include mq(
       'screen and (min-width: #{map.get($breakpoints, $breakpoint-start)}) and (max-width: #{map.get($breakpoints, $breakpoint-end) - 1px})'
