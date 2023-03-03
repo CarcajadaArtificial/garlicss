@@ -1,6 +1,6 @@
 {
   "name": "garlicss",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Garlic 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
@@ -11,7 +11,7 @@
     "README.md"
   ],
   "type": "module",
-  "repository": "CarcajadaArtificial/bone",
+  "repository": "CarcajadaArtificial/garlicss",
   "scripts": {
     "doc": "sassdoc src/",
     "play": "sass test/playground/index.scss test/playground/result.css --no-source-map",

@@ -1,9 +1,8 @@
 # Changelog
 
-## `v0.0.19`
+## `v0.0.20`
 
 ### Minor updates
-  - `README.md`
   - `package.json`
 
 ## Goals for `v0.1.0` - Media Queries
