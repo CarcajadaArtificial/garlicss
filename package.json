@@ -1,7 +1,7 @@
 {
   "name": "garlicss",
-  "version": "0.0.20",
-  "description": "Garlic 🧄 is an SCSS library.",
+  "version": "0.1.0",
+  "description": "GarliCSS 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
   "files": [
