@@ -1,7 +1,7 @@
 {
-  "name": "bone",
-  "version": "0.0.18",
-  "description": "An SCSS library",
+  "name": "garlicss",
+  "version": "0.0.19",
+  "description": "Garlic 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
   "files": [
@@ -23,6 +23,5 @@
     "sass": "^1.58.3",
     "sass-true": "^7.0.0",
     "sassdoc": "^2.7.4"
-  },
-  "title": "bone"
+  }
 }

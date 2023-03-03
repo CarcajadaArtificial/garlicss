@@ -1,11 +1,9 @@
 # Changelog
 
-## `v0.0.18`
-
-### Updated throw module docs
-  - `src/throw.scss`
+## `v0.0.19`
 
 ### Minor updates
+  - `README.md`
   - `package.json`
 
 ## Goals for `v0.1.0` - Media Queries
