@@ -1,19 +1,12 @@
 # Changelog
 
-## `v0.0.18`
+## `v0.1.2`
 
-### Updated throw module docs
+### Minor update
   - `src/throw.scss`
 
-### Minor updates
-  - `package.json`
-
-## Goals for `v0.1.0` - Media Queries
-  - [x] Create a breakpoint map.
-  - [x] Mixin that targets a specific breakpoint block.
-  - [x] Mixin that targets all screens lower/higher than a breakpoint.
-  - [x] Mixin that targets all screens between two breakpoints.
-  - [x] Generalize the error module. `throw.error-type()`
-  - [x] Unit test mixins and functions.
-  - [x] Publish documentation page.
-  - [] Publish to NPM (test import).
+## Goals for `v0.2.0` - Flexible Grids
+  - [ ] README.md with:
+    - [ ] Introduction
+    - [ ] Setup Instructions
+    - [ ] Features

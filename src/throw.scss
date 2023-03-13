@@ -43,7 +43,7 @@ $catching-enabled: false !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This mixin does what the function `throw.error()` does, but applied to a `--bone-error` property.
+/// This mixin does what the function `throw.error()` does, but applied to a `--garlicss-error` property.
 ///
 /// @param {string} $message -
 ///   The content of the message to be displayed.
@@ -56,7 +56,7 @@ $catching-enabled: false !default;
 /// @group throw
 ///
 @mixin error($message, $catch: $catching-enabled) {
-  --bone-error: '#{error($message, $catch)}';
+  --garlicss-error: '#{error($message, $catch)}';
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

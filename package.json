@@ -1,7 +1,7 @@
 {
-  "name": "bone",
-  "version": "0.0.18",
-  "description": "An SCSS library",
+  "name": "garlicss",
+  "version": "0.1.2",
+  "description": "GarliCSS 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
   "files": [
@@ -11,7 +11,7 @@
     "README.md"
   ],
   "type": "module",
-  "repository": "CarcajadaArtificial/bone",
+  "repository": "CarcajadaArtificial/garlicss",
   "scripts": {
     "doc": "sassdoc src/",
     "play": "sass test/playground/index.scss test/playground/result.css --no-source-map",
@@ -23,6 +23,5 @@
     "sass": "^1.58.3",
     "sass-true": "^7.0.0",
     "sassdoc": "^2.7.4"
-  },
-  "title": "bone"
+  }
 }
