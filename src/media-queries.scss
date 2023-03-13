@@ -39,37 +39,6 @@ $breakpoints: (
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The mq mixin is a simple utility in Sass that generates a media query with a given query string and wraps the content inside it.
-///
-/// @param {string} $query [null]
-///   A string representing the media query to be generated.
-///
-/// @example scss
-///   @include mq.mq('print') {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
-/// @example css
-///   @media print {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
-/// @group media-queries
-@mixin mq($query: null) {
-  @if (type-of($query) == string) and not ($query == '') {
-    @media #{$query} {
-      @content;
-    }
-  } @else {
-    @include throw.error(throw.value-msg($query, 'string and not empty'));
-  }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The `only-on` mixin is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoints` map. The mixin uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
 ///
 /// @param {string} $breakpoint
@@ -98,17 +67,15 @@ $breakpoints: (
       next-key-in-map($breakpoints, $breakpoint)
     );
     @if $breakpoint-end == null {
-      @include mq('screen and (min-width: #{$breakpoint-start})') {
+      @media screen and (min-width: $breakpoint-start) {
         @content;
       }
     } @else if $breakpoint-start == 1px {
-      @include mq('screen and (max-width: #{$breakpoint-end - 1px})') {
+      @media screen and (max-width: ($breakpoint-end - 1px)) {
         @content;
       }
     } @else {
-      @include mq(
-        'screen and (min-width: #{$breakpoint-start}) and (max-width: #{$breakpoint-end - 1px})'
-      ) {
+      @media screen and (min-width: $breakpoint-start) and (max-width: ($breakpoint-end - 1px)) {
         @content;
       }
     }
@@ -140,9 +107,7 @@ $breakpoints: (
 /// @group media-queries
 @mixin larger-than($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
-    @include mq(
-      'screen and (min-width: #{map.get($breakpoints, $breakpoint)})'
-    ) {
+    @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
       @content;
     }
   } @else {
@@ -173,9 +138,7 @@ $breakpoints: (
 /// @group media-queries
 @mixin smaller-than($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
-    @include mq(
-      'screen and (max-width: #{map.get($breakpoints, $breakpoint) - 1px})'
-    ) {
+    @media screen and (max-width: (map.get($breakpoints, $breakpoint) - 1px)) {
       @content;
     }
   } @else {
@@ -217,9 +180,9 @@ $breakpoints: (
       throw.value-msg($breakpoint-end, 'different breakpoints')
     );
   } @else {
-    @include mq(
-      'screen and (min-width: #{map.get($breakpoints, $breakpoint-start)}) and (max-width: #{map.get($breakpoints, $breakpoint-end) - 1px})'
-    ) {
+    $start-width: map.get($breakpoints, $breakpoint-start);
+    $end-width: map.get($breakpoints, $breakpoint-end) - 1px;
+    @media screen and (min-width: $start-width) and (max-width: $end-width) {
       @content;
     }
   }

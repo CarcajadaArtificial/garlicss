@@ -4,44 +4,6 @@
 
 @include test-module('media-queries') {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // mq.mq($query) [Mixin]
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @include describe('mq()') {
-    // Correct input
-    @include it('Creates a media query when the input is correct.') {
-      @include assert() {
-        @include output {
-          @include mq.mq(print) {
-            display: block;
-          }
-        }
-        @include expect {
-          @media print {
-            display: block;
-          }
-        }
-      }
-    }
-    // Incorrect input
-    @include it(
-      'Creates a non-compilable media query when the input is incorrect.'
-    ) {
-      @include assert() {
-        @include output {
-          @include mq.mq(asdf) {
-            display: block;
-          }
-        }
-        @include expect {
-          @media asdf {
-            display: block;
-          }
-        }
-      }
-    }
-  }
-
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // mq.only-on($breakpoint) [Mixin]
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @include describe('only-on()') {
@@ -55,9 +17,7 @@
         }
 
         @include expect() {
-          @include mq.mq(
-            'screen and (min-width: 900px) and (max-width: 1199px)'
-          ) {
+          @media screen and (min-width: 900px) and (max-width: 1199px) {
             display: block;
           }
         }
@@ -75,7 +35,7 @@
         }
 
         @include expect() {
-          @include mq.mq('screen and (max-width: 599px)') {
+          @media screen and (max-width: 599px) {
             display: block;
           }
         }
@@ -93,7 +53,7 @@
         }
 
         @include expect() {
-          @include mq.mq('screen and (min-width: 1800px)') {
+          @media screen and (min-width: 1800px) {
             display: block;
           }
         }
@@ -130,7 +90,7 @@
         }
 
         @include expect() {
-          @include mq.mq('screen and (min-width: 900px)') {
+          @media screen and (min-width: 900px) {
             display: block;
           }
         }
@@ -167,7 +127,7 @@
         }
 
         @include expect() {
-          @include mq.mq('screen and (max-width: 899px)') {
+          @media screen and (max-width: 899px) {
             display: block;
           }
         }
@@ -204,9 +164,7 @@
         }
 
         @include expect() {
-          @include mq.mq(
-            'screen and (min-width: 600px) and (max-width: 899px)'
-          ) {
+          @media screen and (min-width: 600px) and (max-width: 899px) {
             display: block;
           }
         }
