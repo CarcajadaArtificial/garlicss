@@ -11,13 +11,13 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.only-on(book) {
+          @include mq.only-on(md) {
             display: block;
           }
         }
 
         @include expect() {
-          @media screen and (min-width: 900px) and (max-width: 1199px) {
+          @media screen and (min-width: 40em) and (max-width: 99.9375em) {
             display: block;
           }
         }
@@ -29,13 +29,13 @@
     ) {
       @include assert() {
         @include output() {
-          @include mq.only-on(hand) {
+          @include mq.only-on(sm) {
             display: block;
           }
         }
 
         @include expect() {
-          @media screen and (max-width: 599px) {
+          @media screen and (max-width: 39.9375em) {
             display: block;
           }
         }
@@ -47,13 +47,13 @@
     ) {
       @include assert() {
         @include output() {
-          @include mq.only-on(wide) {
+          @include mq.only-on(lg) {
             display: block;
           }
         }
 
         @include expect() {
-          @media screen and (min-width: 1800px) {
+          @media screen and (min-width: 100em) {
             display: block;
           }
         }
@@ -84,13 +84,13 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.larger-than(book) {
+          @include mq.larger-than(md) {
             display: block;
           }
         }
 
         @include expect() {
-          @media screen and (min-width: 900px) {
+          @media screen and (min-width: 40em) {
             display: block;
           }
         }
@@ -121,13 +121,13 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.smaller-than(book) {
+          @include mq.smaller-than(lg) {
             display: block;
           }
         }
 
         @include expect() {
-          @media screen and (max-width: 899px) {
+          @media screen and (max-width: 99.9375em) {
             display: block;
           }
         }
@@ -158,13 +158,13 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.between(page, book) {
+          @include mq.between(sm, lg) {
             display: block;
           }
         }
 
         @include expect() {
-          @media screen and (min-width: 600px) and (max-width: 899px) {
+          @media screen and (min-width: 0em) and (max-width: 99.9375em) {
             display: block;
           }
         }
@@ -176,7 +176,7 @@
     ) {
       @include assert() {
         @include output() {
-          @include mq.between(asdf, book) {
+          @include mq.between(asdf, md) {
             display: block;
           }
         }
@@ -192,7 +192,7 @@
     ) {
       @include assert() {
         @include output() {
-          @include mq.between(page, asdf) {
+          @include mq.between(sm, asdf) {
             display: block;
           }
         }
@@ -208,13 +208,13 @@
     ) {
       @include assert() {
         @include output() {
-          @include mq.between(page, page) {
+          @include mq.between(sm, sm) {
             display: block;
           }
         }
 
         @include expect() {
-          @include throw.error(throw.value-msg(page, 'different breakpoints'));
+          @include throw.error(throw.value-msg(sm, 'different breakpoints'));
         }
       }
     }

@@ -12,30 +12,13 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The $breakpoints variable is a Sass map containing the screen sizes for different devices.
 ///
-/// @prop {pixel} hand [1px]
-///   A very small screen size, such as a small smartphone or smartwatch.
-///
-/// @prop {pixel} page [600px]
-///   A small screen size, such as a large smartphone or a tablet in portrait mode.
-///
-/// @prop {pixel} book [900px]
-///   A medium screen size, such as a small laptop or a tablet in landscape mode.
-///
-/// @prop {pixel} desk [1200px]
-///   A large screen size, such as a large laptop or a low resolution monitor.
-///
-/// @prop {pixel} wide [1800px]
-///   A very large screen size, such as high resolution monitors.
-///
-/// @type {[key]: Pixel}
+/// @type {[key]: em}
 ///
 /// @group media-queries
 $breakpoints: (
-  hand: 1px,
-  page: 600px,
-  book: 900px,
-  desk: 1200px,
-  wide: 1800px,
+  sm: 0em,
+  md: 40em,
+  lg: 100em,
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -43,20 +26,6 @@ $breakpoints: (
 ///
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
-///
-/// @example scss
-///   @include mq.only-on('book') {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
-/// @example css
-///   @media screen and (min-width: 900px) and (max-width: 1199px) {
-///     .element {
-///       display: block;
-///     }
-///   }
 ///
 /// @group media-queries
 @mixin only-on($breakpoint) {
@@ -70,12 +39,12 @@ $breakpoints: (
       @media screen and (min-width: $breakpoint-start) {
         @content;
       }
-    } @else if $breakpoint-start == 1px {
-      @media screen and (max-width: ($breakpoint-end - 1px)) {
+    } @else if $breakpoint-start == 0em {
+      @media screen and (max-width: ($breakpoint-end - 0.0625em)) {
         @content;
       }
     } @else {
-      @media screen and (min-width: $breakpoint-start) and (max-width: ($breakpoint-end - 1px)) {
+      @media screen and (min-width: $breakpoint-start) and (max-width: ($breakpoint-end - 0.0625em)) {
         @content;
       }
     }
@@ -89,20 +58,6 @@ $breakpoints: (
 ///
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
-///
-/// @example scss
-///   @include mq.larger-than('book') {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
-/// @example css
-///   @media screen and (min-width: 900px) {
-///     .element {
-///       display: block;
-///     }
-///   }
 ///
 /// @group media-queries
 @mixin larger-than($breakpoint) {
@@ -121,24 +76,10 @@ $breakpoints: (
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
 ///
-/// @example scss
-///   @include mq.smaller-than('book') {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
-/// @example css
-///   @media screen and (max-width: 899px) {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
 /// @group media-queries
 @mixin smaller-than($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
-    @media screen and (max-width: (map.get($breakpoints, $breakpoint) - 1px)) {
+    @media screen and (max-width: (map.get($breakpoints, $breakpoint) - 0.0625em)) {
       @content;
     }
   } @else {
@@ -155,20 +96,6 @@ $breakpoints: (
 /// @param {string} $breakpoint-end
 ///   One of the keys in the `$breakpoints` map.
 ///
-/// @example scss
-///   @include mq.between('book', 'desk') {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
-/// @example css
-///   @media screen and (min-width: 900px) and (max-width: 1199px) {
-///     .element {
-///       display: block;
-///     }
-///   }
-///
 /// @group media-queries
 @mixin between($breakpoint-start, $breakpoint-end) {
   @if not map.has-key($breakpoints, $breakpoint-start) {
@@ -181,7 +108,7 @@ $breakpoints: (
     );
   } @else {
     $start-width: map.get($breakpoints, $breakpoint-start);
-    $end-width: map.get($breakpoints, $breakpoint-end) - 1px;
+    $end-width: map.get($breakpoints, $breakpoint-end) - 0.0625em;
     @media screen and (min-width: $start-width) and (max-width: $end-width) {
       @content;
     }
