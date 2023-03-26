@@ -29,7 +29,7 @@ $u: 1.5em !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The $u variable is a value that represent the basic unit of measurement for layouts.
 ///
-/// @type em
+/// @type map
 ///
 /// @group grid
 $grid-schemas: (
@@ -55,13 +55,16 @@ $grid-schemas: (
   ),
 ) !default;
 
-// cols: must be a unitless number
-// gutter: must be a mult value for x()
-// colwidth: must be a mult value for x()
-// width: must be any correct value for width
-// margin: must be a correct value for margin
-@mixin grid() {
-  @each $name, $schema in $grid-schemas {
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+$layout-schemas: (
+  full: (),
+) !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+@mixin grid($schemas) {
+  @each $name, $schema in $schemas {
     $cols: map-get($schema, cols);
     $gutter: map-get($schema, gutter);
     $colwidth: map-get($schema, colwidth);
@@ -88,4 +91,10 @@ $grid-schemas: (
       }
     }
   }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+///
+@mixin layout($schemas) {
 }

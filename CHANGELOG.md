@@ -1,8 +1,8 @@
 # Changelog
 
-## `v0.1.4`
+## `v0.1.5`
 
-### Added the `grid` module
+### Minor updates
   - `/src/grid.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
