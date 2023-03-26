@@ -1,0 +1,91 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:list';
+@use 'throw';
+@use 'media-queries' as mq;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The x() function simplifies the multiplication of the basic unit. Instead of writing `$u * .5`, one can use `x(.5)`
+///
+/// @param {unitless} $mult
+///
+/// @returns $u * $mult
+///
+/// @todo validate $mult is a unitless number
+///
+/// @group grid
+@function x($mult) {
+  @return $u * $mult;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The $u variable is a value that represent the basic unit of measurement for layouts.
+///
+/// @type em
+///
+/// @group grid
+$u: 1.5em !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The $u variable is a value that represent the basic unit of measurement for layouts.
+///
+/// @type em
+///
+/// @group grid
+$grid-schemas: (
+  sm: (
+    cols: 6,
+    gutter: 0.8503100088em,
+    colwidth: 0,
+    width: auto,
+    margin: 0.8503100088em,
+  ),
+  md: (
+    cols: 12,
+    gutter: 2.1257750221%,
+    colwidth: 0,
+    width: auto,
+    margin: calc(23.13871222% - 134.488008342px),
+  ),
+  lg: (
+    cols: 12,
+    gutter: x(1),
+    colwidth: x(3),
+    fixedcol: true,
+  ),
+) !default;
+
+// cols: must be a unitless number
+// gutter: must be a mult value for x()
+// colwidth: must be a mult value for x()
+// width: must be any correct value for width
+// margin: must be a correct value for margin
+@mixin grid() {
+  @each $name, $schema in $grid-schemas {
+    $cols: map-get($schema, cols);
+    $gutter: map-get($schema, gutter);
+    $colwidth: map-get($schema, colwidth);
+    $fixedcol: map-get($schema, fixedcol);
+
+    @include mq.only-on($name) {
+      /// @todo move this to its own mixin
+      .grid {
+        display: grid;
+        gap: $gutter;
+
+        @if $fixedcol == true {
+          grid-template-columns: repeat($cols, minmax($colwidth, $colwidth));
+          width: min-content;
+          margin: 0 auto;
+        } @else {
+          $width: map-get($schema, width);
+          $margin: map-get($schema, margin);
+
+          grid-template-columns: repeat($cols, minmax($colwidth, 1fr));
+          width: $width;
+          margin: 0 $margin;
+        }
+      }
+    }
+  }
+}
