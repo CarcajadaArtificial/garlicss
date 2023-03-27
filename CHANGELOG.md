@@ -1,16 +1,15 @@
 # Changelog
 
-## `v0.1.8`
+## `v0.1.9`
 
 ### Minor updates
-  - `/src/grid.scss`
-  - `/test/playground/index.html`
-  - `/test/playground/index.scss`
+  - `.gitignore`
+  - `README.md`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [ ] README.md with:
-    - [ ] Introduction
-    - [ ] Setup Instructions
+    - [x] Introduction
+    - [x] Setup Instructions
     - [ ] Features
   - [x] Grid System that:
     - [x] Has configurable default variables.
