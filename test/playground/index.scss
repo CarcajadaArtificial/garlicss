@@ -1,7 +1,15 @@
 @use '../../src/media-queries.scss' as mq;
+@use '../../src/grid.scss' as *;
 
-@include mq.only-on('book') {
-  .test {
-    display: block;
-  }
+@include grid($grid-schemas);
+@include layout($layout-schemas);
+
+body {
+  margin: 0;
+}
+
+.element {
+  height: 100px;
+  background-color: red;
+  width: 100%;
 }

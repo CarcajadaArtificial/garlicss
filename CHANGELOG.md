@@ -1,9 +1,11 @@
 # Changelog
 
-## `v0.1.7`
+## `v0.1.8`
 
-### Added `layout` functions and variables.
+### Minor updates
   - `/src/grid.scss`
+  - `/test/playground/index.html`
+  - `/test/playground/index.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [ ] README.md with:
@@ -17,3 +19,5 @@
       - A map with grid layouts and breakpoints
     - [x] Mixin that creates the grid class based on the grid schema map.
     - [x] Mixin that creates the layout classes based on the layout map.
+    - [ ] Add documentation.
+    - [ ] Add unit tests.

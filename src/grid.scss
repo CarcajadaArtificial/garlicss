@@ -27,11 +27,7 @@
 $u: 1.5em !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The $u variable is a value that represent the basic unit of measurement for layouts.
 ///
-/// @type map
-///
-/// @group grid
 $grid-schemas: (
   sm: (
     cols: 6,
