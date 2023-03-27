@@ -1,9 +1,10 @@
 # Changelog
 
-## `v0.1.5`
+## `v0.1.6`
 
-### Minor updates
-  - `/src/grid.scss`
+### Changed the `media-query` feature to produce strings instead of media queries directly.
+  - `/src/media-queries.scss`
+  - `/test/media-queries.test.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [ ] README.md with:

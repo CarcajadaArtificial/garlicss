@@ -22,73 +22,60 @@ $breakpoints: (
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The `only-on` mixin is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoints` map. The mixin uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
+/// The `only-on` function is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoints` map. The function uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
 ///
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
-@mixin only-on($breakpoint) {
+@function only-on($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
-    $breakpoint-start: map.get($breakpoints, $breakpoint);
-    $breakpoint-end: map.get(
-      $breakpoints,
-      next-key-in-map($breakpoints, $breakpoint)
-    );
-    @if $breakpoint-end == null {
-      @media screen and (min-width: $breakpoint-start) {
-        @content;
-      }
-    } @else if $breakpoint-start == 0em {
-      @media screen and (max-width: ($breakpoint-end - 0.0625em)) {
-        @content;
-      }
+    $start: map.get($breakpoints, $breakpoint);
+    $end: map.get($breakpoints, next-key-in-map($breakpoints, $breakpoint));
+    @if $end == null {
+      @return 'screen and (min-width: #{$start})';
+    } @else if $start == 0em {
+      @return 'screen and (max-width: #{$end - 0.0625em})';
     } @else {
-      @media screen and (min-width: $breakpoint-start) and (max-width: ($breakpoint-end - 0.0625em)) {
-        @content;
-      }
+      @return 'screen and (min-width: #{$start}) and (max-width: #{$end - 0.0625em})';
     }
   } @else {
-    @include throw.error(throw.index-msg($breakpoint, '$breakpoints'));
+    @return throw.error(throw.index-msg($breakpoint, '$breakpoints'));
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This mixin generates a media query with a `min-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens larger than a specific breakpoint.
+/// This function generates a media query with a `min-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens larger than a specific breakpoint.
 ///
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
-@mixin larger-than($breakpoint) {
+@function larger-than($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
-    @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
-      @content;
-    }
+    @return 'screen and (min-width: #{map.get($breakpoints, $breakpoint)})';
   } @else {
-    @include throw.error(throw.index-msg($breakpoint, '$breakpoints'));
+    @return throw.error(throw.index-msg($breakpoint, '$breakpoints'));
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This mixin generates a media query with a `max-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens smaller than a specific breakpoint.
+/// This function generates a media query with a `max-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens smaller than a specific breakpoint.
 ///
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
-@mixin smaller-than($breakpoint) {
+@function smaller-than($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
-    @media screen and (max-width: (map.get($breakpoints, $breakpoint) - 0.0625em)) {
-      @content;
-    }
+    @return 'screen and (max-width: #{map.get($breakpoints, $breakpoint) - 0.0625em})';
   } @else {
-    @include throw.error(throw.index-msg($breakpoint, '$breakpoints'));
+    @return throw.error(throw.index-msg($breakpoint, '$breakpoints'));
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This mixin generates media queries with the specified min-width and max-width values based on a `$breakpoints` map. It is designed to simplify the process of creating responsive styles by allowing developers to easily define media queries using named breakpoints instead of specific pixel values.
+/// This function generates media queries with the specified min-width and max-width values based on a `$breakpoints` map. It is designed to simplify the process of creating responsive styles by allowing developers to easily define media queries using named breakpoints instead of specific pixel values.
 ///
 /// @param {string} $breakpoint-start
 ///   One of the keys in the `$breakpoints` map.
@@ -97,20 +84,18 @@ $breakpoints: (
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
-@mixin between($breakpoint-start, $breakpoint-end) {
+@function between($breakpoint-start, $breakpoint-end) {
   @if not map.has-key($breakpoints, $breakpoint-start) {
-    @include throw.error(throw.index-msg($breakpoint-start, '$breakpoints'));
+    @return throw.error(throw.index-msg($breakpoint-start, '$breakpoints'));
   } @else if not map.has-key($breakpoints, $breakpoint-end) {
-    @include throw.error(throw.index-msg($breakpoint-end, '$breakpoints'));
+    @return throw.error(throw.index-msg($breakpoint-end, '$breakpoints'));
   } @else if $breakpoint-start == $breakpoint-end {
-    @include throw.error(
+    @return throw.error(
       throw.value-msg($breakpoint-end, 'different breakpoints')
     );
   } @else {
     $start-width: map.get($breakpoints, $breakpoint-start);
     $end-width: map.get($breakpoints, $breakpoint-end) - 0.0625em;
-    @media screen and (min-width: $start-width) and (max-width: $end-width) {
-      @content;
-    }
+    @return 'screen and (min-width: #{$start-width}) and (max-width: #{$end-width})';
   }
 }

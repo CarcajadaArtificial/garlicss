@@ -11,7 +11,7 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.only-on(md) {
+          @media #{mq.only-on(md)} {
             display: block;
           }
         }
@@ -29,7 +29,7 @@
     ) {
       @include assert() {
         @include output() {
-          @include mq.only-on(sm) {
+          @media #{mq.only-on(sm)} {
             display: block;
           }
         }
@@ -47,7 +47,7 @@
     ) {
       @include assert() {
         @include output() {
-          @include mq.only-on(lg) {
+          @media #{mq.only-on(lg)} {
             display: block;
           }
         }
@@ -63,17 +63,10 @@
     @include it(
       '[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.'
     ) {
-      @include assert() {
-        @include output() {
-          @include mq.only-on(asdf) {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
-        }
-      }
+      @include assert-equal(
+        mq.only-on(asdf),
+        throw.error(throw.index-msg(asdf, '$breakpoints'))
+      );
     }
   }
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -84,7 +77,7 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.larger-than(md) {
+          @media #{mq.larger-than(md)} {
             display: block;
           }
         }
@@ -100,17 +93,10 @@
     @include it(
       '[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.'
     ) {
-      @include assert() {
-        @include output() {
-          @include mq.larger-than(asdf) {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
-        }
-      }
+      @include assert-equal(
+        mq.larger-than(asdf),
+        throw.error(throw.index-msg(asdf, '$breakpoints'))
+      );
     }
   }
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -121,7 +107,7 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.smaller-than(lg) {
+          @media #{mq.smaller-than(lg)} {
             display: block;
           }
         }
@@ -137,17 +123,10 @@
     @include it(
       '[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.'
     ) {
-      @include assert() {
-        @include output() {
-          @include mq.smaller-than(asdf) {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
-        }
-      }
+      @include assert-equal(
+        mq.smaller-than(asdf),
+        throw.error(throw.index-msg(asdf, '$breakpoints'))
+      );
     }
   }
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -158,7 +137,7 @@
     @include it('Creates a media query when the input is correct.') {
       @include assert() {
         @include output() {
-          @include mq.between(sm, lg) {
+          @media #{mq.between(sm, lg)} {
             display: block;
           }
         }
@@ -174,49 +153,28 @@
     @include it(
       '[Indexing Error] Throws when $breakpoint-start is not a key in $breakpoints.'
     ) {
-      @include assert() {
-        @include output() {
-          @include mq.between(asdf, md) {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
-        }
-      }
+      @include assert-equal(
+        mq.between(asdf, md),
+        throw.error(throw.index-msg(asdf, '$breakpoints'))
+      );
     }
     // Incorrect start
     @include it(
       '[Indexing Error] Throws when $breakpoint-end is not a key in $breakpoints.'
     ) {
-      @include assert() {
-        @include output() {
-          @include mq.between(sm, asdf) {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @include throw.error(throw.index-msg(asdf, '$breakpoints'));
-        }
-      }
+      @include assert-equal(
+        mq.between(sm, asdf),
+        throw.error(throw.index-msg(asdf, '$breakpoints'))
+      );
     }
     // Same value
     @include it(
       '[Indexing Error] Throws when $breakpoint-start and $breakpoint-end are equal.'
     ) {
-      @include assert() {
-        @include output() {
-          @include mq.between(sm, sm) {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @include throw.error(throw.value-msg(sm, 'different breakpoints'));
-        }
-      }
+      @include assert-equal(
+        mq.between(sm, sm),
+        throw.error(throw.value-msg(sm, 'different breakpoints'))
+      );
     }
   }
 }
