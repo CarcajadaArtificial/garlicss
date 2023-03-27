@@ -28,6 +28,7 @@ $breakpoints: (
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
+///
 @function only-on($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
     $start: map.get($breakpoints, $breakpoint);
@@ -51,6 +52,7 @@ $breakpoints: (
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
+///
 @function larger-than($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
     @return 'screen and (min-width: #{map.get($breakpoints, $breakpoint)})';
@@ -66,6 +68,7 @@ $breakpoints: (
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
+///
 @function smaller-than($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
     @return 'screen and (max-width: #{map.get($breakpoints, $breakpoint) - 0.0625em})';
@@ -84,6 +87,7 @@ $breakpoints: (
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
+///
 @function between($breakpoint-start, $breakpoint-end) {
   @if not map.has-key($breakpoints, $breakpoint-start) {
     @return throw.error(throw.index-msg($breakpoint-start, '$breakpoints'));
@@ -98,4 +102,54 @@ $breakpoints: (
     $end-width: map.get($breakpoints, $breakpoint-end) - 0.0625em;
     @return 'screen and (min-width: #{$start-width}) and (max-width: #{$end-width})';
   }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The $media-query-list variable is a Sass map containing common media query strings.
+///
+/// @type {[key]: string}
+///
+/// @group media-queries
+///
+$media-query-list: (
+  only-sm: only-on(sm),
+) !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin generates CSS media queries based on a list of query names and corresponding query strings.
+///
+/// @param {map} $query-list A map containing the media queries to turn into classes.
+///
+/// @group media-queries
+///
+@mixin build-queries($query-list: $media-query-list) {
+  @each $name, $query in $query-list {
+    .mq-#{$name} {
+      display: none;
+
+      @media #{$query} {
+        display: block;
+      }
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Change to false to avoid automatic css generation on this module.
+///
+/// @type bool
+///
+/// @group media-queries
+///
+$automatic-css-generation: false !default;
+
+// =====================================================================================================
+// Automatic CSS generation
+// =====================================================================================================
+/// Generates media query classes.
+///
+/// @group media-queries
+///
+@if $automatic-css-generation {
+  @include build-queries();
 }

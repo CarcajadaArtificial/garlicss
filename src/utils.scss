@@ -60,3 +60,40 @@
   }
   @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
 }
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group util
+@mixin quick-mediaquery($variation-mq) {
+  @if $variation-mq == null {
+    @content;
+  } @else {
+    @media #{$variation-mq} {
+      @content;
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group util
+@mixin quick-pseudoclass($variation-pseudo) {
+  @if $variation-pseudo == null {
+    @content;
+  } @else {
+    &#{$variation-pseudo} {
+      @content;
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group util
+@mixin grid-column($span, $offset: 0) {
+  @if $offset == 0 {
+    grid-column: span $span;
+  } @else {
+    grid-column: $offset/span $span;
+  }
+}

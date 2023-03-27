@@ -1,8 +1,14 @@
+//    ___     _    _
+//   / __|_ _(_)__| |
+//  | (_ | '_| / _` |
+//   \___|_| |_\__,_|
+//
+// =====================================================================================================
 @use 'sass:map';
 @use 'sass:math';
 @use 'sass:list';
 @use 'throw';
-@use 'media-queries' as mq;
+@use 'utils' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The x() function simplifies the multiplication of the basic unit. Instead of writing `$u * .5`, one can use `x(.5)`
@@ -28,140 +34,25 @@ $u: 1.5em !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
-$grid-schemas: (
-  sm: (
-    cols: 6,
-    gutter: 0.8503100088em,
-    colwidth: 0,
-    width: auto,
-    margin: 0.8503100088em,
-  ),
-  md: (
-    cols: 12,
-    gutter: 2.1257750221%,
-    colwidth: 0,
-    width: auto,
-    margin: calc(23.13871222% - 134.488008342px),
-  ),
-  lg: (
-    cols: 12,
-    gutter: x(1),
-    colwidth: x(3),
-    fixedcol: true,
-  ),
-) !default;
+/// @group grid
+///
+$grid-schemas: () !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
-$layout-schemas: (
-  full: (
-    span: 12,
-    offset: 0,
-    variations: (
-      (
-        mq: mq.only-on(sm),
-        span: 6,
-        offset: 0,
-      ),
-    ),
-  ),
-  center: (
-    span: 10,
-    offset: 2,
-    variations: (
-      (
-        mq: mq.only-on(sm),
-        span: 6,
-        offset: 0,
-      ),
-    ),
-  ),
-  focus: (
-    span: 8,
-    offset: 3,
-    variations: (
-      (
-        mq: mq.only-on(sm),
-        span: 4,
-        offset: 1,
-      ),
-    ),
-  ),
-  halves: (
-    span: 6,
-    offset: 0,
-    variations: (
-      (
-        mq: mq.only-on(sm),
-        span: 3,
-        offset: 0,
-      ),
-    ),
-  ),
-  thirds: (
-    span: 4,
-    offset: 0,
-    variations: (
-      (
-        mq: mq.only-on(sm),
-        span: 2,
-        offset: 0,
-      ),
-    ),
-  ),
-  right: (
-    span: 4,
-    offset: 0,
-    variations: (
-      (
-        pseudo: ':nth-child(even)',
-        span: 8,
-        offset: 0,
-      ),
-      (
-        mq: mq.only-on(sm),
-        span: 2,
-        offset: 0,
-      ),
-      (
-        pseudo: ':nth-child(even)',
-        mq: mq.only-on(sm),
-        span: 4,
-        offset: 0,
-      ),
-    ),
-  ),
-  left: (
-    span: 4,
-    offset: 0,
-    variations: (
-      (
-        pseudo: ':nth-child(odd)',
-        span: 8,
-        offset: 0,
-      ),
-      (
-        mq: mq.only-on(sm),
-        span: 2,
-        offset: 0,
-      ),
-      (
-        pseudo: ':nth-child(odd)',
-        mq: mq.only-on(sm),
-        span: 4,
-        offset: 0,
-      ),
-    ),
-  ),
-) !default;
+/// @group grid
+///
+$layout-schemas: () !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
-@mixin grid($schemas) {
+/// @group grid
+///
+@mixin build-grid($schemas: $grid-schemas) {
   .grid {
     display: grid;
     @each $name, $schema in $schemas {
-      @media #{mq.only-on($name)} {
+      @include quick-mediaquery(map-get($schema, mq)) {
         @if map-get($schema, fixedcol) == true {
           @include grid-schema(
             $cols: map-get($schema, cols),
@@ -186,6 +77,8 @@ $layout-schemas: (
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
+/// @group grid
+///
 @mixin grid-schema(
   $cols,
   $gutter,
@@ -207,8 +100,9 @@ $layout-schemas: (
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
+/// @group grid
 ///
-@mixin layout($schemas) {
+@mixin build-layouts($schemas: $layout-schemas) {
   @each $name, $schema in $schemas {
     .layout-#{$name} {
       .layout-module {
@@ -221,6 +115,7 @@ $layout-schemas: (
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
+/// @group grid
 ///
 @mixin layout-variations($variations) {
   @each $variation in $variations {
@@ -236,38 +131,22 @@ $layout-schemas: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Change to false to avoid automatic css generation on this module.
 ///
+/// @type bool
 ///
-@mixin quick-mediaquery($variation-mq) {
-  @if $variation-mq == null {
-    @content;
-  } @else {
-    @media #{$variation-mq} {
-      @content;
-    }
-  }
-}
+/// @group grid
+///
+$automatic-css-generation: true !default;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// =====================================================================================================
+// Automatic CSS generation
+// =====================================================================================================
+/// Generates grid and layout classes.
 ///
+/// @group grid
 ///
-@mixin quick-pseudoclass($variation-pseudo) {
-  @if $variation-pseudo == null {
-    @content;
-  } @else {
-    &#{$variation-pseudo} {
-      @content;
-    }
-  }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///
-///
-@mixin grid-column($span, $offset: 0) {
-  @if $offset == 0 {
-    grid-column: span $span;
-  } @else {
-    grid-column: $offset/span $span;
-  }
+@if $automatic-css-generation {
+  @include build-grid();
+  @include build-layouts();
 }

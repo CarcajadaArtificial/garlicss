@@ -1,0 +1,163 @@
+//    ___          _ _
+//   / __|__ _ _ _| (_)__ ______
+//  | (_ / _` | '_| | / _(_-<_-<
+//   \___\__,_|_| |_|_\__/__/__/
+//
+// =====================================================================================================
+//
+
+// =====================================================================================================
+// Media Queries
+// =====================================================================================================
+//
+
+@use 'src/media-queries' as mq;
+
+// =====================================================================================================
+// Grids
+// =====================================================================================================
+//
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group garlicss
+$grid-schemas: (
+  sm: (
+    cols: 6,
+    gutter: 0.8503100088em,
+    colwidth: 0,
+    width: auto,
+    margin: 0.8503100088em,
+    mq: mq.only-on(sm),
+  ),
+  md: (
+    cols: 12,
+    gutter: 2.1257750221%,
+    colwidth: 0,
+    width: auto,
+    margin: calc(23.13871222% - 134.488008342px),
+    mq: mq.only-on(md),
+  ),
+  lg: (
+    cols: 12,
+    gutter: x(1),
+    colwidth: x(3),
+    fixedcol: true,
+    mq: mq.only-on(lg),
+  ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group garlicss
+$layout-schemas: (
+  full: (
+    span: 12,
+    offset: 0,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 6,
+        offset: 0,
+      ),
+    ),
+  ),
+  center: (
+    span: 10,
+    offset: 2,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 6,
+        offset: 0,
+      ),
+    ),
+  ),
+  focus: (
+    span: 8,
+    offset: 3,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 4,
+        offset: 1,
+      ),
+    ),
+  ),
+  halves: (
+    span: 6,
+    offset: 0,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 3,
+        offset: 0,
+      ),
+    ),
+  ),
+  thirds: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 2,
+        offset: 0,
+      ),
+    ),
+  ),
+  right: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        pseudo: ':nth-child(even)',
+        span: 8,
+        offset: 0,
+      ),
+      (
+        mq: mq.only-on(sm),
+        span: 2,
+        offset: 0,
+      ),
+      (
+        pseudo: ':nth-child(even)',
+        mq: mq.only-on(sm),
+        span: 4,
+        offset: 0,
+      ),
+    ),
+  ),
+  left: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        pseudo: ':nth-child(odd)',
+        span: 8,
+        offset: 0,
+      ),
+      (
+        mq: mq.only-on(sm),
+        span: 2,
+        offset: 0,
+      ),
+      (
+        pseudo: ':nth-child(odd)',
+        mq: mq.only-on(sm),
+        span: 4,
+        offset: 0,
+      ),
+    ),
+  ),
+);
+
+@use 'src/grid' with (
+  $grid-schemas: $grid-schemas,
+  $layout-schemas: $layout-schemas
+);
+
+// =====================================================================================================
+// Color Palette
+// =====================================================================================================
+//

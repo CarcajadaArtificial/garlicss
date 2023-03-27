@@ -1,0 +1,106 @@
+.grid {
+  display: grid;
+}
+@media screen and (max-width: 39.9375em) {
+  .grid {
+    gap: 0.8503100088em;
+    width: auto;
+    margin: 0 0.8503100088em;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 40em) and (max-width: 99.9375em) {
+  .grid {
+    gap: 2.1257750221%;
+    width: auto;
+    margin: 0 calc(23.13871222% - 134.488008342px);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 100em) {
+  .grid {
+    gap: x(1);
+    width: min-content;
+    margin: 0 auto;
+    grid-template-columns: repeat(12, minmax(x(3), x(3)));
+  }
+}
+
+.layout-full .layout-module {
+  grid-column: span 12;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-full .layout-module {
+    grid-column: span 6;
+  }
+}
+
+.layout-center .layout-module {
+  grid-column: 2/span 10;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-center .layout-module {
+    grid-column: span 6;
+  }
+}
+
+.layout-focus .layout-module {
+  grid-column: 3/span 8;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-focus .layout-module {
+    grid-column: 1/span 4;
+  }
+}
+
+.layout-halves .layout-module {
+  grid-column: span 6;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-halves .layout-module {
+    grid-column: span 3;
+  }
+}
+
+.layout-thirds .layout-module {
+  grid-column: span 4;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-thirds .layout-module {
+    grid-column: span 2;
+  }
+}
+
+.layout-right .layout-module {
+  grid-column: span 4;
+}
+.layout-right .layout-module:nth-child(even) {
+  grid-column: span 8;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-right .layout-module {
+    grid-column: span 2;
+  }
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-right .layout-module:nth-child(even) {
+    grid-column: span 4;
+  }
+}
+
+.layout-left .layout-module {
+  grid-column: span 4;
+}
+.layout-left .layout-module:nth-child(odd) {
+  grid-column: span 8;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-left .layout-module {
+    grid-column: span 2;
+  }
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-left .layout-module:nth-child(odd) {
+    grid-column: span 4;
+  }
+}
