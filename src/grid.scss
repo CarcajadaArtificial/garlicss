@@ -58,35 +58,130 @@ $grid-schemas: (
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
 $layout-schemas: (
-  full: (),
+  full: (
+    span: 12,
+    offset: 0,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 6,
+        offset: 0,
+      ),
+    ),
+  ),
+  center: (
+    span: 10,
+    offset: 2,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 6,
+        offset: 0,
+      ),
+    ),
+  ),
+  focus: (
+    span: 8,
+    offset: 3,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 4,
+        offset: 1,
+      ),
+    ),
+  ),
+  halves: (
+    span: 6,
+    offset: 0,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 3,
+        offset: 0,
+      ),
+    ),
+  ),
+  thirds: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        mq: mq.only-on(sm),
+        span: 2,
+        offset: 0,
+      ),
+    ),
+  ),
+  right: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        pseudo: ':nth-child(even)',
+        span: 8,
+        offset: 0,
+      ),
+      (
+        mq: mq.only-on(sm),
+        span: 2,
+        offset: 0,
+      ),
+      (
+        pseudo: ':nth-child(even)',
+        mq: mq.only-on(sm),
+        span: 4,
+        offset: 0,
+      ),
+    ),
+  ),
+  left: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        pseudo: ':nth-child(odd)',
+        span: 8,
+        offset: 0,
+      ),
+      (
+        mq: mq.only-on(sm),
+        span: 2,
+        offset: 0,
+      ),
+      (
+        pseudo: ':nth-child(odd)',
+        mq: mq.only-on(sm),
+        span: 4,
+        offset: 0,
+      ),
+    ),
+  ),
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
 @mixin grid($schemas) {
-  @each $name, $schema in $schemas {
-    $cols: map-get($schema, cols);
-    $gutter: map-get($schema, gutter);
-    $colwidth: map-get($schema, colwidth);
-    $fixedcol: map-get($schema, fixedcol);
-
-    @include mq.only-on($name) {
-      /// @todo move this to its own mixin
-      .grid {
-        display: grid;
-        gap: $gutter;
-
-        @if $fixedcol == true {
-          grid-template-columns: repeat($cols, minmax($colwidth, $colwidth));
-          width: min-content;
-          margin: 0 auto;
+  .grid {
+    display: grid;
+    @each $name, $schema in $schemas {
+      @media #{mq.only-on($name)} {
+        @if map-get($schema, fixedcol) == true {
+          @include grid-schema(
+            $cols: map-get($schema, cols),
+            $gutter: map-get($schema, gutter),
+            $colwidth: map-get($schema, colwidth),
+            $fixedcol: true
+          );
         } @else {
-          $width: map-get($schema, width);
-          $margin: map-get($schema, margin);
-
-          grid-template-columns: repeat($cols, minmax($colwidth, 1fr));
-          width: $width;
-          margin: 0 $margin;
+          @include grid-schema(
+            $cols: map-get($schema, cols),
+            $gutter: map-get($schema, gutter),
+            $colwidth: map-get($schema, colwidth),
+            $fixedcol: false,
+            $width: map-get($schema, width),
+            $margin: map-get($schema, margin)
+          );
         }
       }
     }
@@ -95,6 +190,88 @@ $layout-schemas: (
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
+@mixin grid-schema(
+  $cols,
+  $gutter,
+  $colwidth,
+  $fixedcol,
+  $width: min-content,
+  $margin: auto
+) {
+  gap: $gutter;
+  width: $width;
+  margin: 0 $margin;
+
+  @if $fixedcol == true {
+    grid-template-columns: repeat($cols, minmax($colwidth, $colwidth));
+  } @else {
+    grid-template-columns: repeat($cols, minmax($colwidth, 1fr));
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
 ///
 @mixin layout($schemas) {
+  @each $name, $schema in $schemas {
+    .layout-#{$name} {
+      .layout-module {
+        @include grid-column(map-get($schema, span), map-get($schema, offset));
+        @include layout-variations(map-get($schema, variations));
+      }
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+///
+@mixin layout-variations($variations) {
+  @each $variation in $variations {
+    @include quick-mediaquery(map-get($variation, mq)) {
+      @include quick-pseudoclass(map-get($variation, pseudo)) {
+        @include grid-column(
+          map-get($variation, span),
+          map-get($variation, offset)
+        );
+      }
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+///
+@mixin quick-mediaquery($variation-mq) {
+  @if $variation-mq == null {
+    @content;
+  } @else {
+    @media #{$variation-mq} {
+      @content;
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+///
+@mixin quick-pseudoclass($variation-pseudo) {
+  @if $variation-pseudo == null {
+    @content;
+  } @else {
+    &#{$variation-pseudo} {
+      @content;
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+///
+@mixin grid-column($span, $offset: 0) {
+  @if $offset == 0 {
+    grid-column: span $span;
+  } @else {
+    grid-column: $offset/span $span;
+  }
 }
