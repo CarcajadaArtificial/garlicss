@@ -1,6 +1,6 @@
 {
   "name": "garlicss",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "GarliCSS 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
@@ -15,7 +15,6 @@
   "scripts": {
     "doc": "sassdoc src/",
     "play": "sass test/playground/index.scss test/playground/result.css --no-source-map",
-    "json": "pretty-package-json",
     "test": "mocha"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 # Changelog
 
-## `v0.1.10`
+## `v0.1.11`
 
 ### Minor updates
   - `README.md`
@@ -10,7 +10,7 @@
     - [x] Introduction
     - [x] Setup Instructions
   - [ ] CONTRIBUTING.md with:
-    - [ ] Introduction
+    - [x] Introduction
     - [ ] Running the project
     - [ ] Updating the docs
     - [ ] Write good comments
