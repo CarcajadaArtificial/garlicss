@@ -4,8 +4,11 @@
 
 ## NPM Scripts
 
-### `npm run build`
-*Coming soon*
+### Building the project
+The build step in the project means constructing the  `styles.css` using the default settings inside `~/index.scss`.
+```shell
+npm run build
+```
 
 ### `npm run test`
 *Coming soon*

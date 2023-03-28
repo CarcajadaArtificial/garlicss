@@ -1,11 +1,17 @@
 # Changelog
 
-## `v0.1.14`
+## `v0.1.15`
 
-### Added documentation
-  - `index.scss`
+### Changed names of `-auto-css` variables.
   - `src/grid.scss`
-  - `src/utils.scss`
+  - `src/media-queries.scss`
+
+### Emptied the playground
+  - `test/playground/index.html`
+  - `test/playground/index.scss`
+
+### Added index forwarding
+  - `index.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:
@@ -13,7 +19,7 @@
     - [x] Setup Instructions
   - [ ] CONTRIBUTING.md with:
     - [x] Introduction
-    - [ ] Running the project
+    - [x] Running the project
     - [ ] Updating the docs
     - [ ] Write good comments
   - [x] Media Query System that:
@@ -29,6 +35,7 @@
     - [ ] Mixin that creates utility classes for fully custom grid modules.
       - `layout-module-$span`
       - Automatically creates the classes based on the greates number of cols in grid-schema.
+      - `layout-empty` schema
     - [x] Add documentation.
     - [ ] Add unit tests.
 

@@ -189,7 +189,7 @@ $layout-schemas: () !default;
 ///
 /// @group grid
 ///
-$automatic-css-generation: true !default;
+$grid-auto-css: true !default;
 
 // =====================================================================================================
 // Automatic CSS generation
@@ -198,7 +198,7 @@ $automatic-css-generation: true !default;
 ///
 /// @group grid
 ///
-@if $automatic-css-generation {
+@if $grid-auto-css {
   @include build-grid();
   @include build-layouts();
 }

@@ -141,7 +141,7 @@ $media-query-list: (
 ///
 /// @group media-queries
 ///
-$automatic-css-generation: false !default;
+$mq-auto-css: false !default;
 
 // =====================================================================================================
 // Automatic CSS generation
@@ -150,6 +150,6 @@ $automatic-css-generation: false !default;
 ///
 /// @group media-queries
 ///
-@if $automatic-css-generation {
+@if $mq-auto-css {
   @include build-queries();
 }
