@@ -1,9 +1,10 @@
 # Changelog
 
-## `v0.1.17`
+## `v0.1.18`
 
 ### Minor updates
-  - `src/grid.scss`
+  - `src/utils.scss`
+  - `CONTRIBUTING.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:

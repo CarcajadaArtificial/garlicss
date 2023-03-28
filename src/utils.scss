@@ -79,9 +79,9 @@
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///This mixin optionally applies a pseudoclass depending on the value.
+/// This mixin optionally applies a pseudoclass depending on the value.
 ///
-/// @param {string/null} $mq - If this value is null, simply returns the content.
+/// @param {string/null} $psuedo - If this value is null, simply returns the content.
 ///
 /// @group util
 ///
