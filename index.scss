@@ -19,10 +19,13 @@
 //
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// These are the default grid schemas for 🧄 GarliCSS.
+///
+/// @type list
 ///
 /// @group garlicss
+///
 $grid-schemas: (
-  sm: (
     cols: 6,
     gutter: 0.8503100088em,
     colwidth: 0,
@@ -30,7 +33,7 @@ $grid-schemas: (
     margin: 0.8503100088em,
     mq: mq.only-on(sm),
   ),
-  md: (
+  (
     cols: 12,
     gutter: 2.1257750221%,
     colwidth: 0,
@@ -38,18 +41,21 @@ $grid-schemas: (
     margin: calc(23.13871222% - 134.488008342px),
     mq: mq.only-on(md),
   ),
-  lg: (
+  (
     cols: 12,
     gutter: x(1),
     colwidth: x(3),
     fixedcol: true,
     mq: mq.only-on(lg),
-  ),
-);
+  );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// These are the default layout schemas for 🧄 GarliCSS.
+///
+/// @type map
 ///
 /// @group garlicss
+///
 $layout-schemas: (
   full: (
     span: 12,

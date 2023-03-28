@@ -62,38 +62,35 @@
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin optionally applies a media query depending on the value.
+///
+/// @param {string/null} $mq - If this value is null, simply returns the content.
 ///
 /// @group util
-@mixin quick-mediaquery($variation-mq) {
-  @if $variation-mq == null {
+///
+@mixin quick-mediaquery($mq) {
+  @if $mq == null {
     @content;
   } @else {
-    @media #{$variation-mq} {
+    @media #{$mq} {
       @content;
     }
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///This mixin optionally applies a pseudoclass depending on the value.
+///
+/// @param {string/null} $mq - If this value is null, simply returns the content.
 ///
 /// @group util
-@mixin quick-pseudoclass($variation-pseudo) {
-  @if $variation-pseudo == null {
+///
+@mixin quick-pseudoclass($pseudo) {
+  @if $pseudo == null {
     @content;
   } @else {
-    &#{$variation-pseudo} {
+    &#{$pseudo} {
       @content;
     }
-  }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///
-/// @group util
-@mixin grid-column($span, $offset: 0) {
-  @if $offset == 0 {
-    grid-column: span $span;
-  } @else {
-    grid-column: $offset/span $span;
   }
 }

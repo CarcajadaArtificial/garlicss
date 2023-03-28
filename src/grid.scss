@@ -33,25 +33,47 @@
 $u: 1.5em !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This list contains the schematics of the design system grid. Every schematic will be a map that must comply the following structure.
+/// - `cols {unitless}`: This property determines how many repetitions are set in the style `grid-template-columns: repeat($cols, ...)`.
+/// - `gutter [length/percentage]`: This property determines the grid's `gap` style.
+/// - `colwidth [length/percentage]`: This property determines the value set in the style `grid-template-columns: repeat(cols, minmax(colwidth, 1fr))`, and changes to `minmax($colwidth, $colwidth)` when the property `fixedcol` is true.
+/// - `fixedcol [bool] {false}`: This property determines whether the grid's columns have a fixed width if true and flexible if false. When the value is true, it ignores the properties: `width` and `margin`, and assumes a reasonable and fixed `colwidth` length value.
+/// - `width [length/percentage/keyword] {min-content}` This property determines the grid's width, which normally should be set to "auto" for a responsive layout. The default value is forced when the property `fixedcol` is true.
+/// - `margin [length/percentage/auto] {auto}` This property determines the grid's horizontal margins value in the style `margin: 0 $margin`.
+/// - `mq [string]`: This property is used to set the grids styles to a particular media query.
+///
+/// @type list
 ///
 /// @group grid
 ///
 $grid-schemas: () !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This map contains the schematis of the designed layouts for the grid. Every schematic will be a map that must comply the following structure:
+/// - `_key {string}`: The key of the $layout-schemas map will be used as the name of the layout's class `.layout-#{$name}`.
+/// - `span {unitless}`: Number of columns the modules will span.
+/// - `offset {unitless}`: Number of columns the modules will skip.
+/// - `variations {list}`: This list contains maps similar to this layout schema. Variations have two additional properties:
+///   - `mq {string}`: Optional media query that affects this layout's variation.
+///   - `pseudo {string}`: Optional pseudoclass that aids in spanning of layout module, e.g. `:nth-child(even)`
+///
+/// @type map
 ///
 /// @group grid
 ///
 $layout-schemas: () !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates the `.grid` CSS class using a list of grids schemas.
+///
+/// @param {list} $schemas [$grid-schemas] - This parameter contains the list of grid schemas, see more in the variable `$grid-schemas`.
 ///
 /// @group grid
 ///
 @mixin build-grid($schemas: $grid-schemas) {
   .grid {
     display: grid;
-    @each $name, $schema in $schemas {
+    @each $schema in $schemas {
       @include quick-mediaquery(map-get($schema, mq)) {
         @if map-get($schema, fixedcol) == true {
           @include grid-schema(
@@ -76,6 +98,14 @@ $layout-schemas: () !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Auxiliary for the `build-grid()` mixin. This one applies common styles for `gap`, `width`, `margin`, and `grid-template-columns`.
+///
+/// @param {unitless} $cols - `grid-template-columns: repeat($cols, ...);`
+/// @param {length/percentage} $gutter - `gap: $gutter;`
+/// @param {length/percentage} $colwidth - `grid-template-columns: repeat(..., minmax($colwidth, 1fr));`
+/// @param {bool} $fixedcol - True: `minmax($colwidth, $colwidth)` False: `minmax($colwidth, 1fr)`
+/// @param {length/percentage/keyword} $width [min-content] - `width: $width;`
+/// @param {length/percentage/auto} $margin [auto] - `margin: 0 $margin;`
 ///
 /// @group grid
 ///
@@ -99,6 +129,9 @@ $layout-schemas: () !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates the `.layout-#{}` CSS classes using a map of layout schemes.
+///
+/// @param {map} $schemas [$layout-schemas] - This parameter contains the map of layout schemas, see more in the variable $layout-schemas.
 ///
 /// @group grid
 ///
@@ -114,6 +147,9 @@ $layout-schemas: () !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Auxiliary for the `build-layouts()` mixin. This one applies the common styles using the `grid-column()` mixin.
+///
+/// @param {list} $variations - This paramter should be a `variations` property inside a layout schema.
 ///
 /// @group grid
 ///
@@ -127,6 +163,22 @@ $layout-schemas: () !default;
         );
       }
     }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin eases the use of the `grid-column` style.
+///
+/// @param {unitless} $span - `grid-column: span $span;`
+/// @param {unitless} $offset - `grid-column: $offset/span $span;`
+///
+/// @group util
+///
+@mixin grid-column($span, $offset: 0) {
+  @if $offset == 0 {
+    grid-column: span $span;
+  } @else {
+    grid-column: $offset/span $span;
   }
 }
 

@@ -1,20 +1,11 @@
 # Changelog
 
-## `v0.1.12`
+## `v0.1.14`
 
-### Added util mixins to the utility module
-  - `src/utils.scss`
-
-### Added automatic css class generation
-  - `src/grid.scss`
-  - `src/media-queries.scss`
-
-### Added a build index for the default settings.
+### Added documentation
   - `index.scss`
-  - `dist/style.css`
-
-### Removed the media query module dependency from the grid module.
   - `src/grid.scss`
+  - `src/utils.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:
@@ -25,9 +16,9 @@
     - [ ] Running the project
     - [ ] Updating the docs
     - [ ] Write good comments
-  - [ ] Media Query System that:
-    - [ ] A variable containing a list of common media queries.
-    - [ ] Mixin that creates utility classes for the common media query variable.
+  - [x] Media Query System that:
+    - [x] A variable containing a list of common media queries.
+    - [x] Mixin that creates utility classes for the common media query variable.
   - [x] Grid System that:
     - [x] Has configurable default variables.
       - Basic unit
@@ -38,7 +29,7 @@
     - [ ] Mixin that creates utility classes for fully custom grid modules.
       - `layout-module-$span`
       - Automatically creates the classes based on the greates number of cols in grid-schema.
-    - [ ] Add documentation.
+    - [x] Add documentation.
     - [ ] Add unit tests.
 
 ### Goals for `v0.3.0` - Color Palettes
