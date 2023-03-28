@@ -1,15 +1,9 @@
 # Changelog
 
-## `v0.1.16`
-
-### Added unit tests
-  - `test/grid.test.scss`
-  - `test/media-queries.test.scss`
-  - `test/utils.test.scss`
-  - `test/index.scss`
+## `v0.1.17`
 
 ### Minor updates
-  - `CONTRIBUTING.md`
+  - `src/grid.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:
