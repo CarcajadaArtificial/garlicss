@@ -66,4 +66,76 @@
       );
     }
   }
+
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // quick-mediaquery($mq) [mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('quick-mediaquery()') {
+    // Correct
+    @include it('Creates a quick media query when the input is not null.') {
+      @include assert() {
+        @include output() {
+          @media screen {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include quick-mediaquery('screen') {
+            display: block;
+          }
+        }
+      }
+    }
+    // Incorrect
+    @include it('Returns the content when the') {
+      @include assert() {
+        @include output() {
+          display: block;
+        }
+
+        @include expect() {
+          @include quick-mediaquery(null) {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // quick-pseudo($pseudo) [mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('quick-pseudo()') {
+    // Correct
+    @include it('Creates a quick pseudoclass when the input is not null.') {
+      @include assert() {
+        @include output() {
+          &:nth-child(even) {
+            display: block;
+          }
+        }
+
+        @include expect() {
+          @include quick-pseudoclass(':nth-child(even)') {
+            display: block;
+          }
+        }
+      }
+    }
+    // Incorrect
+    @include it('Returns the content when the') {
+      @include assert() {
+        @include output() {
+          display: block;
+        }
+
+        @include expect() {
+          @include quick-pseudoclass(null) {
+            display: block;
+          }
+        }
+      }
+    }
+  }
 }

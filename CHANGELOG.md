@@ -1,17 +1,15 @@
 # Changelog
 
-## `v0.1.15`
+## `v0.1.16`
 
-### Changed names of `-auto-css` variables.
-  - `src/grid.scss`
-  - `src/media-queries.scss`
+### Added unit tests
+  - `test/grid.test.scss`
+  - `test/media-queries.test.scss`
+  - `test/utils.test.scss`
+  - `test/index.scss`
 
-### Emptied the playground
-  - `test/playground/index.html`
-  - `test/playground/index.scss`
-
-### Added index forwarding
-  - `index.scss`
+### Minor updates
+  - `CONTRIBUTING.md`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:
@@ -20,7 +18,7 @@
   - [ ] CONTRIBUTING.md with:
     - [x] Introduction
     - [x] Running the project
-    - [ ] Updating the docs
+    - [x] Updating the docs
     - [ ] Write good comments
   - [x] Media Query System that:
     - [x] A variable containing a list of common media queries.
@@ -38,6 +36,8 @@
       - `layout-empty` schema
     - [x] Add documentation.
     - [ ] Add unit tests.
+      - [x] Utils
+    - [ ] Make all test modules import from `index.scss` instead of individual modules.
 
 ### Goals for `v0.3.0` - Color Palettes
   - [ ] README.md with:

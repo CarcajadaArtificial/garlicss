@@ -1,0 +1,14 @@
+@use 'true' as *;
+@use '../src/throw';
+@use '../index' as *;
+
+@include test-module('grid') {
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // x($mult) [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('x()') {
+    @include it('Correctly multiplies the value of $u') {
+      @include assert-equal(1.5em * 10, x(10));
+    }
+  }
+}
