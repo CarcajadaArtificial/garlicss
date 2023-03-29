@@ -1,17 +1,20 @@
 # Changelog
 
-## `v0.1.20`
+## `v0.1.21`
 
-### Added the `build-modules` mixin
+### Added the `sass-door` dependency
+  - `package.json`
+  - `lib/sass-door.scss`
+
+### Updated error handling to sass-door
   - `src/grid.scss`
+  - `src/media-queries.scss`
+  - `src/utils.scss`
+  - `test/media-queries.test.scss`
+  - `test/utils.test.scss`
 
-### Added the empty layout
-  - `index.scss`
-
-### Minor Updates
+### Minor updates
   - `README.md`
-  - `CONTRIBUTING.md`
-  - `dist/style.css`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:

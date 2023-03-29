@@ -6,6 +6,7 @@
 // =====================================================================================================
 @use 'sass:map';
 @use 'sass:list';
+@use '../lib/sass-door' as *;
 @use 'utils' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -40,7 +41,7 @@ $breakpoints: (
       @return 'screen and (min-width: #{$start}) and (max-width: #{$end - 0.0625em})';
     }
   } @else {
-    @return panic(index-msg($breakpoint, '$breakpoints'));
+    @return throw(index-msg($breakpoint, '$breakpoints'));
   }
 }
 
@@ -56,7 +57,7 @@ $breakpoints: (
   @if map.has-key($breakpoints, $breakpoint) {
     @return 'screen and (min-width: #{map.get($breakpoints, $breakpoint)})';
   } @else {
-    @return panic(index-msg($breakpoint, '$breakpoints'));
+    @return throw(index-msg($breakpoint, '$breakpoints'));
   }
 }
 
@@ -72,7 +73,7 @@ $breakpoints: (
   @if map.has-key($breakpoints, $breakpoint) {
     @return 'screen and (max-width: #{map.get($breakpoints, $breakpoint) - 0.0625em})';
   } @else {
-    @return panic(index-msg($breakpoint, '$breakpoints'));
+    @return throw(index-msg($breakpoint, '$breakpoints'));
   }
 }
 
@@ -89,11 +90,11 @@ $breakpoints: (
 ///
 @function between($breakpoint-start, $breakpoint-end) {
   @if not map.has-key($breakpoints, $breakpoint-start) {
-    @return panic(index-msg($breakpoint-start, '$breakpoints'));
+    @return throw(index-msg($breakpoint-start, '$breakpoints'));
   } @else if not map.has-key($breakpoints, $breakpoint-end) {
-    @return panic(index-msg($breakpoint-end, '$breakpoints'));
+    @return throw(index-msg($breakpoint-end, '$breakpoints'));
   } @else if $breakpoint-start == $breakpoint-end {
-    @return panic(value-msg($breakpoint-end, 'different breakpoints'));
+    @return throw(value-msg($breakpoint-end, 'different breakpoints'));
   } @else {
     $start-width: map.get($breakpoints, $breakpoint-start);
     $end-width: map.get($breakpoints, $breakpoint-end) - 0.0625em;

@@ -1,4 +1,5 @@
 @use 'true' as *;
+@use '../lib/sass-door' as *;
 @use '../index' as *;
 
 @include test-module('media-queries') {
@@ -64,7 +65,7 @@
     ) {
       @include assert-equal(
         only-on(asdf),
-        panic(index-msg(asdf, '$breakpoints'))
+        throw(index-msg(asdf, '$breakpoints'))
       );
     }
   }
@@ -94,7 +95,7 @@
     ) {
       @include assert-equal(
         larger-than(asdf),
-        panic(index-msg(asdf, '$breakpoints'))
+        throw(index-msg(asdf, '$breakpoints'))
       );
     }
   }
@@ -124,7 +125,7 @@
     ) {
       @include assert-equal(
         smaller-than(asdf),
-        panic(index-msg(asdf, '$breakpoints'))
+        throw(index-msg(asdf, '$breakpoints'))
       );
     }
   }
@@ -154,7 +155,7 @@
     ) {
       @include assert-equal(
         between(asdf, md),
-        panic(index-msg(asdf, '$breakpoints'))
+        throw(index-msg(asdf, '$breakpoints'))
       );
     }
     // Incorrect start
@@ -163,7 +164,7 @@
     ) {
       @include assert-equal(
         between(sm, asdf),
-        panic(index-msg(asdf, '$breakpoints'))
+        throw(index-msg(asdf, '$breakpoints'))
       );
     }
     // Same value
@@ -172,7 +173,7 @@
     ) {
       @include assert-equal(
         between(sm, sm),
-        panic(value-msg(sm, 'different breakpoints'))
+        throw(value-msg(sm, 'different breakpoints'))
       );
     }
   }

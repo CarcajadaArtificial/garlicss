@@ -9,7 +9,7 @@ Firstly, why isn't there a good module manager for SCSS modules?  People see SCS
 ### Node
 What alternative do SCSS developers have for importing modules? Using NPM and Node to manage our scss module and import it from `node_modules`.
 ```bash
-npm install garlicss
+npm install garlicss -D
 ```
 
 ### Git Submodules
