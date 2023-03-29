@@ -1,8 +1,8 @@
 @use 'true' as *;
 @use '../lib/sass-door' as *;
-@use '../index' as *;
+@use '../src/internal' as *;
 
-@include test-module('utils') {
+@include test-module('internal') {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // next-key-in-map($key, $map) [Function]
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

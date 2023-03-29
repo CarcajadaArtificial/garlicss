@@ -8,7 +8,7 @@
 @use 'sass:math';
 @use 'sass:list';
 @use '../lib/sass-door' as *;
-@use 'utils' as *;
+@use 'internal' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The x() function simplifies the multiplication of the basic unit. Instead of writing `$u * .5`, one can use `x(.5)`

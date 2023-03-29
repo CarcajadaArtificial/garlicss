@@ -1,20 +1,23 @@
 # Changelog
 
-## `v0.1.21`
+## `v0.1.22`
 
-### Added the `sass-door` dependency
-  - `package.json`
-  - `lib/sass-door.scss`
-
-### Updated error handling to sass-door
+### Updated to internal modules
+  - `index.scss`
   - `src/grid.scss`
   - `src/media-queries.scss`
-  - `src/utils.scss`
-  - `test/media-queries.test.scss`
-  - `test/utils.test.scss`
 
-### Minor updates
-  - `README.md`
+### Updated file structure
+  - `src/internal/_map.scss`
+  - `src/internal/_quick.scss`
+  - `src/internal/_string.scss`
+  - `src/internal/index.scss`
+
+### Updated testing module naming
+  - `test/_grid.test.scss`
+  - `test/_internal.test.scss`
+  - `test/_media-queries.test.scss`
+  - `test/index.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:

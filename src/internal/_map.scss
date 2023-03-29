@@ -1,0 +1,36 @@
+//   __  __
+//  |  \/  |__ _ _ __
+//  | |\/| / _` | '_ \
+//  |_|  |_\__,_| .__/
+//              |_|
+// =====================================================================================================
+@use 'sass:map';
+@use 'sass:list';
+@use '../../lib/sass-door' as *;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns the next key in a map given the current key. Returns null if `$current-key` is the last. It throws an error if the current key is not found in the map.
+///
+/// @param {map} $map [null]
+///   The map to be searched.
+///
+/// @param {string} $current-key [null]
+///   The current key in the map.
+///
+/// @group internal
+///
+@function next-key-in-map($map, $current-key) {
+  @if not(type-of($map) == 'map') {
+    @return throw(value-msg($map, 'map'));
+  } @else if not(type-of($current-key) == 'string') {
+    @return throw(value-msg($current-key, 'string'));
+  } @else if not(map.has-key($map, $current-key)) {
+    @return throw(index-msg($current-key, '$map'));
+  }
+  $keys: map.keys($map);
+  $current-index: list.index($keys, $current-key);
+  @if $current-index == list.length($keys) {
+    @return null;
+  }
+  @return list.nth($keys, $current-index + 1);
+}

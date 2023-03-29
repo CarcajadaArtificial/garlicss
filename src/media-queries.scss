@@ -7,7 +7,7 @@
 @use 'sass:map';
 @use 'sass:list';
 @use '../lib/sass-door' as *;
-@use 'utils' as *;
+@use 'internal' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The $breakpoints variable is a Sass map containing the screen sizes for different devices.

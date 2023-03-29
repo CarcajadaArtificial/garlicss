@@ -1,0 +1,41 @@
+//    ___       _    _
+//   / _ \ _  _(_)__| |__
+//  | (_) | || | / _| / /
+//   \__\_\\_,_|_\__|_\_\
+//
+// =====================================================================================================
+@use '../../lib/sass-door' as *;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin optionally applies a media query depending on the value.
+///
+/// @param {string/null} $mq - If this value is null, simply returns the content.
+///
+/// @group internal
+///
+@mixin quick-mediaquery($mq) {
+  @if $mq == null {
+    @content;
+  } @else {
+    @media #{$mq} {
+      @content;
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin optionally applies a pseudoclass depending on the value.
+///
+/// @param {string/null} $psuedo - If this value is null, simply returns the content.
+///
+/// @group internal
+///
+@mixin quick-pseudoclass($pseudo) {
+  @if $pseudo == null {
+    @content;
+  } @else {
+    &#{$pseudo} {
+      @content;
+    }
+  }
+}
