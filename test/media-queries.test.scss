@@ -1,5 +1,4 @@
 @use 'true' as *;
-@use '../src/throw';
 @use '../index' as *;
 
 @include test-module('media-queries') {
@@ -65,7 +64,7 @@
     ) {
       @include assert-equal(
         only-on(asdf),
-        throw.error(throw.index-msg(asdf, '$breakpoints'))
+        panic(index-msg(asdf, '$breakpoints'))
       );
     }
   }
@@ -95,7 +94,7 @@
     ) {
       @include assert-equal(
         larger-than(asdf),
-        throw.error(throw.index-msg(asdf, '$breakpoints'))
+        panic(index-msg(asdf, '$breakpoints'))
       );
     }
   }
@@ -125,7 +124,7 @@
     ) {
       @include assert-equal(
         smaller-than(asdf),
-        throw.error(throw.index-msg(asdf, '$breakpoints'))
+        panic(index-msg(asdf, '$breakpoints'))
       );
     }
   }
@@ -155,7 +154,7 @@
     ) {
       @include assert-equal(
         between(asdf, md),
-        throw.error(throw.index-msg(asdf, '$breakpoints'))
+        panic(index-msg(asdf, '$breakpoints'))
       );
     }
     // Incorrect start
@@ -164,7 +163,7 @@
     ) {
       @include assert-equal(
         between(sm, asdf),
-        throw.error(throw.index-msg(asdf, '$breakpoints'))
+        panic(index-msg(asdf, '$breakpoints'))
       );
     }
     // Same value
@@ -173,7 +172,7 @@
     ) {
       @include assert-equal(
         between(sm, sm),
-        throw.error(throw.value-msg(sm, 'different breakpoints'))
+        panic(value-msg(sm, 'different breakpoints'))
       );
     }
   }

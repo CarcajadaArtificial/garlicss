@@ -1,20 +1,24 @@
 # Changelog
 
-## `v0.1.18`
+## `v0.1.19`
 
-### Minor updates
-  - `src/utils.scss`
-  - `CONTRIBUTING.scss`
+### Updated the testing structure
+  - `index.scss`
+  - `src/grid.scss`
+  - `src/media-queries.scss`
+  - `src/utils.scss`
+  - `test/grid.test.scss`
+  - `test/media-queries.test.scss`
+  - `test/utils.test.scss`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:
     - [x] Introduction
     - [x] Setup Instructions
-  - [ ] CONTRIBUTING.md with:
+  - [x] CONTRIBUTING.md with:
     - [x] Introduction
     - [x] Running the project
     - [x] Updating the docs
-    - [ ] Write good comments
   - [x] Media Query System that:
     - [x] A variable containing a list of common media queries.
     - [x] Mixin that creates utility classes for the common media query variable.
@@ -30,9 +34,10 @@
       - Automatically creates the classes based on the greates number of cols in grid-schema.
       - `layout-empty` schema
     - [x] Add documentation.
-    - [ ] Add unit tests.
+    - [x] Add unit tests.
       - [x] Utils
-    - [ ] Make all test modules import from `index.scss` instead of individual modules.
+      - [x] Grid
+    - [x] Make all test modules import from `index.scss` instead of individual modules.
 
 ### Goals for `v0.3.0` - Color Palettes
   - [ ] README.md with:

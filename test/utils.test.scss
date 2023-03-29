@@ -1,6 +1,5 @@
 @use 'true' as *;
-@use '../src/throw';
-@use '../src/utils' as *;
+@use '../index' as *;
 
 @include test-module('utils') {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -26,21 +25,21 @@
     ) {
       @include assert-equal(
         next-key-in-map($map, 'X'),
-        throw.error(throw.index-msg('X', '$map'))
+        panic(index-msg('X', '$map'))
       );
     }
     // Incorrect input - incorrect type
     @include it('[Value Error] Throws when the input is not a map') {
       @include assert-equal(
         next-key-in-map(0, 'A'),
-        throw.error(throw.value-msg(0, 'map'))
+        panic(value-msg(0, 'map'))
       );
     }
     // Incorrect input - incorrect type
     @include it('[Value Error] Throws when the input is not a string') {
       @include assert-equal(
         next-key-in-map($map, 0),
-        throw.error(throw.value-msg(0, 'string'))
+        panic(value-msg(0, 'string'))
       );
     }
   }
@@ -60,10 +59,7 @@
     }
     // Incorrect input
     @include it('[Value Error] Throws when the input is not a string') {
-      @include assert-equal(
-        capitalize(0),
-        throw.error(throw.value-msg(0, 'string'))
-      );
+      @include assert-equal(capitalize(0), panic(value-msg(0, 'string')));
     }
   }
 

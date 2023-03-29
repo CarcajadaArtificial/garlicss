@@ -33,9 +33,3 @@ npm run doc
 
 ### `npm run test`
 *Coming soon*
-
-## Writing scss comments
-*Coming soon*
-
-## Writing in the changelog 
-*Coming soon*

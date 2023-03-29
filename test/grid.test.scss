@@ -1,5 +1,4 @@
 @use 'true' as *;
-@use '../src/throw';
 @use '../index' as *;
 
 @include test-module('grid') {

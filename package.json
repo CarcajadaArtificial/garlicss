@@ -1,6 +1,6 @@
 {
   "name": "garlicss",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "GarliCSS 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
@@ -13,6 +13,7 @@
   "type": "module",
   "repository": "CarcajadaArtificial/garlicss",
   "scripts": {
+    "publish": "npm publish; git checkout docs; git merge main --strategy-option ours; npm run doc; git add .; git commit -m \"Auto-update docs site\"; git push; git checkout main",
     "build": "sass index.scss dist/style.css --no-source-map",
     "doc": "sassdoc src/",
     "play": "sass test/playground/index.scss test/playground/result.css --no-source-map",
