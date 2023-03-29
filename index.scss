@@ -57,6 +57,11 @@ $grid-schemas: (
 /// @group garlicss
 ///
 $layout-schemas: (
+  empty: (
+    span: 1,
+    offset: 0,
+    variations: (),
+  ),
   full: (
     span: 12,
     offset: 0,

@@ -182,6 +182,27 @@ $layout-schemas: () !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates the `.layout-module-$span` CSS classes based on the grid schematic with the greatest number of columns.
+///
+/// @group grid
+///
+@mixin build-modules($schemas: $grid-schemas) {
+  $highest-col: 0;
+  @each $schema in $schemas {
+    $cols: map-get($schema, cols);
+    @if $cols > $highest-col {
+      $highest-col: $cols;
+    }
+  }
+
+  @for $col from 1 through $highest-col {
+    .layout-module-#{$col} {
+      grid-column: span $col;
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Change to false to avoid automatic css generation on this module.
 ///
 /// @type bool
@@ -200,4 +221,5 @@ $grid-auto-css: true !default;
 @if $grid-auto-css {
   @include build-grid();
   @include build-layouts();
+  @include build-modules();
 }

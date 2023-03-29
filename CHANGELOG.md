@@ -1,15 +1,17 @@
 # Changelog
 
-## `v0.1.19`
+## `v0.1.20`
 
-### Updated the testing structure
-  - `index.scss`
+### Added the `build-modules` mixin
   - `src/grid.scss`
-  - `src/media-queries.scss`
-  - `src/utils.scss`
-  - `test/grid.test.scss`
-  - `test/media-queries.test.scss`
-  - `test/utils.test.scss`
+
+### Added the empty layout
+  - `index.scss`
+
+### Minor Updates
+  - `README.md`
+  - `CONTRIBUTING.md`
+  - `dist/style.css`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:
@@ -31,8 +33,8 @@
     - [x] Mixin that creates the layout classes based on the layout map.
     - [ ] Mixin that creates utility classes for fully custom grid modules.
       - `layout-module-$span`
-      - Automatically creates the classes based on the greates number of cols in grid-schema.
-      - `layout-empty` schema
+      - Automatically creates the classes based on the greatest number of cols in grid-schema.
+    - [x] `layout-empty` schema
     - [x] Add documentation.
     - [x] Add unit tests.
       - [x] Utils

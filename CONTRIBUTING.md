@@ -6,7 +6,7 @@
 
 ### Building the project
 The build step in the project means constructing the  `styles.css` using the default settings inside `~/index.scss`.
-```shell
+```bash
 npm run build
 ```
 
@@ -18,13 +18,13 @@ This command publishes the current version to the NPM and updates the doc site. 
 3. `npm run doc` - Run the sassdoc command to update the docs site.
 4. `git add .; git commit -m "Auto-update docs site"; git push` - Push the updated site.
 5. `git checkout main` - Return to the main branch.
-```shell
+```bash
 npm run publish
 ```
 
 ### Running the automatic documentation.
 This command can be run to test the doc site before updating it. It is also run ding the `npm run publish` command.
-```shell
+```bash
 npm run doc
 ```
 

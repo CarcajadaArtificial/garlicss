@@ -8,13 +8,13 @@ Firstly, why isn't there a good module manager for SCSS modules?  People see SCS
 
 ### Node
 What alternative do SCSS developers have for importing modules? Using NPM and Node to manage our scss module and import it from `node_modules`.
-```shell
+```bash
 npm install garlicss
 ```
 
 ### Git Submodules
 Now If you're using anything different from NPM and wish to use this module, what options do you have? Well, you can create a subdirectory like `lib/scss/garlicss` and create a node project there where you can import and update it. But man, in general, I dislike having `node_modules` everywhere and I feel it is unnecessary to install a whole node server just for SCSS compilation. So I advise importing this repo as a git submodule. This way, you can have an easily updated clone of this repo inside your project so you can build your own design systems.
-```shell
+```bash
 git submodule add https://github.com/CarcajadaArtificial/garlicss.git path/to/garlicss
 ```
 

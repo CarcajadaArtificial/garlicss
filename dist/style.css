@@ -26,6 +26,10 @@
   }
 }
 
+.layout-empty .layout-module {
+  grid-column: span 1;
+}
+
 .layout-full .layout-module {
   grid-column: span 12;
 }
@@ -103,4 +107,52 @@
   .layout-left .layout-module:nth-child(odd) {
     grid-column: span 4;
   }
+}
+
+.layout-module-1 {
+  grid-column: span 1;
+}
+
+.layout-module-2 {
+  grid-column: span 2;
+}
+
+.layout-module-3 {
+  grid-column: span 3;
+}
+
+.layout-module-4 {
+  grid-column: span 4;
+}
+
+.layout-module-5 {
+  grid-column: span 5;
+}
+
+.layout-module-6 {
+  grid-column: span 6;
+}
+
+.layout-module-7 {
+  grid-column: span 7;
+}
+
+.layout-module-8 {
+  grid-column: span 8;
+}
+
+.layout-module-9 {
+  grid-column: span 9;
+}
+
+.layout-module-10 {
+  grid-column: span 10;
+}
+
+.layout-module-11 {
+  grid-column: span 11;
+}
+
+.layout-module-12 {
+  grid-column: span 12;
 }
