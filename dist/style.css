@@ -1,24 +1,167 @@
-/* Error: This module was already loaded, so it can't be configured using "with".
- *   ,--> src/default/_grid.default.scss
- * 1 | / @use '../index.scss' as * with (
- * 2 | |   $u: 1em
- * 3 | | );
- *   | '-^ new load
- *   '
- *   ,--> src/default/_media-queries.default.scss
- * 1 |   @use '../index.scss' as *;
- *   |   ========================= original load
- *   '
- *   src/default/_grid.default.scss 1:1  @use
- *   src/default/index.scss 2:1          root stylesheet */
+.mq-only-sm {
+  display: none;
+}
+@media screen and (max-width: 39.9375em) {
+  .mq-only-sm {
+    display: block;
+  }
+}
 
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: This module was already loaded, so it can't be configured using \"with\".\a   \250c \2500 \2500 > src/default/_grid.default.scss\a 1 \2502  \250c  @use '../index.scss' as * with (\a 2 \2502  \2502    $u: 1em\a 3 \2502  \2502  );\a   \2502  \2514 \2500 ^ new load\a   \2575 \a   \250c \2500 \2500 > src/default/_media-queries.default.scss\a 1 \2502    @use '../index.scss' as *;\a   \2502    \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501 \2501  original load\a   \2575 \a   src/default/_grid.default.scss 1:1  @use\a   src/default/index.scss 2:1          root stylesheet";
+.grid {
+  display: grid;
+}
+@media screen and (max-width: 39.9375em) {
+  .grid {
+    gap: 0.8503100088em;
+    width: auto;
+    margin: 0 0.8503100088em;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 40em) and (max-width: 99.9375em) {
+  .grid {
+    gap: 2.1257750221%;
+    width: auto;
+    margin: 0 calc(23.13871222% - 134.488008342px);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 100em) {
+  .grid {
+    gap: 1.5em;
+    width: min-content;
+    margin: 0 auto;
+    grid-template-columns: repeat(12, minmax(4.5em, 4.5em));
+  }
+}
+
+.layout-empty .layout-module {
+  grid-column: span 1;
+}
+
+.layout-full .layout-module {
+  grid-column: span 12;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-full .layout-module {
+    grid-column: span 6;
+  }
+}
+
+.layout-center .layout-module {
+  grid-column: 2 / span 10;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-center .layout-module {
+    grid-column: span 6;
+  }
+}
+
+.layout-focus .layout-module {
+  grid-column: 3 / span 8;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-focus .layout-module {
+    grid-column: 1 / span 4;
+  }
+}
+
+.layout-halves .layout-module {
+  grid-column: span 6;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-halves .layout-module {
+    grid-column: span 3;
+  }
+}
+
+.layout-thirds .layout-module {
+  grid-column: span 4;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-thirds .layout-module {
+    grid-column: span 2;
+  }
+}
+
+.layout-right .layout-module {
+  grid-column: span 4;
+}
+.layout-right .layout-module:nth-child(even) {
+  grid-column: span 8;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-right .layout-module {
+    grid-column: span 2;
+  }
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-right .layout-module:nth-child(even) {
+    grid-column: span 4;
+  }
+}
+
+.layout-left .layout-module {
+  grid-column: span 4;
+}
+.layout-left .layout-module:nth-child(odd) {
+  grid-column: span 8;
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-left .layout-module {
+    grid-column: span 2;
+  }
+}
+@media screen and (max-width: 39.9375em) {
+  .layout-left .layout-module:nth-child(odd) {
+    grid-column: span 4;
+  }
+}
+
+.layout-module-1 {
+  grid-column: span 1;
+}
+
+.layout-module-2 {
+  grid-column: span 2;
+}
+
+.layout-module-3 {
+  grid-column: span 3;
+}
+
+.layout-module-4 {
+  grid-column: span 4;
+}
+
+.layout-module-5 {
+  grid-column: span 5;
+}
+
+.layout-module-6 {
+  grid-column: span 6;
+}
+
+.layout-module-7 {
+  grid-column: span 7;
+}
+
+.layout-module-8 {
+  grid-column: span 8;
+}
+
+.layout-module-9 {
+  grid-column: span 9;
+}
+
+.layout-module-10 {
+  grid-column: span 10;
+}
+
+.layout-module-11 {
+  grid-column: span 11;
+}
+
+.layout-module-12 {
+  grid-column: span 12;
 }
