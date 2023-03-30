@@ -1,3 +1,420 @@
+:root {
+  --clr-nube: #dfd9ff;
+  --clr-vinca: #afbbfa;
+  --clr-cielo: #7aadf5;
+  --clr-azulejo: #1f84cc;
+  --clr-cobalto: #1262b3;
+  --clr-lapis: #000066;
+  --clr-marino: #030f33;
+  --clr-jade: #0f474d;
+  --clr-cedro: #00806a;
+  --clr-limon: #089969;
+  --clr-mota: #12b362;
+  --clr-musgo: #9eed77;
+  --clr-alien: #d0fa7d;
+  --clr-mantequilla: #f7ff99;
+  --clr-arena: #fff7cc;
+  --clr-tortilla: #ffea80;
+  --clr-flan: #fabb64;
+  --clr-ambar: #f59149;
+  --clr-ladrillo: #cc5f29;
+  --clr-arandano: #66050d;
+  --clr-manzana: #b31b34;
+  --clr-fresa: #e62e4d;
+  --clr-chicle: #f7577f;
+  --clr-bombon: #fc7ea8;
+  --clr-pastel: #fa96c8;
+  --clr-ajolote: #e9abf5;
+  --clr-princesa: #d0bbfa;
+  --clr-magia: #a37af5;
+  --clr-lavanda: #6246eb;
+  --clr-uva: #380899;
+  --clr-turquesa: #088199;
+  --clr-menta: #1fcccc;
+  --clr-hielo: #7ae0f5;
+  --clr-cajeta: #b36b24;
+  --clr-vino: #400020;
+  --clr-pulpo: #660546;
+  --clr-pitahaya: #b3128a;
+  --clr-borrador: #df76ba;
+  --clr-obsidiana: #0c0a0d;
+  --clr-chapopote: #241f26;
+  --clr-grafito: #3d3640;
+  --clr-hierro: #796c80;
+  --clr-acero: #aca1b3;
+  --clr-plata: #d5ced9;
+  --clr-papel: #eee6f2;
+  --clr-blanco: #ffffff;
+}
+
+.clr-nube {
+  background: var(--clr-nube);
+}
+
+.clr-vinca {
+  background: var(--clr-vinca);
+}
+
+.clr-cielo {
+  background: var(--clr-cielo);
+}
+
+.clr-azulejo {
+  background: var(--clr-azulejo);
+}
+
+.clr-cobalto {
+  background: var(--clr-cobalto);
+}
+
+.clr-lapis {
+  background: var(--clr-lapis);
+}
+
+.clr-marino {
+  background: var(--clr-marino);
+}
+
+.clr-jade {
+  background: var(--clr-jade);
+}
+
+.clr-cedro {
+  background: var(--clr-cedro);
+}
+
+.clr-limon {
+  background: var(--clr-limon);
+}
+
+.clr-mota {
+  background: var(--clr-mota);
+}
+
+.clr-musgo {
+  background: var(--clr-musgo);
+}
+
+.clr-alien {
+  background: var(--clr-alien);
+}
+
+.clr-mantequilla {
+  background: var(--clr-mantequilla);
+}
+
+.clr-arena {
+  background: var(--clr-arena);
+}
+
+.clr-tortilla {
+  background: var(--clr-tortilla);
+}
+
+.clr-flan {
+  background: var(--clr-flan);
+}
+
+.clr-ambar {
+  background: var(--clr-ambar);
+}
+
+.clr-ladrillo {
+  background: var(--clr-ladrillo);
+}
+
+.clr-arandano {
+  background: var(--clr-arandano);
+}
+
+.clr-manzana {
+  background: var(--clr-manzana);
+}
+
+.clr-fresa {
+  background: var(--clr-fresa);
+}
+
+.clr-chicle {
+  background: var(--clr-chicle);
+}
+
+.clr-bombon {
+  background: var(--clr-bombon);
+}
+
+.clr-pastel {
+  background: var(--clr-pastel);
+}
+
+.clr-ajolote {
+  background: var(--clr-ajolote);
+}
+
+.clr-princesa {
+  background: var(--clr-princesa);
+}
+
+.clr-magia {
+  background: var(--clr-magia);
+}
+
+.clr-lavanda {
+  background: var(--clr-lavanda);
+}
+
+.clr-uva {
+  background: var(--clr-uva);
+}
+
+.clr-turquesa {
+  background: var(--clr-turquesa);
+}
+
+.clr-menta {
+  background: var(--clr-menta);
+}
+
+.clr-hielo {
+  background: var(--clr-hielo);
+}
+
+.clr-cajeta {
+  background: var(--clr-cajeta);
+}
+
+.clr-vino {
+  background: var(--clr-vino);
+}
+
+.clr-pulpo {
+  background: var(--clr-pulpo);
+}
+
+.clr-pitahaya {
+  background: var(--clr-pitahaya);
+}
+
+.clr-borrador {
+  background: var(--clr-borrador);
+}
+
+.clr-obsidiana {
+  background: var(--clr-obsidiana);
+}
+
+.clr-chapopote {
+  background: var(--clr-chapopote);
+}
+
+.clr-grafito {
+  background: var(--clr-grafito);
+}
+
+.clr-hierro {
+  background: var(--clr-hierro);
+}
+
+.clr-acero {
+  background: var(--clr-acero);
+}
+
+.clr-plata {
+  background: var(--clr-plata);
+}
+
+.clr-papel {
+  background: var(--clr-papel);
+}
+
+.clr-blanco {
+  background: var(--clr-blanco);
+}
+
+.txt-nube {
+  color: var(--clr-nube);
+}
+
+.txt-vinca {
+  color: var(--clr-vinca);
+}
+
+.txt-cielo {
+  color: var(--clr-cielo);
+}
+
+.txt-azulejo {
+  color: var(--clr-azulejo);
+}
+
+.txt-cobalto {
+  color: var(--clr-cobalto);
+}
+
+.txt-lapis {
+  color: var(--clr-lapis);
+}
+
+.txt-marino {
+  color: var(--clr-marino);
+}
+
+.txt-jade {
+  color: var(--clr-jade);
+}
+
+.txt-cedro {
+  color: var(--clr-cedro);
+}
+
+.txt-limon {
+  color: var(--clr-limon);
+}
+
+.txt-mota {
+  color: var(--clr-mota);
+}
+
+.txt-musgo {
+  color: var(--clr-musgo);
+}
+
+.txt-alien {
+  color: var(--clr-alien);
+}
+
+.txt-mantequilla {
+  color: var(--clr-mantequilla);
+}
+
+.txt-arena {
+  color: var(--clr-arena);
+}
+
+.txt-tortilla {
+  color: var(--clr-tortilla);
+}
+
+.txt-flan {
+  color: var(--clr-flan);
+}
+
+.txt-ambar {
+  color: var(--clr-ambar);
+}
+
+.txt-ladrillo {
+  color: var(--clr-ladrillo);
+}
+
+.txt-arandano {
+  color: var(--clr-arandano);
+}
+
+.txt-manzana {
+  color: var(--clr-manzana);
+}
+
+.txt-fresa {
+  color: var(--clr-fresa);
+}
+
+.txt-chicle {
+  color: var(--clr-chicle);
+}
+
+.txt-bombon {
+  color: var(--clr-bombon);
+}
+
+.txt-pastel {
+  color: var(--clr-pastel);
+}
+
+.txt-ajolote {
+  color: var(--clr-ajolote);
+}
+
+.txt-princesa {
+  color: var(--clr-princesa);
+}
+
+.txt-magia {
+  color: var(--clr-magia);
+}
+
+.txt-lavanda {
+  color: var(--clr-lavanda);
+}
+
+.txt-uva {
+  color: var(--clr-uva);
+}
+
+.txt-turquesa {
+  color: var(--clr-turquesa);
+}
+
+.txt-menta {
+  color: var(--clr-menta);
+}
+
+.txt-hielo {
+  color: var(--clr-hielo);
+}
+
+.txt-cajeta {
+  color: var(--clr-cajeta);
+}
+
+.txt-vino {
+  color: var(--clr-vino);
+}
+
+.txt-pulpo {
+  color: var(--clr-pulpo);
+}
+
+.txt-pitahaya {
+  color: var(--clr-pitahaya);
+}
+
+.txt-borrador {
+  color: var(--clr-borrador);
+}
+
+.txt-obsidiana {
+  color: var(--clr-obsidiana);
+}
+
+.txt-chapopote {
+  color: var(--clr-chapopote);
+}
+
+.txt-grafito {
+  color: var(--clr-grafito);
+}
+
+.txt-hierro {
+  color: var(--clr-hierro);
+}
+
+.txt-acero {
+  color: var(--clr-acero);
+}
+
+.txt-plata {
+  color: var(--clr-plata);
+}
+
+.txt-papel {
+  color: var(--clr-papel);
+}
+
+.txt-blanco {
+  color: var(--clr-blanco);
+}
+
 .mq-only-sm {
   display: none;
 }

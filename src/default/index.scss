@@ -5,12 +5,17 @@
 //                                                   |___/
 // =====================================================================================================
 @use '../index.scss' as *;
+@use 'color.default' as *;
 @use 'media-queries.default' as *;
 @use 'grid.default' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CSS Building
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// Color
+@include build-color-variables($palette);
+@include build-color-backgrounds($palette);
+@include build-color-text($palette);
 // Media queries
 @include build-queries($query-map);
 // Grid

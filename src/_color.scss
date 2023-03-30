@@ -1,0 +1,70 @@
+//    ___     _
+//   / __|___| |___ _ _
+//  | (__/ _ \ / _ \ '_|
+//   \___\___/_\___/_|
+//
+// =====================================================================================================
+@use '../lib/sass-door' as *;
+@use 'internal' as *;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin easily generates CSS variables in the document's root for every color in the palette.
+///
+/// @param {map} $palette
+///   The map containing all the color palettes.
+///
+/// @group color
+///
+@mixin build-color-variables($palette) {
+  :root {
+    @each $name, $color in $palette {
+      --clr-#{$name}: #{$color};
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin generates CSS classes for quickly accessing every color background.
+///
+/// @param {map} $palette
+///   The map containing all the color palettes.
+///
+/// @param {bool} $use-variables
+///   True: uses `var(--clr-#{$name})`. False: uses the actual color value in the palette.
+///
+/// @group color
+///
+@mixin build-color-backgrounds($palette, $use-variables: true) {
+  @each $name, $color in $palette {
+    .clr-#{$name} {
+      @if $use-variables {
+        background: var(--clr-#{$name});
+      } @else {
+        background: #{$color};
+      }
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin generates CSS classes for quickly accessing every text color.
+///
+/// @param {map} $palette
+///   The map containing all the color palettes.
+///
+/// @param {bool} $use-variables
+///   True: uses `var(--clr-#{$name})`. False: uses the actual color value in the palette.
+///
+/// @group color
+///
+@mixin build-color-text($palette, $use-variables: true) {
+  @each $name, $color in $palette {
+    .txt-#{$name} {
+      @if $use-variables {
+        color: var(--clr-#{$name});
+      } @else {
+        color: #{$color};
+      }
+    }
+  }
+}

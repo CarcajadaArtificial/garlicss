@@ -1,11 +1,12 @@
 # Changelog
 
-## `v0.2.1`
+## `v0.2.2`
 
-### Added minified css
-  - `dist/style.css`
-  - `dist/style.min.css`
-  - `package.json`
+### Added color building mixins
+  - `src/_color.scss`
+  - `src/index.scss`
+  - `src/default/_color.default.scss`
+  - `src/default/index.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -17,7 +18,7 @@
     - [ ] Adding content to CHANGELOG.md
     - [ ] Using the playground
   - [ ] A color palette engine
-    - [ ] Generation of classes and css variables.
+    - [x] Generation of classes and css variables.
     - [ ] Generation of gradients
     - [ ] Generation of themes
       - [ ] Adaptability to dark mode.
