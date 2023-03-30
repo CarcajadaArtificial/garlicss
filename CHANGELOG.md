@@ -1,23 +1,19 @@
 # Changelog
 
-## `v0.1.22`
-
-### Updated to internal modules
-  - `index.scss`
-  - `src/grid.scss`
-  - `src/media-queries.scss`
+## `v0.1.23`
 
 ### Updated file structure
-  - `src/internal/_map.scss`
-  - `src/internal/_quick.scss`
-  - `src/internal/_string.scss`
-  - `src/internal/index.scss`
+  - `src/_grid.scss`
+  - `src/_media-queries.scss`
+  - `index.scss`
+  - `src/index.scss`
 
-### Updated testing module naming
-  - `test/_grid.test.scss`
-  - `test/_internal.test.scss`
-  - `test/_media-queries.test.scss`
-  - `test/index.scss`
+### Updated the default module
+  - `dist/style.css`
+  - `src/default/_grid.default.scss`
+  - `src/default/_media-queries.default.scss`
+  - `src/default/index.scss`
+  - `package.json`
 
 ## Goals for `v0.2.0` - Flexible Grids
   - [x] README.md with:

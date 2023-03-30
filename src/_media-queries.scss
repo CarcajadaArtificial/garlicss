@@ -10,29 +10,23 @@
 @use 'internal' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The $breakpoints variable is a Sass map containing the screen sizes for different devices.
+/// The `only-on` function is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoint-map` map. The function uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
 ///
-/// @type {[key]: em}
-///
-/// @group media-queries
-$breakpoints: (
-  sm: 0em,
-  md: 40em,
-  lg: 100em,
-) !default;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The `only-on` function is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoints` map. The function uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
+/// @param {string} $breakpoint-map
+///   The map containing all the breakpoints.
 ///
 /// @param {string} $breakpoint
-///   One of the keys in the `$breakpoints` map.
+///   One of the keys in the `$breakpoint-map` map.
 ///
 /// @group media-queries
 ///
-@function only-on($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
-    $start: map.get($breakpoints, $breakpoint);
-    $end: map.get($breakpoints, next-key-in-map($breakpoints, $breakpoint));
+@function only-on($breakpoint-map, $breakpoint) {
+  @if map.has-key($breakpoint-map, $breakpoint) {
+    $start: map.get($breakpoint-map, $breakpoint);
+    $end: map.get(
+      $breakpoint-map,
+      next-key-in-map($breakpoint-map, $breakpoint)
+    );
     @if $end == null {
       @return 'screen and (min-width: #{$start})';
     } @else if $start == 0em {
@@ -48,13 +42,16 @@ $breakpoints: (
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function generates a media query with a `min-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens larger than a specific breakpoint.
 ///
+/// @param {string} $breakpoint-map
+///   The map containing all the breakpoints.
+///
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
 ///
-@function larger-than($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
+@function larger-than($breakpoint-map, $breakpoint) {
+  @if map.has-key($breakpoint-map, $breakpoint) {
     @return 'screen and (min-width: #{map.get($breakpoints, $breakpoint)})';
   } @else {
     @return throw(index-msg($breakpoint, '$breakpoints'));
@@ -64,21 +61,27 @@ $breakpoints: (
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function generates a media query with a `max-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens smaller than a specific breakpoint.
 ///
+/// @param {string} $breakpoint-map
+///   The map containing all the breakpoints.
+///
 /// @param {string} $breakpoint
 ///   One of the keys in the `$breakpoints` map.
 ///
 /// @group media-queries
 ///
-@function smaller-than($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
-    @return 'screen and (max-width: #{map.get($breakpoints, $breakpoint) - 0.0625em})';
+@function smaller-than($breakpoint-map, $breakpoint) {
+  @if map.has-key($breakpoint-map, $breakpoint) {
+    @return 'screen and (max-width: #{map.get($breakpoint-map, $breakpoint) - 0.0625em})';
   } @else {
-    @return throw(index-msg($breakpoint, '$breakpoints'));
+    @return throw(index-msg($breakpoint, '$breakpoint-map'));
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function generates media queries with the specified min-width and max-width values based on a `$breakpoints` map. It is designed to simplify the process of creating responsive styles by allowing developers to easily define media queries using named breakpoints instead of specific pixel values.
+///
+/// @param {string} $breakpoint-map
+///   The map containing all the breakpoints.
 ///
 /// @param {string} $breakpoint-start
 ///   One of the keys in the `$breakpoints` map.
@@ -88,7 +91,7 @@ $breakpoints: (
 ///
 /// @group media-queries
 ///
-@function between($breakpoint-start, $breakpoint-end) {
+@function between($breakpoint-map, $breakpoint-start, $breakpoint-end) {
   @if not map.has-key($breakpoints, $breakpoint-start) {
     @return throw(index-msg($breakpoint-start, '$breakpoints'));
   } @else if not map.has-key($breakpoints, $breakpoint-end) {
@@ -103,25 +106,14 @@ $breakpoints: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The $media-query-list variable is a Sass map containing common media query strings.
+/// This mixin generates CSS media queries based on a map of query names and corresponding query strings.
 ///
-/// @type {[key]: string}
-///
-/// @group media-queries
-///
-$media-query-list: (
-  only-sm: only-on(sm),
-) !default;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This mixin generates CSS media queries based on a list of query names and corresponding query strings.
-///
-/// @param {map} $query-list A map containing the media queries to turn into classes.
+/// @param {map} $query-map A map containing the media queries to turn into classes.
 ///
 /// @group media-queries
 ///
-@mixin build-queries($query-list: $media-query-list) {
-  @each $name, $query in $query-list {
+@mixin build-queries($query-map) {
+  @each $name, $query in $query-map {
     .mq-#{$name} {
       display: none;
 
@@ -130,24 +122,4 @@ $media-query-list: (
       }
     }
   }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Change to false to avoid automatic css generation on this module.
-///
-/// @type bool
-///
-/// @group media-queries
-///
-$mq-auto-css: false !default;
-
-// =====================================================================================================
-// Automatic CSS generation
-// =====================================================================================================
-/// Generates media query classes.
-///
-/// @group media-queries
-///
-@if $mq-auto-css {
-  @include build-queries();
 }
