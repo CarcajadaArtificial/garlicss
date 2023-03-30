@@ -49,7 +49,7 @@
 }
 
 .layout-center .layout-module {
-  grid-column: 2 / span 10;
+  grid-column: 2/span 10;
 }
 @media screen and (max-width: 39.9375em) {
   .layout-center .layout-module {
@@ -58,11 +58,11 @@
 }
 
 .layout-focus .layout-module {
-  grid-column: 3 / span 8;
+  grid-column: 3/span 8;
 }
 @media screen and (max-width: 39.9375em) {
   .layout-focus .layout-module {
-    grid-column: 1 / span 4;
+    grid-column: 1/span 4;
   }
 }
 
