@@ -1,6 +1,6 @@
 {
   "name": "garlicss",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "GarliCSS 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "mocha": "^10.2.0",
     "sass": "^1.58.3",
-    "sass-door": "^0.0.4",
+    "sass-door": "^0.0.7",
     "sass-true": "^7.0.0",
     "sassdoc": "^2.7.4"
   }

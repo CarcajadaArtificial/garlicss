@@ -1,12 +1,10 @@
 # Changelog
 
-## `v0.2.2`
+## `v0.2.3`
 
-### Added color building mixins
-  - `src/_color.scss`
-  - `src/index.scss`
-  - `src/default/_color.default.scss`
-  - `src/default/index.scss`
+### Updated Sass Door library
+  - `lib/sass-door.scss`
+  - `package.json`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
