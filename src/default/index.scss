@@ -8,12 +8,15 @@
 @use 'color.default' as *;
 @use 'media-queries.default' as *;
 @use 'grid.default' as *;
+@use 'sass:map';
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CSS Building
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Color
-@include build-color-variables($palette);
+// CSS Building using this library has important order implications. Mixins that affect the root must be placed first always.
+:root {
+  @include build-color-variables($palette);
+}
 @include build-color-backgrounds($palette);
 @include build-color-text($palette);
 // Media queries

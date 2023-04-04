@@ -16,10 +16,8 @@
 /// @group color
 ///
 @mixin build-color-variables($palette) {
-  :root {
-    @each $name, $color in $palette {
-      --clr-#{$name}: #{$color};
-    }
+  @each $name, $color in $palette {
+    --clr-#{$name}: #{$color};
   }
 }
 

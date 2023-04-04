@@ -1,10 +1,11 @@
 # Changelog
 
-## `v0.2.3`
+## `v0.2.4`
 
-### Updated Sass Door library
-  - `lib/sass-door.scss`
-  - `package.json`
+- Minor updates
+  - `/lib/sass-door.scss`
+  - `/src/_color.scss`
+  - `/src/default/index.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
