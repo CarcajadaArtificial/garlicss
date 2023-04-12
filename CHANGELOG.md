@@ -1,11 +1,15 @@
 # Changelog
 
-## `v0.2.4`
+## `v0.2.5`
 
-- Minor updates
-  - `/lib/sass-door.scss`
-  - `/src/_color.scss`
-  - `/src/default/index.scss`
+- Removed internal module
+  - `src/internal/*`
+  - `test/_internal.test.scss`
+
+- Updated to support `sass-door`
+  - `src/_grid.scss`
+  - `src/_media-queries.scss`
+  - `test/_media-queries.test.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

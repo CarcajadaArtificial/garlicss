@@ -8,7 +8,6 @@
 @use 'sass:math';
 @use 'sass:list';
 @use '../lib/sass-door' as *;
-@use 'internal' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The x() function simplifies the multiplication of the basic unit. Instead of writing `$u * .5`, one can use `x(.5)`
@@ -43,7 +42,7 @@ $u: 1.5em !default;
   .grid {
     display: grid;
     @each $schema in $grid-schemas {
-      @include quick-mediaquery(map-get($schema, mq)) {
+      @include quick-mq(map-get($schema, mq)) {
         @if map-get($schema, fixedcol) == true {
           @include grid-schema(
             $cols: map-get($schema, cols),
@@ -78,14 +77,7 @@ $u: 1.5em !default;
 ///
 /// @group grid
 ///
-@mixin grid-schema(
-  $cols,
-  $gutter,
-  $colwidth,
-  $fixedcol,
-  $width: min-content,
-  $margin: auto
-) {
+@mixin grid-schema($cols, $gutter, $colwidth, $fixedcol, $width: min-content, $margin: auto) {
   gap: $gutter;
   width: $width;
   margin: 0 $margin;
@@ -124,12 +116,9 @@ $u: 1.5em !default;
 ///
 @mixin layout-variations($variations) {
   @each $variation in $variations {
-    @include quick-mediaquery(map-get($variation, mq)) {
-      @include quick-pseudoclass(map-get($variation, pseudo)) {
-        @include grid-column(
-          map-get($variation, span),
-          map-get($variation, offset)
-        );
+    @include quick-mq(map-get($variation, mq)) {
+      @include quick-pseudo(map-get($variation, pseudo)) {
+        @include grid-column(map-get($variation, span), map-get($variation, offset));
       }
     }
   }

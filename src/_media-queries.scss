@@ -7,7 +7,6 @@
 @use 'sass:map';
 @use 'sass:list';
 @use '../lib/sass-door' as *;
-@use 'internal' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The `only-on` function is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoint-map` map. The function uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
@@ -23,10 +22,7 @@
 @function only-on($breakpoint-map, $breakpoint) {
   @if map.has-key($breakpoint-map, $breakpoint) {
     $start: map.get($breakpoint-map, $breakpoint);
-    $end: map.get(
-      $breakpoint-map,
-      next-key-in-map($breakpoint-map, $breakpoint)
-    );
+    $end: map.get($breakpoint-map, map-next-key($breakpoint-map, $breakpoint));
     @if $end == null {
       @return 'screen and (min-width: #{$start})';
     } @else if $start == 0em {
@@ -52,7 +48,7 @@
 ///
 @function larger-than($breakpoint-map, $breakpoint) {
   @if map.has-key($breakpoint-map, $breakpoint) {
-    @return 'screen and (min-width: #{map.get($breakpoints, $breakpoint)})';
+    @return 'screen and (min-width: #{map.get($breakpoint-map, $breakpoint)})';
   } @else {
     @return throw(index-msg($breakpoint, '$breakpoints'));
   }
@@ -92,15 +88,15 @@
 /// @group media-queries
 ///
 @function between($breakpoint-map, $breakpoint-start, $breakpoint-end) {
-  @if not map.has-key($breakpoints, $breakpoint-start) {
-    @return throw(index-msg($breakpoint-start, '$breakpoints'));
-  } @else if not map.has-key($breakpoints, $breakpoint-end) {
-    @return throw(index-msg($breakpoint-end, '$breakpoints'));
+  @if not map.has-key($breakpoint-map, $breakpoint-start) {
+    @return throw(index-msg($breakpoint-start, '$breakpoint-map'));
+  } @else if not map.has-key($breakpoint-map, $breakpoint-end) {
+    @return throw(index-msg($breakpoint-end, '$breakpoint-map'));
   } @else if $breakpoint-start == $breakpoint-end {
     @return throw(value-msg($breakpoint-end, 'different breakpoints'));
   } @else {
-    $start-width: map.get($breakpoints, $breakpoint-start);
-    $end-width: map.get($breakpoints, $breakpoint-end) - 0.0625em;
+    $start-width: map.get($breakpoint-map, $breakpoint-start);
+    $end-width: map.get($breakpoint-map, $breakpoint-end) - 0.0625em;
     @return 'screen and (min-width: #{$start-width}) and (max-width: #{$end-width})';
   }
 }
