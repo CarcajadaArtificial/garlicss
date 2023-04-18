@@ -42,20 +42,19 @@
     --clr-txt-personality: #{$hex-txt-personality};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $palette-by-euclidean-bg-page: color-list-sort(
-      $palette-hex-list,
-      $hex-bg-page,
-      'color-compare-euclidean'
-    );
     $hex-bg-panel: color-list-reduce(
-      list-cut($palette-by-euclidean-bg-page, 3),
+      list-cut(color-list-sort($palette-hex-list, $hex-bg-page, 'color-compare-euclidean'), 3),
       $hex-bg-page,
       'color-compare-hue'
     );
     --clr-bg-panel: #{$hex-bg-panel};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-txt-base: 'pending';
+    $hex-txt-base: color-list-reduce(
+      list-cut(color-list-sort($palette-hex-list, $hex-bg-page, 'color-compare-contrast', false), 6),
+      $hex-bg-page,
+      'color-compare-hue'
+    );
     --clr-txt-base: #{$hex-txt-base};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -118,6 +117,53 @@
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function obtains the relative luminance of a color. (WCAG20)
+///
+/// @param {color} $color
+///   The color whose relative luminance is to be obtained.
+///
+/// @returns {unitless}
+///   The relative luminance of a color, from 0->1.
+///
+/// @group color
+///
+@function color-get-luminance($color) {
+  @if not check($color, 'color') {
+    @return -1;
+  }
+
+  $r: _luminance-index(color.red($color));
+  $g: _luminance-index(color.green($color));
+  $b: _luminance-index(color.blue($color));
+  @return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This is an auxiliary function for `color-get-luminance()`. It obtains a luminance index for an rgb
+/// value.
+///
+/// @param {unitless} $value
+///   An rgb value of a color.
+///
+/// @return {number}
+///   The luminance index of that particular rgb value.
+///
+/// @group color
+///
+@function _luminance-index($value) {
+  @if not check($value, 'unitless') {
+    @return -1;
+  }
+
+  $channel: math.div($value, 255);
+  @return if(
+    $channel <= 0.03928,
+    math.div($channel, 12.92),
+    math.pow(math.div($channel + 0.055, 1.055), 2.4)
+  );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function calculates the Euclidean distance between two colors.
 ///
 /// @param {color} $a
@@ -132,6 +178,10 @@
 /// @group color
 ///
 @function color-compare-euclidean($a, $b) {
+  @if check-color-compare-function($a, $b) {
+    @return -1;
+  }
+
   @if check($a, 'color') and check($b, 'color') {
     $r: math.pow(red($a) - red($b), 2);
     $g: math.pow(green($a) - green($b), 2);
@@ -157,68 +207,105 @@
 /// @group color
 ///
 @function color-compare-hue($a, $b) {
-  @if check($a, 'color') and check($b, 'color') {
-    $hue-a: color.hue($a);
-    $hue-b: color.hue($b);
-    $difference: abs($hue-a - $hue-b);
-
-    @return if($difference > 180, 360 - $difference, $difference);
-  } @else {
+  @if check-color-compare-function($a, $b) {
     @return -1;
   }
+
+  $hue-a: color.hue($a);
+  $hue-b: color.hue($b);
+  $difference: abs($hue-a - $hue-b);
+
+  @return if($difference > 180, 360 - $difference, $difference);
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Using a callback function individually applied
+/// This function obtains the contrast ratio of two colors.
+///
+/// @param {color} $a
+///   The first color.
+///
+/// @param {color} $b
+///   The second color.
+///
+/// @return {unitless}
+///   The contrast value of `$a` on `$b`, a unitless number between 1 and 21 that represents the
+///   1:1->1:21 color contrast ratio range.
+///
+/// @group color
+///
+@function color-compare-contrast($a, $b) {
+  @if check-color-compare-function($a, $b) {
+    @return -1;
+  }
+
+  $a: color-get-luminance($a) + 0.05;
+  $b: color-get-luminance($b) + 0.05;
+
+  @return math.div(math.max($a, $b), math.min($a, $b));
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns the color in a list that is closest to the base color, based on a given comparing function.
 ///
 /// @param {list} $color-list
 ///   A list of colors to compare to the base color.
 ///
-/// @param {color} $base-color
+/// @param {color} $base
 ///   The base color to compare to the list of colors.
 ///
 /// @param {string} $callback
 ///   A function that compares two colors and reduces their difference to a number.
 ///
-/// @param {unitless} $n
-///   The number of closest colors to return (default: 1)
-///
-/// @return {list}
-///    A list of the $n closest colors to the base color
+/// @return {color}
+///    The closest color to the base color in the list.
 ///
 /// @group color
 ///
-/// @todo check parameter types
-/// @todo check if a function exists before trying to execute it.
-///
-@function color-list-reduce($color-list, $base, $callback, $n: 1) {
-  $closest-colors: ();
-
-  @for $i from 1 through $n {
-    $closest: null;
-    $closest-difference: null;
-
-    @each $color in $color-list {
-      $color-difference: meta.call(get-function($callback), $color, $base);
-
-      @if not
-        index($closest-colors, $color) and
-        ($closest-difference == null or $color-difference < $closest-difference)
-      {
-        $closest-difference: $color-difference;
-        $closest: $color;
-      }
-    }
-
-    $closest-colors: append($closest-colors, $closest);
+@function color-list-reduce($color-list, $base, $callback) {
+  @if check-color-list-function($color-list, $base, $callback) {
+    @return null;
   }
 
-  @return $closest-colors;
+  $closest: null;
+  $closest-difference: null;
+
+  @each $color in $color-list {
+    $color-difference: meta.call(get-function($callback), $color, $base);
+
+    @if $closest-difference == null or $color-difference < $closest-difference {
+      $closest-difference: $color-difference;
+      $closest: $color;
+    }
+  }
+
+  @return $closest;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-//
-@function color-list-sort($color-list, $base, $callback) {
+/// This function sorts a list of color based on a specific color and a comparing function.
+///
+/// @param {list} $color-list
+///   A list of colors to compare to the base color.
+///
+/// @param {color} $base
+///   The base color to compare to the list of colors.
+///
+/// @param {string} $callback
+///   A function that compares two colors and reduces their difference to a number.
+///
+/// @param {bool} $ascending [true]
+///   True for low->high order. False for high->low order.
+///
+/// @return {list}
+///    An ordered copy of `$color-list` using a base color and a comparing function to sort.
+///
+/// @group color
+///
+@function color-list-sort($color-list, $base, $callback, $ascending: true) {
+  @if check-color-list-function($color-list, $base, $callback) or not check($ascending, 'bool') {
+    @return ();
+  }
+
   $sorted-colors: ();
 
   @while list.length($color-list) > 0 {
@@ -229,7 +316,11 @@
     @each $color in $color-list {
       $color-difference: meta.call(get-function($callback), $color, $base);
 
-      @if not $min-difference or $color-difference < $min-difference {
+      @if not
+        $min-difference or
+        ($ascending and $color-difference < $min-difference) or
+        (not($ascending) and $color-difference > $min-difference)
+      {
         $min-difference: $color-difference;
         $min-color: $color;
         $min-index: list.index($color-list, $color);
@@ -241,6 +332,53 @@
   }
 
   @return $sorted-colors;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function quickly checks if a "`color-list`" function has correct parameters.
+///
+/// @param {list} $color-list
+///   The "`color-list`" function's list of colors.
+///
+/// @param {color} $base
+///   The "`color-list`" function's base color.
+///
+/// @param {string} $callback
+///   The "`color-list`" function's callback name.
+///
+/// @return {bool}
+///   True if the parameters are correct.
+///
+/// @group color
+///
+@function check-color-list-function($color-list, $base, $callback) {
+  @if not(check($color-list, 'list') and check($base, 'color') and check($callback, 'string')) {
+    @return false;
+  }
+
+  @if meta.function-exists($callback) {
+    @return false;
+  }
+
+  @return true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function quickly checks if a "`color-compare`" function has correct parameters.
+///
+/// @param {color} $a
+///   The "`color-compare`" function's first color.
+///
+/// @param {color} $b
+///   The "`color-compare`" function's second color.
+///
+/// @return {bool}
+///   True if the parameters are correct.
+///
+/// @group color
+///
+@function check-color-compare-function($a, $b) {
+  @return not(check($a, 'color') and check($b, 'color'));
 }
 
 // =====================================================================================================
