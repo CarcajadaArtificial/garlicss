@@ -1,15 +1,16 @@
 # Changelog
 
-## `v0.2.5`
+## `v0.2.6`
 
-- Removed internal module
-  - `src/internal/*`
-  - `test/_internal.test.scss`
+- `src/_color.scss`
+  - Added the `theme-builder()` and `check-theme-builder()` functions.
+  - Added `color-compare-()` functions for euclidean distance and hue difference.
+  - Added functions for sorting and reducing color lists.
 
-- Updated to support `sass-door`
-  - `src/_grid.scss`
-  - `src/_media-queries.scss`
-  - `test/_media-queries.test.scss`
+- Minor updates
+  - `src/default/index.scss`
+  - `dist/style.css`
+  - `dist/style.min.css`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

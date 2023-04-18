@@ -4,8 +4,268 @@
 //   \___\___/_\___/_|
 //
 // =====================================================================================================
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:color';
 @use '../lib/sass-door' as *;
-@use 'internal' as *;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin simplifies the complex process of building a cohesive theme.
+///
+/// @param {map} $palette
+///   This map contains the list of colors available for theme generation. The keys must be the names of
+///     the colors and the map's value must be the color value itself.
+///
+/// @param {string} $personality
+///   The name of the color that will be used as the website idenitity.
+///
+/// @param {string} $background
+///   The name of the background of the website's body.
+///
+/// @content
+///   This mixin will create a series of css variables that work as the theme's areas of effect.
+///
+/// @group color
+///
+@mixin build-theme($palette, $personality, $background) {
+  @if check-build-theme($palette, $personality, $background) {
+    $palette-hex-list: map-values(map-remove($palette, $personality, $background));
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-bg-page: map-get($palette, $background);
+    --clr-bg-page: #{$hex-bg-page};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-txt-personality: map-get($palette, $personality);
+    --clr-txt-personality: #{$hex-txt-personality};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $palette-by-euclidean-bg-page: color-list-sort(
+      $palette-hex-list,
+      $hex-bg-page,
+      'color-compare-euclidean'
+    );
+    $hex-bg-panel: color-list-reduce(
+      list-cut($palette-by-euclidean-bg-page, 3),
+      $hex-bg-page,
+      'color-compare-hue'
+    );
+    --clr-bg-panel: #{$hex-bg-panel};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-txt-base: 'pending';
+    --clr-txt-base: #{$hex-txt-base};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-border: $hex-txt-base;
+    --clr-border: #{$hex-border};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-txt-error: 'pending';
+    --clr-txt-error: #{$hex-txt-error};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-bg-input: 'pending';
+    --clr-bg-input: #{$hex-bg-input};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-bg-disabled: 'pending';
+    --clr-bg-disabled: #{$hex-bg-disabled};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-txt-disabled: 'pending';
+    --clr-txt-disabled: #{$hex-txt-disabled};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-bg-error: 'pending';
+    --clr-bg-error: #{$hex-bg-error};
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function checks if the arguments in the `build-theme()` function are correct.
+///
+/// @param {map} $palette
+///   The `$palette` argument in `build-theme()`;
+///
+/// @param {string} $personality
+///   The `$personality` argument in `build-theme()`;
+///
+/// @param {string} $background
+///   The `$background` argument in `build-theme()`;
+///
+/// @returns {boolean}
+///   True if the arguments are correct, false if they're not.
+///
+/// @group color
+///
+@function check-build-theme($palette, $personality, $background) {
+  @if check($palette, 'map') and check($personality, 'string') and check($background, 'string') {
+    @if not map-has-key($palette, $personality) {
+      $error: throw(index-msg($personality, $palette));
+      @return false;
+    } @else if not map-has-key($palette, $background) {
+      $error: throw(index-msg($background, $palette));
+      @return false;
+    } @else {
+      @return true;
+    }
+  } @else {
+    @return false;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function calculates the Euclidean distance between two colors.
+///
+/// @param {color} $a
+///   The first color.
+///
+/// @param {color} $b
+///   The second color.
+///
+/// @return {number}
+///   The distance between the colors.
+///
+/// @group color
+///
+@function color-compare-euclidean($a, $b) {
+  @if check($a, 'color') and check($b, 'color') {
+    $r: math.pow(red($a) - red($b), 2);
+    $g: math.pow(green($a) - green($b), 2);
+    $b: math.pow(blue($a) - blue($b), 2);
+    @return math.sqrt($r + $g + $b);
+  } @else {
+    @return -1;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function compares the hue values of two colors.
+///
+/// @param {color} $a
+///   The first color.
+///
+/// @param {color} $b
+///   The second color.
+///
+/// @return {deg}
+///   The difference between both numbers. (0-360)
+///
+/// @group color
+///
+@function color-compare-hue($a, $b) {
+  @if check($a, 'color') and check($b, 'color') {
+    $hue-a: color.hue($a);
+    $hue-b: color.hue($b);
+    $difference: abs($hue-a - $hue-b);
+
+    @return if($difference > 180, 360 - $difference, $difference);
+  } @else {
+    @return -1;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Using a callback function individually applied
+///
+/// @param {list} $color-list
+///   A list of colors to compare to the base color.
+///
+/// @param {color} $base-color
+///   The base color to compare to the list of colors.
+///
+/// @param {string} $callback
+///   A function that compares two colors and reduces their difference to a number.
+///
+/// @param {unitless} $n
+///   The number of closest colors to return (default: 1)
+///
+/// @return {list}
+///    A list of the $n closest colors to the base color
+///
+/// @group color
+///
+/// @todo check parameter types
+/// @todo check if a function exists before trying to execute it.
+///
+@function color-list-reduce($color-list, $base, $callback, $n: 1) {
+  $closest-colors: ();
+
+  @for $i from 1 through $n {
+    $closest: null;
+    $closest-difference: null;
+
+    @each $color in $color-list {
+      $color-difference: meta.call(get-function($callback), $color, $base);
+
+      @if not
+        index($closest-colors, $color) and
+        ($closest-difference == null or $color-difference < $closest-difference)
+      {
+        $closest-difference: $color-difference;
+        $closest: $color;
+      }
+    }
+
+    $closest-colors: append($closest-colors, $closest);
+  }
+
+  @return $closest-colors;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//
+@function color-list-sort($color-list, $base, $callback) {
+  $sorted-colors: ();
+
+  @while list.length($color-list) > 0 {
+    $min-color: null;
+    $min-difference: null;
+    $min-index: null;
+
+    @each $color in $color-list {
+      $color-difference: meta.call(get-function($callback), $color, $base);
+
+      @if not $min-difference or $color-difference < $min-difference {
+        $min-difference: $color-difference;
+        $min-color: $color;
+        $min-index: list.index($color-list, $color);
+      }
+    }
+
+    $sorted-colors: append($sorted-colors, $min-color);
+    $color-list: list-remove($color-list, $min-index);
+  }
+
+  @return $sorted-colors;
+}
+
+// =====================================================================================================
+// Build Entire Palette
+// =====================================================================================================
+/// This mixin creates classes for every entry inside a color palette list. Builds a `.txt-#{color}` and
+/// a `.bg-#{color}` classes for every entry.
+///
+/// @param {map} $palette
+///   The map containing all the color palettes.
+///
+/// @param {bool} $use-variables
+///   True: uses `var(--clr-#{$name})`. False: uses the actual color value in the palette.
+///
+/// @group color
+///
+@mixin build-entire-palette($palette, $use-variables: true) {
+  @if $use-variables {
+    :root {
+      @include build-color-variables($palette);
+    }
+  }
+  @include build-color-backgrounds($palette, $use-variables);
+  @include build-color-text($palette, $use-variables);
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin easily generates CSS variables in the document's root for every color in the palette.
