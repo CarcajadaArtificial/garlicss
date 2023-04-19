@@ -1,14 +1,10 @@
 # Changelog
 
-## `v0.2.7`
+## `v0.2.8`
 
-- Added the function `color-get-luminance()`, and its auxiliary `_luminance-index()`.
-- Added `hex-base-text` color to the theme.
-- Added type checks to various functions.
-- Added `color-compare-contrast()`.
-- Updated `color-list-reduce()` to only return one value instead of a list of size `$n`.
-- Updated `color-list-sort()` to have an `$ascending` parameter.
-- Removed `sass-fairy` dependency.
+- Added `$hex-txt-error` color on the theme.
+- Added `color-list-filter()` function.
+- Added `color-is-red()` and `color-is-contrasting()` filtering functions.
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

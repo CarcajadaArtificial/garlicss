@@ -62,7 +62,16 @@
     --clr-border: #{$hex-border};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-txt-error: 'pending';
+    $hex-txt-error: color-list-reduce(
+      color-list-filter(
+        color-list-filter($palette-hex-list, 'color-is-red'),
+        'color-is-contrasting',
+        $hex-bg-page,
+        7
+      ),
+      $hex-txt-personality,
+      'color-compare-euclidean'
+    );
     --clr-txt-error: #{$hex-txt-error};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -245,6 +254,43 @@
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function checks the "redness" of a color.
+///
+/// @param {color} $color
+///   The color that may be red.
+///
+/// @returns {bool}
+///   True if the colors hue is: 0 <= hue >= 5 or 330 <= hue >= 360. #fff also returns true in this
+///   conditions, but it is individually removed as it is pure white.
+///
+@function color-is-red($color) {
+  @if $color == #fff {
+    @return false;
+  }
+  $hue: color.hue($color);
+  @return ($hue >= 0deg and $hue <= 5deg) or ($hue >= 330deg and $hue <= 360deg);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function checks if a pair of colors are contrasting enough.
+///
+/// @param {color} $a
+///   The first color.
+///
+/// @param {color} $b
+///   The second color.
+///
+/// @param {unitless} $contrast
+///   The minimum contrast ratio.
+///
+/// @returns {bool}
+///   True if the contrast between $a and $b >= $contrast.
+///
+@function color-is-contrasting($a, $b, $contrast) {
+  @return color-compare-contrast($a, $b) >= $contrast;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Returns the color in a list that is closest to the base color, based on a given comparing function.
 ///
 /// @param {list} $color-list
@@ -260,6 +306,9 @@
 ///    The closest color to the base color in the list.
 ///
 /// @group color
+///
+/// @todo Upgrade limitations, from only supporting callback functions with specifically ($a, $b) color
+///   parameters, extend to any function with at least one color as parameter and spread parameter.
 ///
 @function color-list-reduce($color-list, $base, $callback) {
   @if check-color-list-function($color-list, $base, $callback) {
@@ -301,6 +350,9 @@
 ///
 /// @group color
 ///
+/// @todo Upgrade limitations, from only supporting callback functions with specifically ($a, $b) color
+///   parameters, extend to any function with at least one color as parameter and spread parameter.
+///
 @function color-list-sort($color-list, $base, $callback, $ascending: true) {
   @if check-color-list-function($color-list, $base, $callback) or not check($ascending, 'bool') {
     @return ();
@@ -332,6 +384,32 @@
   }
 
   @return $sorted-colors;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function retruns a list with all colors that make the callback function return true.
+///
+/// @param {list} $color-list
+///   A list of colors to be filtered
+///
+/// @param {string} $callback
+///   A function that uses a color paramater to return a boolean value.
+///
+/// @return {list}
+///   A list containing all the values that produce a truthful value from the callback function.
+///
+/// @group color
+///
+@function color-list-filter($color-list, $callback, $params...) {
+  $filtered-list: ();
+
+  @each $color in $color-list {
+    @if meta.call(get-function($callback), $color, $params...) {
+      $filtered-list: append($filtered-list, $color);
+    }
+  }
+
+  @return $filtered-list;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
