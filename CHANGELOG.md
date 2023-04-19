@@ -1,10 +1,9 @@
 # Changelog
 
-## `v0.2.8`
+## `v0.2.9`
 
-- Added `$hex-txt-error` color on the theme.
-- Added `color-list-filter()` function.
-- Added `color-is-red()` and `color-is-contrasting()` filtering functions.
+- Updated playground.
+- Removed the `hex-txt-disabled` color.
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

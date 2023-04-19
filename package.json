@@ -1,6 +1,6 @@
 {
   "name": "garlicss",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "GarliCSS 🧄 is an SCSS library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
@@ -16,7 +16,7 @@
     "publish": "npm publish; git checkout docs; git merge main --strategy-option ours; npm run doc; git add .; git commit -m \"Auto-update docs site\"; git push; git checkout main",
     "build": "sass src/default/index.scss dist/style.css --no-source-map; sass src/default/index.scss dist/style.min.css --no-source-map --style=compressed -q",
     "doc": "sassdoc src/",
-    "play": "sass test/playground/index.scss test/playground/result.css --no-source-map",
+    "play": "sass test/playground/index.scss test/playground/result.css --no-source-map -w",
     "test": "mocha"
   },
   "devDependencies": {
