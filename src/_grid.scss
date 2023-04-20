@@ -16,9 +16,10 @@
 ///
 /// @return {em} $u * $mult
 ///
-/// @todo validate $mult is a unitless number
-///
 /// @group grid
+///
+/// @todo check parameter type
+///
 @function x($mult) {
   @return $u * $mult;
 }
@@ -26,10 +27,29 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The $u variable is a value that represent the basic unit of measurement for layouts.
 ///
-/// @type em
+/// @type em [1.5em]
 ///
 /// @group grid
+///
 $u: 1.5em !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The $class-name-grid variable sets the name for the grid CSS class.
+///
+/// @type string ['grid']
+///
+/// @group grid
+///
+$class-name-grid: 'grid' !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The $class-name-layout variable sets the name for the layout- prefix in CSS classes.
+///
+/// @type string ['layout']
+///
+/// @group grid
+///
+$class-name-layout: 'layout' !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin creates the `.grid` CSS class using a list of grids schemas.
@@ -38,8 +58,8 @@ $u: 1.5em !default;
 ///
 /// @group grid
 ///
-@mixin build-grid($grid-schemas) {
-  .grid {
+@mixin build-grid($grid-schemas, $use-classes: false) {
+  @include conditional-selector('.#{$class-name-grid}', 'section', $use-classes) {
     display: grid;
     @each $schema in $grid-schemas {
       @include quick-mq(map-get($schema, mq)) {
@@ -92,17 +112,35 @@ $u: 1.5em !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin creates the `.layout-#{}` CSS classes using a map of layout schemes.
 ///
-/// @param {map} $layout-schemas - This parameter contains the map of layout schemas, see more in the variable $layout-schemas.
+/// @param {map} $layout-schemas
+///   This parameter contains the map of layout schemas, see more in the variable $layout-schemas.
 ///
 /// @group grid
 ///
-@mixin build-layouts($layout-schemas) {
+@mixin build-all-layouts($layout-schemas) {
   @each $name, $schema in $layout-schemas {
-    .layout-#{$name} {
-      .layout-module {
-        @include grid-column(map-get($schema, span), map-get($schema, offset));
-        @include layout-variations(map-get($schema, variations));
-      }
+    .#{$class-name-layout}-#{$name} {
+      @include build-layout($schema, false);
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group grid
+///
+/// @todo check parameter types
+///
+@mixin build-layout($schema, $use-classes: false) {
+  @if $use-classes {
+    .#{$class-name-layout}-module {
+      @include grid-column(map-get($schema, span), map-get($schema, offset));
+      @include layout-variations(map-get($schema, variations));
+    }
+  } @else {
+    section > article {
+      @include grid-column(map-get($schema, span), map-get($schema, offset));
+      @include layout-variations(map-get($schema, variations));
     }
   }
 }
@@ -157,7 +195,7 @@ $u: 1.5em !default;
   }
 
   @for $col from 1 through $highest-col {
-    .layout-module-#{$col} {
+    .#{$class-name-layout}-module-#{$col} {
       grid-column: span $col;
     }
   }

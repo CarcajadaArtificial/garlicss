@@ -73,92 +73,92 @@ $layout-schemas: (
       ),
     ),
   ),
-  // center: (
-  //   span: 10,
-  //   offset: 2,
-  //   variations: (
-  //     (
-  //       mq: only-on($breakpoints, sm),
-  //       span: 6,
-  //       offset: 0,
-  //     ),
-  //   ),
-  // ),
-  // focus: (
-  //   span: 8,
-  //   offset: 3,
-  //   variations: (
-  //     (
-  //       mq: only-on($breakpoints, sm),
-  //       span: 4,
-  //       offset: 1,
-  //     ),
-  //   ),
-  // ),
-  // halves: (
-  //   span: 6,
-  //   offset: 0,
-  //   variations: (
-  //     (
-  //       mq: only-on($breakpoints, sm),
-  //       span: 3,
-  //       offset: 0,
-  //     ),
-  //   ),
-  // ),
-  // thirds: (
-  //   span: 4,
-  //   offset: 0,
-  //   variations: (
-  //     (
-  //       mq: only-on($breakpoints, sm),
-  //       span: 2,
-  //       offset: 0,
-  //     ),
-  //   ),
-  // ),
-  // right: (
-  //   span: 4,
-  //   offset: 0,
-  //   variations: (
-  //     (
-  //       pseudo: ':nth-child(even)',
-  //       span: 8,
-  //       offset: 0,
-  //     ),
-  //     (
-  //       mq: only-on($breakpoints, sm),
-  //       span: 2,
-  //       offset: 0,
-  //     ),
-  //     (
-  //       pseudo: ':nth-child(even)',
-  //       mq: only-on($breakpoints, sm),
-  //       span: 4,
-  //       offset: 0,
-  //     ),
-  //   ),
-  // ),
-  // left: (
-  //   span: 4,
-  //   offset: 0,
-  //   variations: (
-  //     (
-  //       pseudo: ':nth-child(odd)',
-  //       span: 8,
-  //       offset: 0,
-  //     ),
-  //     (
-  //       mq: only-on($breakpoints, sm),
-  //       span: 2,
-  //       offset: 0,
-  //     ),
-  //     (
-  //       pseudo: ':nth-child(odd)',
-  //       mq: only-on($breakpoints, sm),
-  //       span: 4,
-  //       offset: 0,
-  //     ),
-  //   ),
-  // ),,
+  center: (
+    span: 10,
+    offset: 2,
+    variations: (
+      (
+        mq: only-on($breakpoints, sm),
+        span: 6,
+        offset: 0,
+      ),
+    ),
+  ),
+  focus: (
+    span: 8,
+    offset: 3,
+    variations: (
+      (
+        mq: only-on($breakpoints, sm),
+        span: 4,
+        offset: 1,
+      ),
+    ),
+  ),
+  halves: (
+    span: 6,
+    offset: 0,
+    variations: (
+      (
+        mq: only-on($breakpoints, sm),
+        span: 3,
+        offset: 0,
+      ),
+    ),
+  ),
+  thirds: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        mq: only-on($breakpoints, sm),
+        span: 2,
+        offset: 0,
+      ),
+    ),
+  ),
+  right: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        pseudo: ':nth-child(even)',
+        span: 8,
+        offset: 0,
+      ),
+      (
+        mq: only-on($breakpoints, sm),
+        span: 2,
+        offset: 0,
+      ),
+      (
+        pseudo: ':nth-child(even)',
+        mq: only-on($breakpoints, sm),
+        span: 4,
+        offset: 0,
+      ),
+    ),
+  ),
+  left: (
+    span: 4,
+    offset: 0,
+    variations: (
+      (
+        pseudo: ':nth-child(odd)',
+        span: 8,
+        offset: 0,
+      ),
+      (
+        mq: only-on($breakpoints, sm),
+        span: 2,
+        offset: 0,
+      ),
+      (
+        pseudo: ':nth-child(odd)',
+        mq: only-on($breakpoints, sm),
+        span: 4,
+        offset: 0,
+      ),
+    ),
+  ),
 );

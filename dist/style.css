@@ -38,11 +38,11 @@ video {
   --clr-bg-error: #783e53;
 }
 
-.grid {
+section {
   display: grid;
 }
 @media screen and (max-width: 39.9375em) {
-  .grid {
+  section {
     gap: 0.8503100088em;
     width: auto;
     margin: 0 0.8503100088em;
@@ -50,7 +50,7 @@ video {
   }
 }
 @media screen and (min-width: 40em) and (max-width: 99.9375em) {
-  .grid {
+  section {
     gap: 2.1257750221%;
     width: auto;
     margin: 0 calc(23.13871222% - 134.488008342px);
@@ -58,7 +58,7 @@ video {
   }
 }
 @media screen and (min-width: 100em) {
-  .grid {
+  section {
     gap: 1.5em;
     width: min-content;
     margin: 0 auto;
@@ -66,15 +66,11 @@ video {
   }
 }
 
-.layout-empty .layout-module {
-  grid-column: span 1;
-}
-
-.layout-full .layout-module {
+section > article {
   grid-column: span 12;
 }
 @media screen and (max-width: 39.9375em) {
-  .layout-full .layout-module {
+  section > article {
     grid-column: span 6;
   }
 }

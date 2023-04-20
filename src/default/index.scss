@@ -20,5 +20,4 @@
   @include build-theme($palette, 'mota', 'obsidiana');
 }
 @include build-grid($grid-schemas);
-@include build-layouts($layout-schemas);
-// @include build-modules($grid-schemas);
+@include build-layout(map.get($layout-schemas, 'full'));

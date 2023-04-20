@@ -122,6 +122,9 @@
 ///
 /// @group color
 ///
+/// @todo check luminosity of background color to make sure it is a capable light or dark theme.
+/// @todo check contrast between $personality and $background
+///
 @function check-build-theme($palette, $personality, $background) {
   @if check($palette, 'map') and check($personality, 'string') and check($background, 'string') {
     @if not map-has-key($palette, $personality) {
@@ -186,6 +189,10 @@
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group color
+///
+/// @todo write documentation
 ///
 @function mix-until-contrasting($base, $mixer, $contraster, $min-contrast) {
   @for $i from 1% through 99% {
