@@ -75,15 +75,32 @@
     --clr-txt-error: #{$hex-txt-error};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-bg-input: 'pending';
+    $txt-base-contrast-bg-page: color-compare-contrast($hex-bg-page, $hex-txt-base);
+    $hex-bg-input: mix-until-contrasting(
+      $hex-txt-personality,
+      $hex-bg-page,
+      $hex-txt-base,
+      $txt-base-contrast-bg-page * 0.5
+    );
     --clr-bg-input: #{$hex-bg-input};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-bg-disabled: 'pending';
+    $hex-bg-disabled: mix-until-contrasting(
+      $hex-txt-personality,
+      $hex-bg-page,
+      $hex-txt-base,
+      $txt-base-contrast-bg-page * 0.8
+    );
     --clr-bg-disabled: #{$hex-bg-disabled};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-bg-error: 'pending';
+    $txt-error-contrast-bg-page: color-compare-contrast($hex-bg-page, $hex-txt-error);
+    $hex-bg-error: mix-until-contrasting(
+      $hex-txt-error,
+      $hex-bg-page,
+      $hex-txt-base,
+      $txt-error-contrast-bg-page * 0.8
+    );
     --clr-bg-error: #{$hex-bg-error};
   }
 }
@@ -166,6 +183,20 @@
     math.div($channel, 12.92),
     math.pow(math.div($channel + 0.055, 1.055), 2.4)
   );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+@function mix-until-contrasting($base, $mixer, $contraster, $min-contrast) {
+  @for $i from 1% through 99% {
+    $new-color-mix: color.mix($mixer, $base, $i);
+
+    @if color-compare-contrast($new-color-mix, $contraster) >= $min-contrast {
+      @return $new-color-mix;
+    }
+  }
+
+  @return $new-color-mix;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

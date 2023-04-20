@@ -5,9 +5,9 @@
   --clr-txt-base: #eee6f2;
   --clr-border: #eee6f2;
   --clr-txt-error: #fc7ea8;
-  --clr-bg-input: pending;
-  --clr-bg-disabled: pending;
-  --clr-bg-error: pending;
+  --clr-bg-input: #0e4c2e;
+  --clr-bg-disabled: #0d271b;
+  --clr-bg-error: #783e53;
 }
 
 .mq-only-sm {

@@ -1,9 +1,8 @@
 # Changelog
 
-## `v0.2.9`
+## `v0.2.10`
 
-- Updated playground.
-- Removed the `hex-txt-disabled` color.
+- Added the colors `bg-input`, `bg-disabled`, and `bg-error`.
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
