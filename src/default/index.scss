@@ -16,8 +16,6 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CSS Building using this library has important order implications.
 @include build-reset();
-:root {
-  @include build-theme($palette, 'mota', 'obsidiana');
-}
+@include build-dual-theme($palette, 'mota', 'obsidiana', 'papel');
 @include build-grid($grid-schemas);
 @include build-layout(map.get($layout-schemas, 'full'));

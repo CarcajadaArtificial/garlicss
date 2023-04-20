@@ -12,6 +12,36 @@
 @use '../lib/sass-door' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates dark and light variations of the same theme. Dark color scheme is default.
+///
+/// @param {map} $palette
+///   This map contains the list of colors available for theme generation. The keys must be the names of
+///     the colors and the map's value must be the color value itself.
+///
+/// @param {string} $personality
+///   The name of the color that will be used as the website idenitity.
+///
+/// @param {string} $dark-bg
+///   The name of the background of the website's body in a dark color scheme.
+///
+/// @param {string} $light-bg
+///   The name of the background of the website's body in a light color scheme.
+///
+/// @content
+///   This mixin will create a series of css variables that work as the theme's areas of effect.
+///
+/// @group color
+///
+@mixin build-dual-theme($palette, $personality, $dark-bg, $light-bg) {
+  body {
+    @include build-theme($palette, $personality, $dark-bg);
+    @include quick-mq('(prefers-color-scheme: light)') {
+      @include build-theme($palette, $personality, $light-bg);
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin simplifies the complex process of building a cohesive theme.
 ///
 /// @param {map} $palette

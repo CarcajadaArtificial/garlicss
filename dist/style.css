@@ -26,7 +26,7 @@ video {
   max-width: 100%;
 }
 
-:root {
+body {
   --clr-bg-page: #0c0a0d;
   --clr-txt-personality: #12b362;
   --clr-bg-panel: #241f26;
@@ -36,6 +36,19 @@ video {
   --clr-bg-input: #0e4c2e;
   --clr-bg-disabled: #0d271b;
   --clr-bg-error: #783e53;
+}
+@media (prefers-color-scheme: light) {
+  body {
+    --clr-bg-page: #eee6f2;
+    --clr-txt-personality: #12b362;
+    --clr-bg-panel: #d5ced9;
+    --clr-txt-base: #0c0a0d;
+    --clr-border: #0c0a0d;
+    --clr-txt-error: #400020;
+    --clr-bg-input: #37bc7a;
+    --clr-bg-disabled: #b7d9ce;
+    --clr-bg-error: #d0bfce;
+  }
 }
 
 section {
@@ -67,10 +80,18 @@ section {
 }
 
 section > article {
-  grid-column: span 12;
+  grid-column: span 4;
+}
+section > article:nth-child(odd) {
+  grid-column: span 8;
 }
 @media screen and (max-width: 39.9375em) {
   section > article {
-    grid-column: span 6;
+    grid-column: span 2;
+  }
+}
+@media screen and (max-width: 39.9375em) {
+  section > article:nth-child(odd) {
+    grid-column: span 4;
   }
 }
