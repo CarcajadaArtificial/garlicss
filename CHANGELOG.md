@@ -1,8 +1,8 @@
 # Changelog
 
-## `v0.2.10`
+## `v0.2.11`
 
-- Added the colors `bg-input`, `bg-disabled`, and `bg-error`.
+- Added a simple css reset.
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

@@ -14,14 +14,11 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CSS Building
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// CSS Building using this library has important order implications. Mixins that affect the root must be placed first always.
+// CSS Building using this library has important order implications.
+@include build-reset();
 :root {
   @include build-theme($palette, 'mota', 'obsidiana');
-  // @include build-entire-palette($palette);
 }
-// Media queries
-@include build-queries($query-map);
-// Grid
 @include build-grid($grid-schemas);
 @include build-layouts($layout-schemas);
-@include build-modules($grid-schemas);
+// @include build-modules($grid-schemas);
