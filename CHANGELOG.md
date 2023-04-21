@@ -1,8 +1,16 @@
 # Changelog
 
-## `v0.2.13`
+## `v0.2.14`
 
-- Added dual theme builder. `/src/_color.scss`
+- `/src/_color.scss`
+  - Added the `color-get-contrast` and `color-compare-contrast` functions.
+  - Updated the `color-list-reduce` and `color-list-sort` functions to support spread parameters.
+
+- Added the `build-basic-styles` mixin. `/src/_reset.scss`
+
+- Updated Playground
+  - `/test/playground/index.scss`
+  - `/test/playground/index.html`
 
 - Minor updates
   - `/dist/style.css`

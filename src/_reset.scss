@@ -5,14 +5,15 @@
 //
 // =====================================================================================================
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group reset
+///
 @mixin build-reset() {
   *,
   *::before,
   *::after {
     box-sizing: border-box;
-  }
-
-  * {
     margin: 0;
     padding: 0;
     font: inherit;
@@ -32,5 +33,66 @@
   video {
     display: block;
     max-width: 100%;
+  }
+
+  input {
+    all: unset;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group reset
+///
+@mixin build-basic-styles() {
+  body {
+    background-color: var(--clr-bg-page);
+    color: var(--clr-txt-base);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--clr-txt-personality);
+  }
+
+  a {
+    color: var(--clr-txt-personality);
+    &:hover {
+      color: var(--clr-txt-personality);
+    }
+  }
+
+  input {
+    display: block;
+    background-color: var(--clr-bg-input);
+    -webkit-text-fill-color: var(--clr-txt-base);
+
+    &:invalid {
+      background-color: var(--clr-bg-error);
+    }
+  }
+
+  input[type='button'],
+  input[type='image'],
+  input[type='reset'],
+  input[type='submit'],
+  button,
+  a {
+    cursor: pointer;
+  }
+
+  main {
+    > header,
+    > footer {
+      background-color: var(--clr-bg-panel);
+    }
+  }
+
+  .txt-error {
+    color: var(--clr-txt-error);
   }
 }

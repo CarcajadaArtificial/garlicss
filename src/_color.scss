@@ -64,26 +64,35 @@
     $palette-hex-list: map-values(map-remove($palette, $personality, $background));
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    $hex-personality: map-get($palette, $personality);
+    --clr-personality: #{$hex-personality};
+
+    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $hex-bg-page: map-get($palette, $background);
     --clr-bg-page: #{$hex-bg-page};
 
+    --test: #{color-compare-contrast($hex-personality, $hex-bg-page, 5)};
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-txt-personality: map-get($palette, $personality);
+    $hex-txt-personality: color-list-reduce(
+      color-list-filter($palette-hex-list, 'color-is-contrasting', $hex-bg-page, 7),
+      'color-compare-euclidean',
+      $hex-personality
+    );
     --clr-txt-personality: #{$hex-txt-personality};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $hex-bg-panel: color-list-reduce(
-      list-cut(color-list-sort($palette-hex-list, $hex-bg-page, 'color-compare-euclidean'), 3),
-      $hex-bg-page,
-      'color-compare-hue'
+      list-cut(color-list-sort($palette-hex-list, 'color-compare-euclidean', true, $hex-bg-page), 3),
+      'color-compare-hue',
+      $hex-bg-page
     );
     --clr-bg-panel: #{$hex-bg-panel};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $hex-txt-base: color-list-reduce(
-      list-cut(color-list-sort($palette-hex-list, $hex-bg-page, 'color-compare-contrast', false), 6),
-      $hex-bg-page,
-      'color-compare-hue'
+      list-cut(color-list-sort($palette-hex-list, 'color-get-contrast', false, $hex-bg-page), 6),
+      'color-compare-hue',
+      $hex-bg-page
     );
     --clr-txt-base: #{$hex-txt-base};
 
@@ -97,17 +106,17 @@
         color-list-filter($palette-hex-list, 'color-is-red'),
         'color-is-contrasting',
         $hex-bg-page,
-        7
+        5
       ),
-      $hex-txt-personality,
-      'color-compare-euclidean'
+      'color-compare-euclidean',
+      $hex-personality
     );
     --clr-txt-error: #{$hex-txt-error};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $txt-base-contrast-bg-page: color-compare-contrast($hex-bg-page, $hex-txt-base);
+    $txt-base-contrast-bg-page: color-get-contrast($hex-bg-page, $hex-txt-base);
     $hex-bg-input: mix-until-contrasting(
-      $hex-txt-personality,
+      $hex-personality,
       $hex-bg-page,
       $hex-txt-base,
       $txt-base-contrast-bg-page * 0.5
@@ -116,7 +125,7 @@
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $hex-bg-disabled: mix-until-contrasting(
-      $hex-txt-personality,
+      $hex-personality,
       $hex-bg-page,
       $hex-txt-base,
       $txt-base-contrast-bg-page * 0.8
@@ -124,14 +133,11 @@
     --clr-bg-disabled: #{$hex-bg-disabled};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $txt-error-contrast-bg-page: color-compare-contrast($hex-bg-page, $hex-txt-error);
-    $hex-bg-error: mix-until-contrasting(
-      $hex-txt-error,
-      $hex-bg-page,
-      $hex-txt-base,
-      $txt-error-contrast-bg-page * 0.8
-    );
-    --clr-bg-error: #{$hex-bg-error};
+    $txt-error-contrast-bg-page: color-get-contrast($hex-bg-page, $hex-txt-error);
+    $contrast-goal: $txt-error-contrast-bg-page * 0.8;
+    // $hex-bg-error: mix-until-contrasting($hex-txt-error, $hex-bg-page, $hex-txt-base, $contrast-goal);
+    $hex-bg-error: color.change($hex-txt-error, $lightness: color.lightness($hex-bg-panel));
+    --clr-bg-error: #{color.mix($hex-bg-error, $hex-bg-page, 70%)};
   }
 }
 
@@ -228,7 +234,7 @@
   @for $i from 1% through 99% {
     $new-color-mix: color.mix($mixer, $base, $i);
 
-    @if color-compare-contrast($new-color-mix, $contraster) >= $min-contrast {
+    @if color-get-contrast($new-color-mix, $contraster) >= $min-contrast {
       @return $new-color-mix;
     }
   }
@@ -306,7 +312,7 @@
 ///
 /// @group color
 ///
-@function color-compare-contrast($a, $b) {
+@function color-get-contrast($a, $b) {
   @if check-color-compare-function($a, $b) {
     @return -1;
   }
@@ -315,6 +321,11 @@
   $b: color-get-luminance($b) + 0.05;
 
   @return math.div(math.max($a, $b), math.min($a, $b));
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+@function color-compare-contrast($a, $b, $contrast) {
+  @return math.abs(color-get-contrast($a, $b) - $contrast);
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -351,7 +362,7 @@
 ///   True if the contrast between $a and $b >= $contrast.
 ///
 @function color-is-contrasting($a, $b, $contrast) {
-  @return color-compare-contrast($a, $b) >= $contrast;
+  @return color-get-contrast($a, $b) >= $contrast;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -360,11 +371,11 @@
 /// @param {list} $color-list
 ///   A list of colors to compare to the base color.
 ///
-/// @param {color} $base
-///   The base color to compare to the list of colors.
-///
 /// @param {string} $callback
 ///   A function that compares two colors and reduces their difference to a number.
+///
+/// @param {color} $params
+///   The base color to compare to the list of colors.
 ///
 /// @return {color}
 ///    The closest color to the base color in the list.
@@ -374,8 +385,8 @@
 /// @todo Upgrade limitations, from only supporting callback functions with specifically ($a, $b) color
 ///   parameters, extend to any function with at least one color as parameter and spread parameter.
 ///
-@function color-list-reduce($color-list, $base, $callback) {
-  @if check-color-list-function($color-list, $base, $callback) {
+@function color-list-reduce($color-list, $callback, $params...) {
+  @if check-color-list-function($color-list, $callback) {
     @return null;
   }
 
@@ -383,7 +394,7 @@
   $closest-difference: null;
 
   @each $color in $color-list {
-    $color-difference: meta.call(get-function($callback), $color, $base);
+    $color-difference: meta.call(get-function($callback), $color, $params...);
 
     @if $closest-difference == null or $color-difference < $closest-difference {
       $closest-difference: $color-difference;
@@ -417,8 +428,8 @@
 /// @todo Upgrade limitations, from only supporting callback functions with specifically ($a, $b) color
 ///   parameters, extend to any function with at least one color as parameter and spread parameter.
 ///
-@function color-list-sort($color-list, $base, $callback, $ascending: true) {
-  @if check-color-list-function($color-list, $base, $callback) or not check($ascending, 'bool') {
+@function color-list-sort($color-list, $callback, $ascending: true, $params...) {
+  @if check-color-list-function($color-list, $callback) or not check($ascending, 'bool') {
     @return ();
   }
 
@@ -430,7 +441,7 @@
     $min-index: null;
 
     @each $color in $color-list {
-      $color-difference: meta.call(get-function($callback), $color, $base);
+      $color-difference: meta.call(get-function($callback), $color, $params...);
 
       @if not
         $min-difference or
@@ -482,9 +493,6 @@
 /// @param {list} $color-list
 ///   The "`color-list`" function's list of colors.
 ///
-/// @param {color} $base
-///   The "`color-list`" function's base color.
-///
 /// @param {string} $callback
 ///   The "`color-list`" function's callback name.
 ///
@@ -493,8 +501,8 @@
 ///
 /// @group color
 ///
-@function check-color-list-function($color-list, $base, $callback) {
-  @if not(check($color-list, 'list') and check($base, 'color') and check($callback, 'string')) {
+@function check-color-list-function($color-list, $callback) {
+  @if not(check($color-list, 'list') and check($callback, 'string')) {
     @return false;
   }
 

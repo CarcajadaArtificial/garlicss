@@ -16,6 +16,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CSS Building using this library has important order implications.
 @include build-reset();
-@include build-dual-theme($palette, 'mota', 'obsidiana', 'papel');
+@include build-dual-theme($palette, 'limon', 'obsidiana', 'papel');
 @include build-grid($grid-schemas);
-@include build-layout(map.get($layout-schemas, 'full'));
+@include build-layout(map.get($layout-schemas, 'left'));
+@include build-basic-styles();
