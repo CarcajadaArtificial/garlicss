@@ -71,7 +71,6 @@
     $hex-bg-page: map-get($palette, $background);
     --clr-bg-page: #{$hex-bg-page};
 
-    --test: #{color-compare-contrast($hex-personality, $hex-bg-page, 5)};
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $hex-txt-personality: color-list-reduce(
       color-list-filter($palette-hex-list, 'color-is-contrasting', $hex-bg-page, 7),
@@ -90,7 +89,7 @@
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $hex-txt-base: color-list-reduce(
-      list-cut(color-list-sort($palette-hex-list, 'color-get-contrast', false, $hex-bg-page), 6),
+      color-list-filter($palette-hex-list, 'color-is-contrasting', $hex-bg-panel, 7),
       'color-compare-hue',
       $hex-bg-page
     );
@@ -101,15 +100,14 @@
     --clr-border: #{$hex-border};
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-txt-error: color-list-reduce(
+    $hex-txt-error: list.nth(
       color-list-filter(
         color-list-filter($palette-hex-list, 'color-is-red'),
         'color-is-contrasting',
         $hex-bg-page,
         5
       ),
-      'color-compare-euclidean',
-      $hex-personality
+      1
     );
     --clr-txt-error: #{$hex-txt-error};
 
@@ -125,10 +123,10 @@
 
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $hex-bg-disabled: mix-until-contrasting(
-      $hex-personality,
+      $hex-txt-base,
       $hex-bg-page,
       $hex-txt-base,
-      $txt-base-contrast-bg-page * 0.8
+      $txt-base-contrast-bg-page * 0.3
     );
     --clr-bg-disabled: #{$hex-bg-disabled};
 

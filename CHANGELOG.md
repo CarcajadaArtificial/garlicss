@@ -1,16 +1,10 @@
 # Changelog
 
-## `v0.2.14`
+## `v0.2.15`
 
-- `/src/_color.scss`
-  - Added the `color-get-contrast` and `color-compare-contrast` functions.
-  - Updated the `color-list-reduce` and `color-list-sort` functions to support spread parameters.
-
-- Added the `build-basic-styles` mixin. `/src/_reset.scss`
-
-- Updated Playground
-  - `/test/playground/index.scss`
-  - `/test/playground/index.html`
+- Updated the `$hex-txt-error`, `$hex-txt-base`, and `$hex-bg-disabled` colors. `/src/_color.scss`
+- Added `.bg-color` and `button` styles. `/src/_reset.scss`
+- Updated Playground. `/test/playground/index.html`
 
 - Minor updates
   - `/dist/style.css`

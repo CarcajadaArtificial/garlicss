@@ -27,32 +27,34 @@ input {
   all: unset;
 }
 
+button {
+  border: none;
+}
+
 body {
   --clr-personality: #089969;
   --clr-bg-page: #0c0a0d;
-  --test: 0.4193023362;
   --clr-txt-personality: #12b362;
   --clr-bg-panel: #241f26;
   --clr-txt-base: #eee6f2;
   --clr-border: #eee6f2;
   --clr-txt-error: #f7577f;
   --clr-bg-input: #0a4c37;
-  --clr-bg-disabled: #0b271f;
+  --clr-bg-disabled: #666269;
   --clr-bg-error: #320511;
 }
 @media (prefers-color-scheme: light) {
   body {
     --clr-personality: #089969;
     --clr-bg-page: #eee6f2;
-    --test: 2.013185507;
     --clr-txt-personality: #0f474d;
     --clr-bg-panel: #d5ced9;
     --clr-txt-base: #0c0a0d;
     --clr-border: #0c0a0d;
-    --clr-txt-error: #400020;
+    --clr-txt-error: #66050d;
     --clr-bg-input: #5fb69d;
-    --clr-bg-disabled: #c0d7d7;
-    --clr-bg-error: #fabbdd;
+    --clr-bg-disabled: #847f86;
+    --clr-bg-error: #f7bdc6;
   }
 }
 
@@ -147,4 +149,9 @@ main > footer {
 
 .txt-error {
   color: var(--clr-txt-error);
+}
+
+.bg-disabled {
+  background-color: var(--clr-bg-disabled);
+  cursor: not-allowed;
 }

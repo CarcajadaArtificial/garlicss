@@ -38,6 +38,10 @@
   input {
     all: unset;
   }
+
+  button {
+    border: none;
+  }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -94,5 +98,10 @@
 
   .txt-error {
     color: var(--clr-txt-error);
+  }
+
+  .bg-disabled {
+    background-color: var(--clr-bg-disabled);
+    cursor: not-allowed;
   }
 }
