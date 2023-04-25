@@ -1,15 +1,21 @@
 # Changelog
 
-## `v0.2.15`
+## `v0.2.16`
 
-- Updated the `$hex-txt-error`, `$hex-txt-base`, and `$hex-bg-disabled` colors. `/src/_color.scss`
-- Added `.bg-color` and `button` styles. `/src/_reset.scss`
+- Added Modular Scale function
+  - `/src/_size.scss`
+  - `/src/_reset.scss`
+  - `/src/default/index.scss`
+
 - Updated Playground. `/test/playground/index.html`
 
 - Minor updates
   - `/dist/style.css`
   - `/dist/style.min.css`
-  - `/src/default/index.scss`
+  - `/src/_grid.scss`
+  - `/src/_color.scss`
+  - `/src/index.scss`
+  - `/src/default/_grid.default.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

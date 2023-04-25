@@ -52,6 +52,8 @@
   body {
     background-color: var(--clr-bg-page);
     color: var(--clr-txt-base);
+    font-size: var(--fs0);
+    line-height: var(--lh0);
   }
 
   h1,
@@ -61,6 +63,7 @@
   h5,
   h6 {
     color: var(--clr-txt-personality);
+    margin-bottom: 1.5rem;
   }
 
   a {
@@ -103,5 +106,52 @@
   .bg-disabled {
     background-color: var(--clr-bg-disabled);
     cursor: not-allowed;
+  }
+
+  p {
+    font-size: #{var(--fs0)};
+    line-height: #{var(--lh0)};
+
+    + h2,
+    + h3,
+    + h4,
+    + h5,
+    + h6 {
+      margin-top: 3rem;
+    }
+
+    + p {
+      margin-top: 1.5rem;
+    }
+  }
+
+  h6 {
+    font-size: #{var(--fs1)};
+    line-height: #{var(--lh1)};
+  }
+
+  h5 {
+    font-size: #{var(--fs2)};
+    line-height: #{var(--lh2)};
+  }
+
+  h4 {
+    font-size: #{var(--fs3)};
+    line-height: #{var(--lh3)};
+  }
+
+  h3 {
+    font-size: #{var(--fs4)};
+    line-height: #{var(--lh4)};
+  }
+
+  h2 {
+    font-size: #{var(--fs5)};
+    line-height: #{var(--lh5)};
+  }
+
+  h1 {
+    font-size: #{var(--fs6)};
+    line-height: #{var(--lh6)};
   }
 }

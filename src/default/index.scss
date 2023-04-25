@@ -16,7 +16,13 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CSS Building using this library has important order implications.
 @include build-reset();
-@include build-dual-theme($palette, 'limon', 'obsidiana', 'papel');
+:root {
+  @include build-dual-theme($palette, 'limon', 'obsidiana', 'papel');
+  @include build-sizes(0, 6, 1rem, 'major-third');
+  @media #{map.get($query-map, 'only-sm')} {
+    @include build-sizes(0, 6, 1rem, 'minor-third');
+  }
+}
 @include build-grid($grid-schemas);
-@include build-layout(map.get($layout-schemas, 'left'));
+@include build-layout(map.get($layout-schemas, 'focus'));
 @include build-basic-styles();

@@ -33,11 +33,9 @@
 /// @group color
 ///
 @mixin build-dual-theme($palette, $personality, $dark-bg, $light-bg) {
-  body {
-    @include build-theme($palette, $personality, $dark-bg);
-    @include quick-mq('(prefers-color-scheme: light)') {
-      @include build-theme($palette, $personality, $light-bg);
-    }
+  @include build-theme($palette, $personality, $dark-bg);
+  @include quick-mq('(prefers-color-scheme: light)') {
+    @include build-theme($palette, $personality, $light-bg);
   }
 }
 

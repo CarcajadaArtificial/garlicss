@@ -21,17 +21,17 @@
 /// @todo check parameter type
 ///
 @function x($mult) {
-  @return $u * $mult;
+  @return $layout-unit * $mult;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The $u variable is a value that represent the basic unit of measurement for layouts.
+/// The $layout-unit variable is a value that represent the basic unit of measurement for layouts.
 ///
 /// @type em [1.5em]
 ///
 /// @group grid
 ///
-$u: 1.5em !default;
+$layout-unit: 1.5em !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The $class-name-grid variable sets the name for the grid CSS class.

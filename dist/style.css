@@ -31,7 +31,7 @@ button {
   border: none;
 }
 
-body {
+:root {
   --clr-personality: #089969;
   --clr-bg-page: #0c0a0d;
   --clr-txt-personality: #12b362;
@@ -42,9 +42,23 @@ body {
   --clr-bg-input: #0a4c37;
   --clr-bg-disabled: #666269;
   --clr-bg-error: #320511;
+  --fs0: 1rem;
+  --lh0: 1.5rem;
+  --fs1: 1.25rem;
+  --lh1: 1.5rem;
+  --fs2: 1.5625rem;
+  --lh2: 3rem;
+  --fs3: 1.953125rem;
+  --lh3: 3rem;
+  --fs4: 2.44140625rem;
+  --lh4: 3rem;
+  --fs5: 3.0517578125rem;
+  --lh5: 4.5rem;
+  --fs6: 3.8146972656rem;
+  --lh6: 4.5rem;
 }
 @media (prefers-color-scheme: light) {
-  body {
+  :root {
     --clr-personality: #089969;
     --clr-bg-page: #eee6f2;
     --clr-txt-personality: #0f474d;
@@ -55,6 +69,24 @@ body {
     --clr-bg-input: #5fb69d;
     --clr-bg-disabled: #847f86;
     --clr-bg-error: #f7bdc6;
+  }
+}
+@media screen and (max-width: 39.9375em) {
+  :root {
+    --fs0: 1rem;
+    --lh0: 1.5rem;
+    --fs1: 1.2rem;
+    --lh1: 1.5rem;
+    --fs2: 1.44rem;
+    --lh2: 3rem;
+    --fs3: 1.728rem;
+    --lh3: 3rem;
+    --fs4: 2.0736rem;
+    --lh4: 3rem;
+    --fs5: 2.48832rem;
+    --lh5: 3rem;
+    --fs6: 2.985984rem;
+    --lh6: 4.5rem;
   }
 }
 
@@ -87,25 +119,19 @@ section {
 }
 
 section > article {
-  grid-column: span 4;
-}
-section > article:nth-child(odd) {
-  grid-column: span 8;
+  grid-column: 3/span 8;
 }
 @media screen and (max-width: 39.9375em) {
   section > article {
-    grid-column: span 2;
-  }
-}
-@media screen and (max-width: 39.9375em) {
-  section > article:nth-child(odd) {
-    grid-column: span 4;
+    grid-column: 2/span 4;
   }
 }
 
 body {
   background-color: var(--clr-bg-page);
   color: var(--clr-txt-base);
+  font-size: var(--fs0);
+  line-height: var(--lh0);
 }
 
 h1,
@@ -115,6 +141,7 @@ h4,
 h5,
 h6 {
   color: var(--clr-txt-personality);
+  margin-bottom: 1.5rem;
 }
 
 a {
@@ -154,4 +181,49 @@ main > footer {
 .bg-disabled {
   background-color: var(--clr-bg-disabled);
   cursor: not-allowed;
+}
+
+p {
+  font-size: var(--fs0);
+  line-height: var(--lh0);
+}
+p + h2,
+p + h3,
+p + h4,
+p + h5,
+p + h6 {
+  margin-top: 3rem;
+}
+p + p {
+  margin-top: 1.5rem;
+}
+
+h6 {
+  font-size: var(--fs1);
+  line-height: var(--lh1);
+}
+
+h5 {
+  font-size: var(--fs2);
+  line-height: var(--lh2);
+}
+
+h4 {
+  font-size: var(--fs3);
+  line-height: var(--lh3);
+}
+
+h3 {
+  font-size: var(--fs4);
+  line-height: var(--lh4);
+}
+
+h2 {
+  font-size: var(--fs5);
+  line-height: var(--lh5);
+}
+
+h1 {
+  font-size: var(--fs6);
+  line-height: var(--lh6);
 }
