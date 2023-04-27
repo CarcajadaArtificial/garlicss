@@ -131,7 +131,6 @@
     //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     $txt-error-contrast-bg-page: color-get-contrast($hex-bg-page, $hex-txt-error);
     $contrast-goal: $txt-error-contrast-bg-page * 0.8;
-    // $hex-bg-error: mix-until-contrasting($hex-txt-error, $hex-bg-page, $hex-txt-base, $contrast-goal);
     $hex-bg-error: color.change($hex-txt-error, $lightness: color.lightness($hex-bg-panel));
     --clr-bg-error: #{color.mix($hex-bg-error, $hex-bg-page, 70%)};
   }

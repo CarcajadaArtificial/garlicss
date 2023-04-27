@@ -134,6 +134,15 @@ body {
   line-height: var(--lh0);
 }
 
+.txt-error {
+  color: var(--clr-txt-error);
+}
+
+.bg-disabled {
+  background-color: var(--clr-bg-disabled);
+  cursor: not-allowed;
+}
+
 h1,
 h2,
 h3,
@@ -146,41 +155,10 @@ h6 {
 
 a {
   color: var(--clr-txt-personality);
+  cursor: pointer;
 }
 a:hover {
   color: var(--clr-txt-personality);
-}
-
-input {
-  display: block;
-  background-color: var(--clr-bg-input);
-  -webkit-text-fill-color: var(--clr-txt-base);
-}
-input:invalid {
-  background-color: var(--clr-bg-error);
-}
-
-input[type=button],
-input[type=image],
-input[type=reset],
-input[type=submit],
-button,
-a {
-  cursor: pointer;
-}
-
-main > header,
-main > footer {
-  background-color: var(--clr-bg-panel);
-}
-
-.txt-error {
-  color: var(--clr-txt-error);
-}
-
-.bg-disabled {
-  background-color: var(--clr-bg-disabled);
-  cursor: not-allowed;
 }
 
 p {
@@ -226,4 +204,34 @@ h2 {
 h1 {
   font-size: var(--fs6);
   line-height: var(--lh6);
+}
+
+input {
+  display: inline-block;
+  width: 100%;
+  background-color: var(--clr-bg-input);
+  -webkit-text-fill-color: var(--clr-txt-base);
+}
+input:invalid {
+  background-color: var(--clr-bg-error);
+}
+
+input[type=button],
+input[type=image],
+input[type=reset],
+input[type=submit] {
+  max-width: max-content;
+}
+
+input[type=button],
+input[type=image],
+input[type=reset],
+input[type=submit],
+button {
+  cursor: pointer;
+}
+
+main > header,
+main > footer {
+  background-color: var(--clr-bg-panel);
 }

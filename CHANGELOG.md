@@ -1,21 +1,18 @@
 # Changelog
 
-## `v0.2.16`
-
-- Added Modular Scale function
-  - `/src/_size.scss`
-  - `/src/_reset.scss`
-  - `/src/default/index.scss`
+## `v0.2.17`
 
 - Updated Playground. `/test/playground/index.html`
+
+- Removed `_reset.scss` and moved it to `default`.
+  - `/src/default/index.scss`
+  - `/src/index.scss`
+  - `/src/default/_reset.scss`
 
 - Minor updates
   - `/dist/style.css`
   - `/dist/style.min.css`
-  - `/src/_grid.scss`
   - `/src/_color.scss`
-  - `/src/index.scss`
-  - `/src/default/_grid.default.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
