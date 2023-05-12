@@ -1,18 +1,11 @@
 # Changelog
 
-## `v0.2.17`
-
-- Updated Playground. `/test/playground/index.html`
-
-- Removed `_reset.scss` and moved it to `default`.
-  - `/src/default/index.scss`
-  - `/src/index.scss`
-  - `/src/default/_reset.scss`
+## `v0.2.18`
 
 - Minor updates
   - `/dist/style.css`
   - `/dist/style.min.css`
-  - `/src/_color.scss`
+  - `/src/default/_reset.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -27,4 +20,10 @@
     - [x] Generation of classes and css variables.
     - [ ] Generation of gradients
     - [ ] Generation of themes
-      - [ ] Adaptability to dark mode.
+      - [x] Adaptability to dark mode.
+  - [ ] Fixes
+    - [ ] Fix grid layouts in mobile.
+    - [ ] Fix button sizes.
+    - [ ] Fix input types date and time height.
+    - [ ] Fix input types file, range, and color.
+    - [ ] Fix missing select element.

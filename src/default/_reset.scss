@@ -162,6 +162,12 @@
     &:invalid {
       background-color: var(--clr-bg-error);
     }
+
+    &::-webkit-datetime-edit {
+      line-height: 1;
+      padding: 0;
+      margin-bottom: -1px;
+    }
   }
 
   input[type='button'],
