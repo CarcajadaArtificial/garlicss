@@ -35,7 +35,38 @@ $scales: (
 ///
 /// @group sizes
 ///
-$line-height-unit: 1.5rem;
+$line-height-unit: 1.5rem !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group sizes
+///
+$box-spaces: (
+  eighth: 0.125,
+  quarter: 0.25,
+  three-eights: 0.375,
+  third: 0.3333333333,
+  half: 0.5,
+  five-eights: 0.625,
+  two-thirds: 0.6666666666,
+  three-quarters: 0.75,
+  seven-eights: 0.875,
+  base: 1,
+  one-and-half: 1.5,
+  double: 2,
+  triple: 3,
+  quadruple: 4,
+) !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group sizes
+///
+@mixin build-box-spaces($base: 1rem) {
+  @each $space, $multiplier in $box-spaces {
+    --s-#{$space}: #{map-get($box-spaces, $space) * $base};
+  }
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
@@ -44,8 +75,9 @@ $line-height-unit: 1.5rem;
 @mixin build-sizes($from: 0, $through: 0, $base: 1rem, $ratio: 1) {
   @for $i from $from through $through {
     $font-size: modular-scale($i, $base, $ratio);
+    $line-height: closest-line-height($font-size);
     --fs#{$i}: #{$font-size};
-    --lh#{$i}: #{closest-line-height($font-size)};
+    --lh#{$i}: #{$line-height};
   }
 }
 
@@ -82,6 +114,10 @@ $line-height-unit: 1.5rem;
   @return $range;
 }
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group sizes
+///
 @function closest-line-height($font-size) {
   $result: $line-height-unit;
 

@@ -20,6 +20,7 @@
 :root {
   @include build-dual-theme($palette, 'limon', 'obsidiana', 'papel');
   @include build-sizes(0, 6, 1rem, 'major-third');
+  @include build-box-spaces();
   @media #{map.get($query-map, 'only-sm')} {
     @include build-sizes(0, 6, 1rem, 'minor-third');
   }

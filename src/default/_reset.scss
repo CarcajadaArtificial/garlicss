@@ -101,50 +101,50 @@
   }
 
   p {
-    font-size: #{var(--fs0)};
-    line-height: #{var(--lh0)};
+    font-size: var(--fs0);
+    line-height: var(--lh0);
 
     + h2,
     + h3,
     + h4,
     + h5,
     + h6 {
-      margin-top: 3rem;
+      margin-top: var(--s-triple);
     }
 
     + p {
-      margin-top: 1.5rem;
+      margin-top: var(--s-one-and-half);
     }
   }
 
   h6 {
-    font-size: #{var(--fs1)};
-    line-height: #{var(--lh1)};
+    font-size: var(--fs1);
+    line-height: var(--lh1);
   }
 
   h5 {
-    font-size: #{var(--fs2)};
-    line-height: #{var(--lh2)};
+    font-size: var(--fs2);
+    line-height: var(--lh2);
   }
 
   h4 {
-    font-size: #{var(--fs3)};
-    line-height: #{var(--lh3)};
+    font-size: var(--fs3);
+    line-height: var(--lh3);
   }
 
   h3 {
-    font-size: #{var(--fs4)};
-    line-height: #{var(--lh4)};
+    font-size: var(--fs4);
+    line-height: var(--lh4);
   }
 
   h2 {
-    font-size: #{var(--fs5)};
-    line-height: #{var(--lh5)};
+    font-size: var(--fs5);
+    line-height: var(--lh5);
   }
 
   h1 {
-    font-size: #{var(--fs6)};
-    line-height: #{var(--lh6)};
+    font-size: var(--fs6);
+    line-height: var(--lh6);
   }
 }
 
@@ -168,21 +168,24 @@
       padding: 0;
       margin-bottom: -1px;
     }
+
+    &[type='button'],
+    &[type='image'],
+    &[type='reset'],
+    &[type='submit'] {
+      max-width: max-content;
+      cursor: pointer;
+    }
   }
 
-  input[type='button'],
-  input[type='image'],
-  input[type='reset'],
-  input[type='submit'] {
-    max-width: max-content;
-  }
-
-  input[type='button'],
-  input[type='image'],
-  input[type='reset'],
-  input[type='submit'],
   button {
     cursor: pointer;
+
+    &:disabled {
+      background-color: var(--clr-bg-disabled);
+      cursor: not-allowed;
+      color: inherit;
+    }
   }
 
   main {
