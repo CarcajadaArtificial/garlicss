@@ -1,15 +1,17 @@
 # Changelog
 
-## `v0.2.19`
+## `v0.2.20`
 
-- Added the `box-sizes` feature inside the size module.
+- Updated form element spacing
   - `/src/default/_reset.scss`
-  - `/src/_size.scss`
+  - `/src/index.scss`
+
+- Updated playground
+  - `/test/playground/index.html`
 
 - Minor updates
   - `/dist/style.css`
   - `/dist/style.min.css`
-  - `/src/default/index.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

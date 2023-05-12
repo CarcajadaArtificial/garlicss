@@ -158,6 +158,8 @@
     width: 100%;
     background-color: var(--clr-bg-input);
     -webkit-text-fill-color: var(--clr-txt-base);
+    padding: var(--s-quarter) var(--s-third);
+    border-radius: var(--s-eighth);
 
     &:invalid {
       background-color: var(--clr-bg-error);
@@ -169,17 +171,26 @@
       margin-bottom: -1px;
     }
 
-    &[type='button'],
-    &[type='image'],
-    &[type='reset'],
-    &[type='submit'] {
-      max-width: max-content;
-      cursor: pointer;
+    &[type='date'],
+    &[type='time'] {
+      padding: var(--s-third) var(--s-third) 0 var(--s-third);
+    }
+
+    &[type='color'] {
+      height: 32px;
     }
   }
 
+  input[type='button'],
+  input[type='image'],
+  input[type='reset'],
+  input[type='submit'],
   button {
+    max-width: max-content;
     cursor: pointer;
+    background-color: var(--clr-bg-input);
+    padding: var(--s-eighth) var(--s-third);
+    border-radius: var(--s-eighth);
 
     &:disabled {
       background-color: var(--clr-bg-disabled);

@@ -133,11 +133,19 @@ section {
 }
 
 section > article {
-  grid-column: 3/span 8;
+  grid-column: span 4;
+}
+section > article:nth-child(odd) {
+  grid-column: span 8;
 }
 @media screen and (max-width: 39.9375em) {
   section > article {
-    grid-column: 2/span 4;
+    grid-column: span 2;
+  }
+}
+@media screen and (max-width: 39.9375em) {
+  section > article:nth-child(odd) {
+    grid-column: span 4;
   }
 }
 
@@ -225,6 +233,8 @@ input {
   width: 100%;
   background-color: var(--clr-bg-input);
   -webkit-text-fill-color: var(--clr-txt-base);
+  padding: var(--s-quarter) var(--s-third);
+  border-radius: var(--s-eighth);
 }
 input:invalid {
   background-color: var(--clr-bg-error);
@@ -234,14 +244,28 @@ input::-webkit-datetime-edit {
   padding: 0;
   margin-bottom: -1px;
 }
-input[type=button], input[type=image], input[type=reset], input[type=submit] {
-  max-width: max-content;
-  cursor: pointer;
+input[type=date], input[type=time] {
+  padding: var(--s-third) var(--s-third) 0 var(--s-third);
+}
+input[type=color] {
+  height: 32px;
 }
 
+input[type=button],
+input[type=image],
+input[type=reset],
+input[type=submit],
 button {
+  max-width: max-content;
   cursor: pointer;
+  background-color: var(--clr-bg-input);
+  padding: var(--s-eighth) var(--s-third);
+  border-radius: var(--s-eighth);
 }
+input[type=button]:disabled,
+input[type=image]:disabled,
+input[type=reset]:disabled,
+input[type=submit]:disabled,
 button:disabled {
   background-color: var(--clr-bg-disabled);
   cursor: not-allowed;
