@@ -37,8 +37,8 @@ $grid-schemas: (
   ),
   (
     cols: 12,
-    gutter: x(1),
-    colwidth: x(3),
+    gutter: 1.5rem,
+    colwidth: 4.5rem,
     fixedcol: true,
     mq: only-on($breakpoints, lg),
   );

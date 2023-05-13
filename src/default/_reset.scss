@@ -160,15 +160,23 @@
 /// @group reset
 ///
 @mixin build-input-elements() {
-  input {
+  input,
+  select,
+  textarea {
     display: inline-block;
-    width: 100%;
+    width: calc(100% - var(--s-two-thirds));
+    max-width: var(--s-fifteen);
     background-color: var(--clr-bg-input);
-    -webkit-text-fill-color: var(--clr-txt-base);
+    border: none;
     padding: var(--s-quarter) var(--s-third);
     border-radius: var(--s-eighth);
     height: var(--s-one-and-half);
-    max-width: var(--s-fifteen);
+    vertical-align: middle;
+    box-sizing: content-box;
+  }
+
+  input {
+    -webkit-text-fill-color: var(--clr-txt-base);
 
     &:invalid {
       background-color: var(--clr-bg-error);
@@ -209,15 +217,6 @@
   }
 
   select {
-    display: inline-block;
-    width: 100%;
-    background-color: var(--clr-bg-input);
-    border: none;
-    padding: var(--s-quarter) var(--s-third);
-    border-radius: var(--s-eighth);
-    max-width: var(--s-fifteen);
-    box-sizing: content-box;
-
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -228,17 +227,5 @@
     + label {
       margin-top: var(--s-half);
     }
-  }
-
-  textarea {
-    display: inline-block;
-    width: 100%;
-    max-width: var(--s-fifteen);
-    background-color: var(--clr-bg-input);
-    border: none;
-    padding: var(--s-quarter) var(--s-third);
-    border-radius: var(--s-eighth);
-    vertical-align: middle;
-    box-sizing: content-box;
   }
 }

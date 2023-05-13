@@ -10,30 +10,6 @@
 @use '../lib/sass-door' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The x() function simplifies the multiplication of the basic unit. Instead of writing `$u * .5`, one can use `x(.5)`
-///
-/// @param {unitless} $mult
-///
-/// @return {em} $u * $mult
-///
-/// @group grid
-///
-/// @todo check parameter type
-///
-@function x($mult) {
-  @return $layout-unit * $mult;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// The $layout-unit variable is a value that represent the basic unit of measurement for layouts.
-///
-/// @type em [1.5em]
-///
-/// @group grid
-///
-$layout-unit: 1.5em !default;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The $class-name-grid variable sets the name for the grid CSS class.
 ///
 /// @type string ['grid']

@@ -32,32 +32,30 @@ $scales: (
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///
-/// @group sizes
-///
-$line-height-unit: 1.5rem !default;
+// prettier-ignore
+$box-spaces: (
+  eighth:             0.125,
+  quarter:            0.25,
+  three-eights:       0.375,
+  third:              0.3333333333,
+  half:               0.5,
+  five-eights:        0.625,
+  two-thirds:         0.6666666666,
+  three-quarters:     0.75,
+  seven-eights:       0.875,
+  single:             1,
+  one-and-half:       1.5,
+  double:             2,
+  triple:             3,
+  quadruple:          4,
+  fifteen:            15,
+) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
 /// @group sizes
 ///
-$box-spaces: (
-  eighth: 0.125,
-  quarter: 0.25,
-  three-eights: 0.375,
-  third: 0.3333333333,
-  half: 0.5,
-  five-eights: 0.625,
-  two-thirds: 0.6666666666,
-  three-quarters: 0.75,
-  seven-eights: 0.875,
-  single: 1,
-  one-and-half: 1.5,
-  double: 2,
-  triple: 3,
-  quadruple: 4,
-  fifteen: 20,
-) !default;
+$line-height-unit: 1.5rem !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///

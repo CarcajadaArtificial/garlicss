@@ -1,12 +1,13 @@
 # Changelog
 
-## `v0.2.21`
+## `v0.2.22`
 
-- Added `<select/>` and `<textbox/>` support
-  - `/src/default/_reset.scss`
+- Removed `x()` and `layout-unit`
+  - `/src/_grid.scss`
+  - `/src/default/_grid.default.scss`
 
-- Updated playground
-  - `/test/playground/index.html`
+- Simplified reset code
+  - `/src/default/_reset.default.scss`
 
 - Minor updates
   - `/dist/style.css`
@@ -25,11 +26,11 @@
   - [ ] A color palette engine
     - [x] Generation of classes and css variables.
     - [ ] Generation of gradients
-    - [ ] Generation of themes
+    - [x] Generation of themes
       - [x] Adaptability to dark mode.
-  - [ ] Fixes
+  - [x] Fixes
     - [x] Fix `<button disabled />` case.
-    - [ ] Fix grid layouts in mobile.
+    - [x] Fix grid layouts in mobile.
     - [x] Fix button sizes.
     - [x] Fix input types date and time height.
     - [x] Fix input types file, range, and color.
