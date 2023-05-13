@@ -65,11 +65,12 @@ button {
   --s-two-thirds: 0.6666666666rem;
   --s-three-quarters: 0.75rem;
   --s-seven-eights: 0.875rem;
-  --s-base: 1rem;
+  --s-single: 1rem;
   --s-one-and-half: 1.5rem;
   --s-double: 2rem;
   --s-triple: 3rem;
   --s-quadruple: 4rem;
+  --s-fifteen: 20rem;
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -156,6 +157,11 @@ body {
   line-height: var(--lh0);
 }
 
+main > header,
+main > footer {
+  background-color: var(--clr-bg-panel);
+}
+
 .txt-error {
   color: var(--clr-txt-error);
 }
@@ -235,6 +241,8 @@ input {
   -webkit-text-fill-color: var(--clr-txt-base);
   padding: var(--s-quarter) var(--s-third);
   border-radius: var(--s-eighth);
+  height: var(--s-one-and-half);
+  max-width: var(--s-fifteen);
 }
 input:invalid {
   background-color: var(--clr-bg-error);
@@ -247,8 +255,8 @@ input::-webkit-datetime-edit {
 input[type=date], input[type=time] {
   padding: var(--s-third) var(--s-third) 0 var(--s-third);
 }
-input[type=color] {
-  height: 32px;
+input[type=range] {
+  vertical-align: middle;
 }
 
 input[type=button],
@@ -272,7 +280,35 @@ button:disabled {
   color: inherit;
 }
 
-main > header,
-main > footer {
-  background-color: var(--clr-bg-panel);
+select {
+  display: inline-block;
+  width: 100%;
+  background-color: var(--clr-bg-input);
+  border: none;
+  padding: var(--s-quarter) var(--s-third);
+  border-radius: var(--s-eighth);
+  max-width: var(--s-fifteen);
+  box-sizing: content-box;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+label {
+  display: block;
+}
+label + label {
+  margin-top: var(--s-half);
+}
+
+textarea {
+  display: inline-block;
+  width: 100%;
+  max-width: var(--s-fifteen);
+  background-color: var(--clr-bg-input);
+  border: none;
+  padding: var(--s-quarter) var(--s-third);
+  border-radius: var(--s-eighth);
+  vertical-align: middle;
+  box-sizing: content-box;
 }

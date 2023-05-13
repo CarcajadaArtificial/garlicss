@@ -1,10 +1,9 @@
 # Changelog
 
-## `v0.2.20`
+## `v0.2.21`
 
-- Updated form element spacing
+- Added `<select/>` and `<textbox/>` support
   - `/src/default/_reset.scss`
-  - `/src/index.scss`
 
 - Updated playground
   - `/test/playground/index.html`
@@ -12,6 +11,7 @@
 - Minor updates
   - `/dist/style.css`
   - `/dist/style.min.css`
+  - `/src/_size.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -30,7 +30,7 @@
   - [ ] Fixes
     - [x] Fix `<button disabled />` case.
     - [ ] Fix grid layouts in mobile.
-    - [ ] Fix button sizes.
-    - [ ] Fix input types date and time height.
-    - [ ] Fix input types file, range, and color.
-    - [ ] Fix missing select element.
+    - [x] Fix button sizes.
+    - [x] Fix input types date and time height.
+    - [x] Fix input types file, range, and color.
+    - [x] Fix missing select and textarea elements.
