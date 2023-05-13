@@ -1,18 +1,14 @@
 # Changelog
 
-## `v0.2.22`
+## `v0.2.23`
 
-- Removed `x()` and `layout-unit`
-  - `/src/_grid.scss`
-  - `/src/default/_grid.default.scss`
-
-- Simplified reset code
-  - `/src/default/_reset.default.scss`
+- Removed `grid` test module
+  - `/test/_grid.test.scss`
 
 - Minor updates
+  - `/src/default/_grid.default.scss`
   - `/dist/style.css`
   - `/dist/style.min.css`
-  - `/src/_size.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

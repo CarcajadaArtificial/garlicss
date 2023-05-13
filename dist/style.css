@@ -110,9 +110,9 @@ section {
 }
 @media screen and (max-width: 39.9375em) {
   section {
-    gap: 0.8503100088em;
+    gap: 0.8503100088rem;
     width: auto;
-    margin: 0 0.8503100088em;
+    margin: 0 0.8503100088rem;
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
