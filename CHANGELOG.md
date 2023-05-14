@@ -1,12 +1,15 @@
 # Changelog
 
-## `v0.2.23`
+## `v0.2.24`
 
-- Removed `grid` test module
-  - `/test/_grid.test.scss`
+- Applied vertical rythm to all elements.
+  - `/src/default/_reset.default.scss`
+  - `/test/playground/index.html`
+
+- Added documentation and renamed `$line-height-unit` to `$vertical-rythm`.
+  - `/src/_size.scss`
 
 - Minor updates
-  - `/src/default/_grid.default.scss`
   - `/dist/style.css`
   - `/dist/style.min.css`
 
@@ -22,6 +25,7 @@
   - [ ] A color palette engine
     - [x] Generation of classes and css variables.
     - [ ] Generation of gradients
+    - [ ] Hover color for links, inputs and buttons.
     - [x] Generation of themes
       - [x] Adaptability to dark mode.
   - [x] Fixes

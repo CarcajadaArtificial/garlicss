@@ -52,14 +52,23 @@ $box-spaces: (
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// The concept of vertical rhythm is a design principle used to create a consistent and harmonious flow
+/// of content on a page. It involves setting a base line height and then aligning all the elements on
+/// the page to that baseline, creating a sense of visual continuity.
 ///
 /// @group sizes
 ///
-$line-height-unit: 1.5rem !default;
+$vertical-rythm: 1.5rem !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Builds CSS custom properties for box spaces using a base value. `--s-name: X.XXXrem;`
+///
+/// @param {rem} $base [1rem]
+///   The base value to multiply each box space by.
 ///
 /// @group sizes
+///
+/// @todo Parameter type validation.
 ///
 @mixin build-box-spaces($base: 1rem) {
   @each $space, $multiplier in $box-spaces {
@@ -68,8 +77,28 @@ $line-height-unit: 1.5rem !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Builds CSS custom properties for font sizes and line heights using the provided SCSS mixin. The font
+/// sizes (`--fsX: XX.Xrem`) are calculated using the `modular-scale` function on the `$base` parameter,
+/// while the line heights (`--lhX: XXrem`) are calculated using the `closest-line-height` function that
+/// leverages the `$vertical-rythm` variable.
+///
+/// @param {unitless} $from [0]
+///   Starting value of the loop, can be a negative value for proportionally shorter sizes.
+///
+/// @param {unitless} $through [0]
+///   Ending value of the loop, must be larger than `$from`.
+///
+/// @param {rem} $base [1rem]
+///   The base value to use for the modular scale.
+///
+/// @param {unitless|string} $ratio [1]
+///   The ratio to use for the modular scale, can be a unitless integer or an index value of the
+///   variable `$scales`.
 ///
 /// @group sizes
+///
+/// @todo Parameter type validation.
+/// @todo $from < $through validation.
 ///
 @mixin build-sizes($from: 0, $through: 0, $base: 1rem, $ratio: 1) {
   @for $i from $from through $through {
@@ -81,19 +110,35 @@ $line-height-unit: 1.5rem !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// A function that calculates and returns a value on a modular scale. A modular scale is a set of
+/// values that increase or decrease proportionally, based on a fixed ratio. It is useful for creating
+/// harmonious and consistent typography, spacing, and sizing throughout a design system.
+///
+/// @param {unitless} $steps [0]
+///   The number of times on the `$ratio` will be multiplied (or divided if `$steps` is negative) to the
+///   `$base` parameter.
+///
+/// @param {rem} $base [1rem]
+///   The base value to use for the modular scale.
+///
+/// @param {unitless|string} $ratio [1]
+///   The ratio to use for the modular scale, can be a unitless integer or an index value of the
+///   variable `$scales`.
 ///
 /// @group sizes
 ///
-@function modular-scale($value: 0, $base: 1rem, $ratio: 1) {
+/// @todo Parameter type validation.
+///
+@function modular-scale($steps: 0, $base: 1rem, $ratio: 1) {
   $result: $base;
   $ratio: if(check-individual-type($ratio, 'unitless', true), $ratio, map.get($scales, $ratio));
-  @if $value > 0 {
-    @for $i from 1 through $value {
+  @if $steps > 0 {
+    @for $i from 1 through $steps {
       $result: $result * $ratio;
     }
-  } @else if $value < 0 {
-    $value: $value * -1;
-    @for $i from 0 through $value {
+  } @else if $steps < 0 {
+    $steps: $steps * -1;
+    @for $i from 0 through $steps {
       $result: math.div($result, $ratio);
     }
   }
@@ -101,27 +146,25 @@ $line-height-unit: 1.5rem !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// A function that calculates the closest line height based on a given font size and the vertical
+/// rhythm.
+///
+/// @param {rem} $font-size [1rem]
+///   The font size to use for calculating the line height.
+///
+/// @returns {rem}
+///   The calculated line height value that is closest to the fixed line height (1.12 x font size) and
+///   that is a multiple of the vertical rhythm.
 ///
 /// @group sizes
 ///
-@function modular-scale-range($from: 0, $through: 0, $base: 1rem, $ratio: 1) {
-  $range: ();
-  @for $i from $from through $through {
-    $ms: modular-scale($i, $base, $ratio);
-    $range: append($range, $ms);
-  }
-  @return $range;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// @todo Parameter type validation.
 ///
-/// @group sizes
-///
-@function closest-line-height($font-size) {
-  $result: $line-height-unit;
+@function closest-line-height($font-size: 1rem) {
+  $result: $vertical-rythm;
 
   @while $result < ($font-size * 1.12) {
-    $result: $result + $line-height-unit;
+    $result: $result + $vertical-rythm;
   }
 
   @return $result;

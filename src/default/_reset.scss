@@ -60,6 +60,9 @@
     > header,
     > footer {
       background-color: var(--clr-bg-panel);
+      padding: var(--s-triple) 0 var(--s-one-and-half) 0;
+      margin-bottom: var(--s-one-and-half);
+      filter: opacity(0.8);
     }
   }
 
@@ -75,11 +78,6 @@
 @mixin build-utility-classes() {
   .txt-error {
     color: var(--clr-txt-error);
-  }
-
-  .bg-disabled {
-    background-color: var(--clr-bg-disabled);
-    cursor: not-allowed;
   }
 }
 
@@ -173,6 +171,7 @@
     height: var(--s-one-and-half);
     vertical-align: middle;
     box-sizing: content-box;
+    font-size: var(--fs-1);
   }
 
   input {
@@ -190,6 +189,7 @@
 
     &[type='date'],
     &[type='time'] {
+      height: calc(var(--s-one-and-half) + 0.1671875rem);
       padding: var(--s-third) var(--s-third) 0 var(--s-third);
     }
 
@@ -206,8 +206,9 @@
     max-width: max-content;
     cursor: pointer;
     background-color: var(--clr-bg-input);
-    padding: var(--s-eighth) var(--s-third);
+    padding: var(--s-quarter) var(--s-five-eights);
     border-radius: var(--s-eighth);
+    margin: var(--s-third) 0 var(--s-two-thirds) 0;
 
     &:disabled {
       background-color: var(--clr-bg-disabled);
@@ -224,8 +225,11 @@
 
   label {
     display: block;
-    + label {
-      margin-top: var(--s-half);
+    margin-bottom: var(--s-two-thirds);
+
+    span {
+      margin-bottom: var(--s-third);
+      display: block;
     }
   }
 }
