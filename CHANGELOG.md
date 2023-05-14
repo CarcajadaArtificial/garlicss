@@ -1,17 +1,20 @@
 # Changelog
 
-## `v0.2.24`
+## `v0.2.25`
 
 - Applied vertical rythm to all elements.
   - `/src/default/_reset.default.scss`
-  - `/test/playground/index.html`
 
-- Added documentation and renamed `$line-height-unit` to `$vertical-rythm`.
-  - `/src/_size.scss`
+- Fixed grid gutter braking vertical rythm
+  - `/src/_grid.scss`
+
+- Updated playground
+  - `/test/playground/index.html`
+  - `/test/playground/index.scss`
 
 - Minor updates
-  - `/dist/style.css`
-  - `/dist/style.min.css`
+  - `/src/default/_reset.scss`
+  - `/src/default/index.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -35,3 +38,7 @@
     - [x] Fix input types date and time height.
     - [x] Fix input types file, range, and color.
     - [x] Fix missing select and textarea elements.
+
+## Goals for `v0.4.0` - Animation
+  - Features
+    - [ ] Hover animations for inputs, buttons and links.

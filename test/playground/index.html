@@ -13,6 +13,7 @@
       <header>
         <section>
           <article>
+            <h1>GarliCSS 🧄 Playground</h1>
             <p>
               Hello <code>( ´ ω ` )ノﾞ</code> thanks a lot for being interested in this project. This is
               the playground, this site is designed to be a live test of this library on the default
@@ -29,7 +30,43 @@
       </header>
       <div class="gradient-test"></div>
       <section>
+        <article></article>
         <article>
+          <h2>Form Elements</h2>
+          <h3>Native <em>'box'</em> types</h3>
+          <form>
+            <label>
+              <span>type="text"</span>
+              <input type="text" />
+            </label>
+            <label>
+              <span>type="password"</span>
+              <input type="password" />
+            </label>
+            <label>
+              <span>type="file"</span>
+              <input type="file" />
+            </label>
+            <label>
+              <span>type="hidden"</span>
+              <input type="hidden" />
+            </label>
+          </form>
+          <h3>Native button types</h3>
+          <p>type="button"</p>
+          <input type="button" value="button" />
+          <input type="button" value="disabled" disabled />
+          <p>type="image"</p>
+          <input type="image" value="button" />
+          <input type="image" value="disabled" disabled />
+          <p>type="submit"</p>
+          <input type="submit" value="button" />
+          <input type="submit" value="disabled" disabled />
+          <p>type="reset"</p>
+          <input type="reset" value="button" />
+          <input type="reset" value="disabled" disabled />
+          <!-- <h3>Native fieldset types</h3> -->
+          <h3>Other native elements</h3>
           <form>
             <label>
               <span>select</span>
@@ -45,6 +82,62 @@
               <span>textarea</span>
               <textarea></textarea>
             </label>
+          </form>
+          <p>button element</p>
+          <button>button</button>
+          <button disabled>disabled</button>
+          <h3>Required inputs</h3>
+          <form>
+            <label>
+              <span>required <em>'box'</em> input <span class="txt-error">*</span></span>
+              <input type="text" required />
+            </label>
+            <label>
+              <span>required date <span class="txt-error">*</span></span>
+              <input type="date" required></input>
+            </label>
+            <label>
+              <span>required select <span class="txt-error">*</span></span>
+              <select required>
+                <option value="" disabled selected>Select your option</option>
+                <option value="1">Option 1</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </label>
+            <label>
+              <span>required textarea <span class="txt-error">*</span></span>
+              <textarea required></textarea>
+            </label>
+          </form>
+          <h3>Disabled inputs</h3>
+          <form>
+            <label>
+              <span>disabled <em>'box'</em> input <span class="txt-error">*</span></span>
+              <input value="value" type="text" disabled />
+            </label>
+            <label>
+              <span>disabled date <span class="txt-error">*</span></span>
+              <input type="date" disabled></input>
+            </label>
+            <label>
+              <span>disabled select <span class="txt-error">*</span></span>
+              <select disabled>
+                <option value="" disabled selected>Select your option</option>
+                <option value="1" selected>Option 1</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </label>
+            <label>
+              <span>disabled textarea <span class="txt-error">*</span></span>
+              <textarea disabled>value</textarea>
+            </label>
+          </form>
+          <h3>HTML5 <em>'box'</em> types</h3>
+          <form>
             <label>
               <span>type="date"</span>
               <input type="date" />
@@ -78,10 +171,6 @@
               <input type="email" />
             </label>
             <label>
-              <span>type="password"</span>
-              <input type="password" />
-            </label>
-            <label>
               <span>type="search"</span>
               <input type="search" />
             </label>
@@ -89,14 +178,9 @@
               <span>type="url"</span>
               <input type="url" />
             </label>
-            <label>
-              <span>type="text"</span>
-              <input type="text" />
-            </label>
-            <label>
-              <span>type="file"</span>
-              <input type="file" />
-            </label>
+          </form>
+          <h3>Other HTML5 types</h3>
+          <form>
             <label>
               <span>type="color"</span>
               <input type="color" />
@@ -105,25 +189,9 @@
               <span>type="range"</span>
               <input type="range" />
             </label>
-
-            <label>
-              <span>required</span>
-              <input type="text" required />
-            </label>
-
-            <label>
-              <span>disabled</span>
-              <input type="text" disabled />
-            </label>
           </form>
         </article>
         <article>
-          <p>Input type submit</p>
-          <input type="button" value="submit" />
-          <input type="button" value="disabled submit" disabled />
-          <p>Button element</p>
-          <button>button</button>
-          <button disabled>disabled button</button>
           <p class="txt-error">Error message example.</p>
         </article>
       </section>

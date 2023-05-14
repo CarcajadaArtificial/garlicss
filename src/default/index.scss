@@ -26,5 +26,5 @@
   }
 }
 @include build-grid($grid-schemas);
-@include build-layout(map.get($layout-schemas, 'left'));
+@include build-layout(map.get($layout-schemas, 'focus'));
 @include build-basic-styles();

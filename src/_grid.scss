@@ -74,7 +74,7 @@ $class-name-layout: 'layout' !default;
 /// @group grid
 ///
 @mixin grid-schema($cols, $gutter, $colwidth, $fixedcol, $width: min-content, $margin: auto) {
-  gap: $gutter;
+  gap: 0 $gutter;
   width: $width;
   margin: 0 $margin;
 

@@ -110,7 +110,7 @@ section {
 }
 @media screen and (max-width: 39.9375em) {
   section {
-    gap: 0.8503100088rem;
+    gap: 0 0.8503100088rem;
     width: auto;
     margin: 0 0.8503100088rem;
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -118,7 +118,7 @@ section {
 }
 @media screen and (min-width: 40em) and (max-width: 99.9375em) {
   section {
-    gap: 2.1257750221%;
+    gap: 0 2.1257750221%;
     width: auto;
     margin: 0 calc(23.13871222% - 134.488008342px);
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -126,7 +126,7 @@ section {
 }
 @media screen and (min-width: 100em) {
   section {
-    gap: 1.5rem;
+    gap: 0 1.5rem;
     width: min-content;
     margin: 0 auto;
     grid-template-columns: repeat(12, minmax(4.5rem, 4.5rem));
@@ -134,19 +134,11 @@ section {
 }
 
 section > article {
-  grid-column: span 4;
-}
-section > article:nth-child(odd) {
-  grid-column: span 8;
+  grid-column: 3/span 8;
 }
 @media screen and (max-width: 39.9375em) {
   section > article {
-    grid-column: span 2;
-  }
-}
-@media screen and (max-width: 39.9375em) {
-  section > article:nth-child(odd) {
-    grid-column: span 4;
+    grid-column: 2/span 4;
   }
 }
 
@@ -163,6 +155,10 @@ main > footer {
   padding: var(--s-triple) 0 var(--s-one-and-half) 0;
   margin-bottom: var(--s-one-and-half);
   filter: opacity(0.8);
+}
+
+em {
+  font-style: italic;
 }
 
 .txt-error {
@@ -220,16 +216,28 @@ h4 {
 h3 {
   font-size: var(--fs4);
   line-height: var(--lh4);
+  font-weight: 600;
 }
 
 h2 {
   font-size: var(--fs5);
   line-height: var(--lh5);
+  font-weight: 600;
 }
 
 h1 {
   font-size: var(--fs6);
   line-height: var(--lh6);
+  font-weight: 600;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled {
+  background-color: var(--clr-bg-disabled);
+  cursor: not-allowed;
+  color: inherit;
 }
 
 input,
@@ -246,13 +254,26 @@ textarea {
   vertical-align: middle;
   box-sizing: content-box;
   font-size: var(--fs-1);
+  outline: 0;
+}
+input:invalid,
+select:invalid,
+textarea:invalid {
+  background-color: var(--clr-bg-error);
+}
+input:hover,
+select:hover,
+textarea:hover {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+}
+input:focus,
+select:focus,
+textarea:focus {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 }
 
 input {
   -webkit-text-fill-color: var(--clr-txt-base);
-}
-input:invalid {
-  background-color: var(--clr-bg-error);
 }
 input::-webkit-datetime-edit {
   line-height: 1;
@@ -279,27 +300,21 @@ button {
   border-radius: var(--s-eighth);
   margin: var(--s-third) 0 var(--s-two-thirds) 0;
 }
-input[type=button]:disabled,
-input[type=image]:disabled,
-input[type=reset]:disabled,
-input[type=submit]:disabled,
-button:disabled {
-  background-color: var(--clr-bg-disabled);
-  cursor: not-allowed;
-  color: inherit;
-}
 
 select {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
 }
+select:disabled {
+  opacity: 1;
+}
 
 label {
   display: block;
   margin-bottom: var(--s-two-thirds);
 }
-label span {
+label > span {
   margin-bottom: var(--s-third);
   display: block;
 }

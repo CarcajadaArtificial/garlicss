@@ -49,6 +49,17 @@
 /// @group reset
 ///
 @mixin build-basic-styles() {
+  @include build-semantic-elements();
+  @include build-utility-classes();
+  @include build-type-elements();
+  @include build-input-elements();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group reset
+///
+@mixin build-semantic-elements() {
   body {
     background-color: var(--clr-bg-page);
     color: var(--clr-txt-base);
@@ -66,9 +77,9 @@
     }
   }
 
-  @include build-utility-classes();
-  @include build-type-elements();
-  @include build-input-elements();
+  em {
+    font-style: italic;
+  }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -140,16 +151,19 @@
   h3 {
     font-size: var(--fs4);
     line-height: var(--lh4);
+    font-weight: 600;
   }
 
   h2 {
     font-size: var(--fs5);
     line-height: var(--lh5);
+    font-weight: 600;
   }
 
   h1 {
     font-size: var(--fs6);
     line-height: var(--lh6);
+    font-weight: 600;
   }
 }
 
@@ -158,6 +172,17 @@
 /// @group reset
 ///
 @mixin build-input-elements() {
+  input,
+  select,
+  textarea,
+  button {
+    &:disabled {
+      background-color: var(--clr-bg-disabled);
+      cursor: not-allowed;
+      color: inherit;
+    }
+  }
+
   input,
   select,
   textarea {
@@ -172,14 +197,23 @@
     vertical-align: middle;
     box-sizing: content-box;
     font-size: var(--fs-1);
-  }
-
-  input {
-    -webkit-text-fill-color: var(--clr-txt-base);
+    outline: 0;
 
     &:invalid {
       background-color: var(--clr-bg-error);
     }
+
+    &:hover {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+    }
+
+    &:focus {
+      background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+    }
+  }
+
+  input {
+    -webkit-text-fill-color: var(--clr-txt-base);
 
     &::-webkit-datetime-edit {
       line-height: 1;
@@ -209,25 +243,23 @@
     padding: var(--s-quarter) var(--s-five-eights);
     border-radius: var(--s-eighth);
     margin: var(--s-third) 0 var(--s-two-thirds) 0;
-
-    &:disabled {
-      background-color: var(--clr-bg-disabled);
-      cursor: not-allowed;
-      color: inherit;
-    }
   }
 
   select {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
+
+    &:disabled {
+      opacity: 1;
+    }
   }
 
   label {
     display: block;
     margin-bottom: var(--s-two-thirds);
 
-    span {
+    > span {
       margin-bottom: var(--s-third);
       display: block;
     }
