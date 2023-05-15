@@ -1,20 +1,13 @@
 # Changelog
 
-## `v0.2.25`
+## `v0.2.26`
 
-- Applied vertical rythm to all elements.
-  - `/src/default/_reset.default.scss`
-
-- Fixed grid gutter braking vertical rythm
-  - `/src/_grid.scss`
+- `/src/default/_reset.default.scss`
+  - Fixed disabled input type backgrounds.
+  - Added fieldset input types.
 
 - Updated playground
   - `/test/playground/index.html`
-  - `/test/playground/index.scss`
-
-- Minor updates
-  - `/src/default/_reset.scss`
-  - `/src/default/index.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

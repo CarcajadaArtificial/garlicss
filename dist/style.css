@@ -231,15 +231,6 @@ h1 {
   font-weight: 600;
 }
 
-input:disabled,
-select:disabled,
-textarea:disabled,
-button:disabled {
-  background-color: var(--clr-bg-disabled);
-  cursor: not-allowed;
-  color: inherit;
-}
-
 input,
 select,
 textarea {
@@ -287,6 +278,17 @@ input[type=date], input[type=time] {
 input[type=range] {
   vertical-align: middle;
 }
+input[type=checkbox], input[type=radio] {
+  all: revert;
+  width: min-content;
+  margin: 0;
+  vertical-align: middle;
+}
+
+fieldset {
+  border: 0;
+  margin-bottom: var(--s-one-and-half);
+}
 
 input[type=button],
 input[type=image],
@@ -312,9 +314,22 @@ select:disabled {
 
 label {
   display: block;
+}
+label > span + input,
+label > span + select,
+label > span + textarea {
   margin-bottom: var(--s-two-thirds);
 }
-label > span {
+label > span:first-child {
   margin-bottom: var(--s-third);
   display: block;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled {
+  background-color: var(--clr-bg-disabled);
+  cursor: not-allowed;
+  color: inherit;
 }

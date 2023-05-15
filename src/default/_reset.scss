@@ -174,17 +174,6 @@
 @mixin build-input-elements() {
   input,
   select,
-  textarea,
-  button {
-    &:disabled {
-      background-color: var(--clr-bg-disabled);
-      cursor: not-allowed;
-      color: inherit;
-    }
-  }
-
-  input,
-  select,
   textarea {
     display: inline-block;
     width: calc(100% - var(--s-two-thirds));
@@ -230,6 +219,19 @@
     &[type='range'] {
       vertical-align: middle;
     }
+
+    &[type='checkbox'],
+    &[type='radio'] {
+      all: revert;
+      width: min-content;
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
+
+  fieldset {
+    border: 0;
+    margin-bottom: var(--s-one-and-half);
   }
 
   input[type='button'],
@@ -257,11 +259,29 @@
 
   label {
     display: block;
-    margin-bottom: var(--s-two-thirds);
 
     > span {
+      + input,
+      + select,
+      + textarea {
+        margin-bottom: var(--s-two-thirds);
+      }
+    }
+
+    > span:first-child {
       margin-bottom: var(--s-third);
       display: block;
+    }
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    &:disabled {
+      background-color: var(--clr-bg-disabled);
+      cursor: not-allowed;
+      color: inherit;
     }
   }
 }

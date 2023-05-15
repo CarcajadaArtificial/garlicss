@@ -33,7 +33,7 @@
         <article></article>
         <article>
           <h2>Form Elements</h2>
-          <h3>Native <em>'box'</em> types</h3>
+          <h3>Basic inputs</h3>
           <form>
             <label>
               <span>type="text"</span>
@@ -51,23 +51,44 @@
               <span>type="hidden"</span>
               <input type="hidden" />
             </label>
-          </form>
-          <h3>Native button types</h3>
-          <p>type="button"</p>
-          <input type="button" value="button" />
-          <input type="button" value="disabled" disabled />
-          <p>type="image"</p>
-          <input type="image" value="button" />
-          <input type="image" value="disabled" disabled />
-          <p>type="submit"</p>
-          <input type="submit" value="button" />
-          <input type="submit" value="disabled" disabled />
-          <p>type="reset"</p>
-          <input type="reset" value="button" />
-          <input type="reset" value="disabled" disabled />
-          <!-- <h3>Native fieldset types</h3> -->
-          <h3>Other native elements</h3>
-          <form>
+            <fieldset>
+              <legend>type="checkbox"</legend>
+              <label>
+                <input type="checkbox" name="checkbox" />
+                <span>option 1</span>
+              </label>
+              <label>
+                <input type="checkbox" name="checkbox" />
+                <span>option 2</span>
+              </label>
+              <label>
+                <input type="checkbox" name="checkbox" />
+                <span>option 3</span>
+              </label>
+              <label>
+                <input type="checkbox" name="checkbox" />
+                <span>option 4</span>
+              </label>
+            </fieldset>
+            <fieldset>
+              <legend>type="radio"</legend>
+              <label>
+                <input type="radio" name="radio" />
+                <span>option 1</span>
+              </label>
+              <label>
+                <input type="radio" name="radio" />
+                <span>option 2</span>
+              </label>
+              <label>
+                <input type="radio" name="radio" />
+                <span>option 3</span>
+              </label>
+              <label>
+                <input type="radio" name="radio" />
+                <span>option 4</span>
+              </label>
+            </fieldset>
             <label>
               <span>select</span>
               <select>
@@ -82,11 +103,33 @@
               <span>textarea</span>
               <textarea></textarea>
             </label>
+            <div>
+              <p>type="button"</p>
+              <input type="button" value="button" />
+              <input type="button" value="disabled" disabled />
+            </div>
+            <div>
+              <p>type="image"</p>
+              <input type="image" value="button" />
+              <input type="image" value="disabled" disabled />
+            </div>
+            <div>
+              <p>type="submit"</p>
+              <input type="submit" value="button" />
+              <input type="submit" value="disabled" disabled />
+            </div>
+            <div>
+              <p>type="reset"</p>
+              <input type="reset" value="button" />
+              <input type="reset" value="disabled" disabled />
+            </div>
+            <div>
+              <p>button element</p>
+              <button>button</button>
+              <button disabled>disabled</button>
+            </div>
           </form>
-          <p>button element</p>
-          <button>button</button>
-          <button disabled>disabled</button>
-          <h3>Required inputs</h3>
+          <h3>Input states</h3>
           <form>
             <label>
               <span>required <em>'box'</em> input <span class="txt-error">*</span></span>
@@ -94,7 +137,7 @@
             </label>
             <label>
               <span>required date <span class="txt-error">*</span></span>
-              <input type="date" required></input>
+              <input type="date" required />
             </label>
             <label>
               <span>required select <span class="txt-error">*</span></span>
@@ -110,16 +153,13 @@
               <span>required textarea <span class="txt-error">*</span></span>
               <textarea required></textarea>
             </label>
-          </form>
-          <h3>Disabled inputs</h3>
-          <form>
             <label>
               <span>disabled <em>'box'</em> input <span class="txt-error">*</span></span>
               <input value="value" type="text" disabled />
             </label>
             <label>
               <span>disabled date <span class="txt-error">*</span></span>
-              <input type="date" disabled></input>
+              <input type="date" disabled />
             </label>
             <label>
               <span>disabled select <span class="txt-error">*</span></span>
@@ -136,7 +176,7 @@
               <textarea disabled>value</textarea>
             </label>
           </form>
-          <h3>HTML5 <em>'box'</em> types</h3>
+          <h3>HTML5 types</h3>
           <form>
             <label>
               <span>type="date"</span>
@@ -178,9 +218,6 @@
               <span>type="url"</span>
               <input type="url" />
             </label>
-          </form>
-          <h3>Other HTML5 types</h3>
-          <form>
             <label>
               <span>type="color"</span>
               <input type="color" />
