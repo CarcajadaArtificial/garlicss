@@ -1,18 +1,9 @@
 # Changelog
 
-## `v0.2.28`
+## `v0.2.29`
 
-- `/test/playground/index.html`
- - Added documentation paragraphs.
- - Reordered page elements.
-
-- Removed `--clr-border` from palette. There are no borders.
-  - `/src/_color.scss`
-
-- Added CSS Variables automatic display.
-  - `/test/playground/index.html`
-  - `/test/playground/index.scss`
-  - `/test/playground/script.js`
+- Minor updates
+  - `test/playground/index.html`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -34,6 +25,12 @@
     - [x] Fix input types date and time height.
     - [x] Fix input types file, range, and color.
     - [x] Fix missing select and textarea elements.
+    - [ ] Fix `_reset.scss` structure, move functions to their own files. (remove `build-basic-styles`)
+  - [ ] Playground
+    - [ ] Error message mini-component.
+    - [ ] Linkmap mini-component.
+    - [ ] Headings with id's.
+    - [ ] Document multiplicative sizes.
 
 ## Goals for `v0.4.0` - Animation
   - Features
@@ -43,3 +40,6 @@
   - Missing configurations
     - [ ] Configure what text element will have what step of the modular scale set to its size.
     - [ ] Configure what text color will be applied to every element.
+
+## The future?
+  - [ ] Useful font mixins and functions. Importing, applying, verifying and managing.
