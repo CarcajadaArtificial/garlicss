@@ -1,13 +1,10 @@
 # Changelog
 
-## `v0.2.26`
+## `v0.2.27`
 
-- `/src/default/_reset.default.scss`
-  - Fixed disabled input type backgrounds.
-  - Added fieldset input types.
-
-- Updated playground
+- Minor updates
   - `/test/playground/index.html`
+  - `/src/default/_reset.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

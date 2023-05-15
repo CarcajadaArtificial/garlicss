@@ -153,8 +153,6 @@ main > header,
 main > footer {
   background-color: var(--clr-bg-panel);
   padding: var(--s-triple) 0 var(--s-one-and-half) 0;
-  margin-bottom: var(--s-one-and-half);
-  filter: opacity(0.8);
 }
 
 em {
