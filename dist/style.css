@@ -37,7 +37,6 @@ button {
   --clr-txt-personality: #12b362;
   --clr-bg-panel: #241f26;
   --clr-txt-base: #eee6f2;
-  --clr-border: #eee6f2;
   --clr-txt-error: #f7577f;
   --clr-bg-input: #0a4c37;
   --clr-bg-disabled: #666269;
@@ -79,7 +78,6 @@ button {
     --clr-txt-personality: #0f474d;
     --clr-bg-panel: #d5ced9;
     --clr-txt-base: #0c0a0d;
-    --clr-border: #0c0a0d;
     --clr-txt-error: #66050d;
     --clr-bg-input: #5fb69d;
     --clr-bg-disabled: #847f86;

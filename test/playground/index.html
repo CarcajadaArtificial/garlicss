@@ -16,11 +16,11 @@
             <h1>GarliCSS 🧄 Playground</h1>
             <p>
               Hello <code>( ´ ω ` )ノﾞ</code> thanks a lot for being interested in this project. This is
-              the playground, this site is designed to be a live test of this library on the default
-              settings. Here, things like themes, grid systems, media queries, and every other feature
-              offered must be available for testing as if we were in a closed lab. This simulation is
-              meant to start with the bare minimum required to make a functional, usable, accessible, and
-              aesthetic website. But it must be extendible to test anything it can offer.
+              the playground, a site designed to be a live test of this library on the default settings.
+              Here, things like themes, grid systems, media queries, and every other feature offered must
+              be available for testing as if we were in a closed lab. This simulation is meant to start
+              with the bare minimum required to make a functional, usable, accessible, and aesthetic
+              website. But it must be as extendible as possible.
             </p>
           </article>
           <article>
@@ -29,10 +29,67 @@
         </section>
       </header>
       <section>
-        <article></article>
         <article>
-          <h2>Form Elements</h2>
+          <h2>CSS Variables</h2>
+          <h3>Color palette</h3>
+          <p>
+            While individually naming every color shade in a palette may require additional effort, the
+            benefits it brings to web design are worth the investment. By analyzing and filtering colors
+            based on their uniqueness compared to other colors within the palette, we unlock a world of
+            advantages. Individually naming color shades enables precise communication, facilitates
+            consistency across design assets, and empowers developers to make informed decisions when
+            implementing the design. Furthermore, it fosters a deeper understanding of color
+            relationships, encourages thoughtful color selection, and ultimately results in a more
+            cohesive and polished visual experience for users. Though it demands extra work, the rewards
+            of meticulously naming colors are undeniable, elevating web design to new heights of precision
+            and sophistication.
+          </p>
+          <div id="color-palette-container"></div>
+          <p>
+            In the ever-evolving digital landscape, generated color palettes that dynamically adapt to
+            light or dark mode epitomize the harmony between aesthetics and functionality. By
+            intelligently responding to the user's environment, these color palettes ensure optimal
+            readability, visual appeal, and accessibility across diverse contexts. They not only elevate
+            the user experience but also reflect the maturation of web design, where adaptability and
+            inclusivity merge seamlessly to create a cohesive and captivating visual journey for users,
+            regardless of their preferred mode of interaction.
+          </p>
+          <h3>Typographical modular scale</h3>
+          <p>
+            The typographical modular scale, a design principle based on harmonious proportions, imparts
+            an elegant and visually structured quality to web typography. By adhering to a well-defined
+            scale, designers can achieve a delicate balance between various font sizes, fostering
+            readability and aesthetic coherence throughout the digital realm.
+          </p>
+          <div id="modular-scale-container"></div>
+          <p>
+            Just like the notes of a perfectly orchestrated symphony, the typographical modular scale adds
+            a sublime rhythm to web design, creating a harmonious composition that engages and guides
+            users through a delightful typographic journey.
+          </p>
+          <p>
+            The choice of the 'minor-third' scale for standard web typography is far from arbitrary, as
+            its inherent properties create a captivating harmony that resonates with users. The carefully
+            calculated proportions between font sizes, based on the musical interval of a minor third,
+            result in a harmonious progression that feels inherently pleasing to the human eye. This scale
+            establishes a visual cadence, evoking a sense of balance and order, ultimately enhancing the
+            legibility, aesthetic appeal, and overall user experience of web typography. Embracing the
+            'minor-third' scale is akin to infusing a composition with a melodic charm, allowing web
+            designers to orchestrate a symphony of visual delight for their audience.
+          </p>
+          <!-- <h3>Multiplicative sizes</h3> -->
+          <!-- <div id="sizes-container"></div> -->
+          <h2>Interactive Elements</h2>
+          <p>
+            Interactive elements on the web are like the spice of life in the digital realm - without
+            them, it's a bland and tasteless experience. They inject vitality, engagement, and a sense of
+            control into our online endeavors, making the web a truly dynamic and empowering space.
+          </p>
           <h3>Basic inputs</h3>
+          <p>
+            When it comes to web development, the humble quartet of basic inputs, selects, textareas, and
+            buttons may appear unassuming, but their significance cannot be overstated.
+          </p>
           <form>
             <label>
               <span>type="text"</span>
@@ -49,6 +106,20 @@
             <label>
               <span>type="hidden"</span>
               <input type="hidden" />
+            </label>
+            <label>
+              <span>select element</span>
+              <select>
+                <option value="" disabled selected>Select your option</option>
+                <option value="1">Option 1</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </label>
+            <label>
+              <span>textarea element</span>
+              <textarea></textarea>
             </label>
             <fieldset>
               <legend>type="checkbox"</legend>
@@ -88,20 +159,6 @@
                 <span>option 4</span>
               </label>
             </fieldset>
-            <label>
-              <span>select</span>
-              <select>
-                <option value="" disabled selected>Select your option</option>
-                <option value="1">Option 1</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-            </label>
-            <label>
-              <span>textarea</span>
-              <textarea></textarea>
-            </label>
             <div>
               <p>type="button"</p>
               <input type="button" value="button" />
@@ -128,7 +185,16 @@
               <button disabled>disabled</button>
             </div>
           </form>
+          <p>
+            These unpretentious elements serve as the fundamental building blocks of user interaction,
+            enabling us to effortlessly gather information, make choices, express ourselves, and trigger
+            actions, thereby breathing life and purpose into the otherwise static web.
+          </p>
           <h3>Input states</h3>
+          <p>
+            The disabled and required states of interactive elements on the web deserve recognition as
+            unsung heroes, quietly influencing user behavior and enhancing the user experience.
+          </p>
           <form>
             <label>
               <span>required <em>'box'</em> input <span class="txt-error">*</span></span>
@@ -175,15 +241,26 @@
               <textarea disabled>value</textarea>
             </label>
           </form>
+          <p>
+            While the disabled state sets boundaries and communicates unavailability, the required state
+            establishes expectations and prompts users to fulfill necessary input, ensuring a smooth and
+            reliable flow in the intricate dance between users and their digital counterparts. By
+            leveraging these states judiciously, web developers wield a powerful tool to guide and empower
+            users on their digital journeys.
+          </p>
           <h3>HTML5 types</h3>
+          <p>
+            HTML5, with its arsenal of specific inputs, revolutionized web development by expanding the
+            range of possibilities and enabling richer user experiences.
+          </p>
           <form>
             <label>
               <span>type="date"</span>
               <input type="date" />
             </label>
             <label>
-              <span>type="datetype-local"</span>
-              <input type="datetype-local" />
+              <span>type="time"</span>
+              <input type="time" />
             </label>
             <label>
               <span>type="month"</span>
@@ -194,8 +271,8 @@
               <input type="week" />
             </label>
             <label>
-              <span>type="time"</span>
-              <input type="time" />
+              <span>type="datetype-local"</span>
+              <input type="datetype-local" />
             </label>
             <label>
               <span>type="tel"</span>
@@ -226,11 +303,20 @@
               <input type="range" />
             </label>
           </form>
-        </article>
-        <article>
+          <p>
+            From the humble date picker and color chooser to the versatile range slider and file uploader,
+            these specialized inputs have transcended the boundaries of traditional form elements,
+            empowering developers to capture nuanced user input, enhance data validation, and create
+            engaging interfaces that seamlessly integrate with the modern web ecosystem. With HTML5's
+            specific inputs, the web has truly become a dynamic playground where imagination can flourish
+            and user interactions can transcend the ordinary.
+          </p>
+
+          <h2>Mini components</h2>
           <p class="txt-error">Error message example.</p>
         </article>
       </section>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>
