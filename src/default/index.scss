@@ -8,7 +8,8 @@
 @use 'color.default' as *;
 @use 'media-queries.default' as *;
 @use 'grid.default' as *;
-@use 'reset' as *;
+@use 'reset.default' as *;
+@use 'basics.default' as *;
 @use 'sass:map';
 @use '../../lib/sass-door' as *;
 
@@ -27,4 +28,6 @@
 }
 @include build-grid($grid-schemas);
 @include build-layout(map.get($layout-schemas, 'focus'));
-@include build-basic-styles();
+@include build-semantic-elements();
+@include build-type-elements();
+@include build-input-elements();

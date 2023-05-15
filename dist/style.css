@@ -157,10 +157,6 @@ em {
   font-style: italic;
 }
 
-.txt-error {
-  color: var(--clr-txt-error);
-}
-
 h1,
 h2,
 h3,
@@ -315,6 +311,9 @@ label > span + input,
 label > span + select,
 label > span + textarea {
   margin-bottom: var(--s-two-thirds);
+}
+label > span > i {
+  color: var(--clr-txt-error);
 }
 label > span:first-child {
   margin-bottom: var(--s-third);

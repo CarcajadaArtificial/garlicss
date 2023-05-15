@@ -1,9 +1,14 @@
 # Changelog
 
-## `v0.2.29`
+## `v0.2.30`
+
+- Reestructured `_reset.scss`
+  - `/src/default/_reset.default.scss`
+  - `/src/default/_basics.default.scss`
+  - `/src/default/index.scss`
 
 - Minor updates
-  - `test/playground/index.html`
+  - `/test/playground/index.html`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -25,7 +30,7 @@
     - [x] Fix input types date and time height.
     - [x] Fix input types file, range, and color.
     - [x] Fix missing select and textarea elements.
-    - [ ] Fix `_reset.scss` structure, move functions to their own files. (remove `build-basic-styles`)
+    - [x] Fix `_reset.scss` structure, move functions to their own files. (remove `build-basic-styles`)
   - [ ] Playground
     - [ ] Error message mini-component.
     - [ ] Linkmap mini-component.

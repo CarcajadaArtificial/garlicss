@@ -1,63 +1,13 @@
-//   ___             _
-//  | _ \___ ___ ___| |_
-//  |   / -_|_-</ -_)  _|
-//  |_|_\___/__/\___|\__|
+//   ___          _
+//  | _ ) __ _ __(_)__ ___
+//  | _ \/ _` (_-< / _(_-<
+//  |___/\__,_/__/_\__/__/
 //
 // =====================================================================================================
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
-/// @group reset
-///
-@mixin build-reset() {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font: inherit;
-  }
-
-  html {
-    color-scheme: dark light;
-  }
-
-  body {
-    min-height: 100vh;
-  }
-
-  img,
-  picture,
-  svg,
-  video {
-    display: block;
-    max-width: 100%;
-  }
-
-  input {
-    all: unset;
-  }
-
-  button {
-    border: none;
-  }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///
-/// @group reset
-///
-@mixin build-basic-styles() {
-  @include build-semantic-elements();
-  @include build-utility-classes();
-  @include build-type-elements();
-  @include build-input-elements();
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///
-/// @group reset
+/// @group basics
 ///
 @mixin build-semantic-elements() {
   body {
@@ -82,17 +32,7 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
-/// @group reset
-///
-@mixin build-utility-classes() {
-  .txt-error {
-    color: var(--clr-txt-error);
-  }
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///
-/// @group reset
+/// @group basics
 ///
 @mixin build-type-elements() {
   h1,
@@ -167,7 +107,7 @@
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
-/// @group reset
+/// @group basics
 ///
 @mixin build-input-elements() {
   input,
@@ -263,6 +203,10 @@
       + select,
       + textarea {
         margin-bottom: var(--s-two-thirds);
+      }
+
+      > i {
+        color: var(--clr-txt-error);
       }
     }
 
