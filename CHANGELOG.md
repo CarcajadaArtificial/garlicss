@@ -1,13 +1,9 @@
 # Changelog
 
-## `v0.2.30`
+## `v0.2.31`
 
-- Reestructured `_reset.scss`
-  - `/src/default/_reset.default.scss`
+- Added lists and footer styles
   - `/src/default/_basics.default.scss`
-  - `/src/default/index.scss`
-
-- Minor updates
   - `/test/playground/index.html`
 
 ## Goals for `v0.3.0` - Color Palettes
@@ -33,7 +29,6 @@
     - [x] Fix `_reset.scss` structure, move functions to their own files. (remove `build-basic-styles`)
   - [ ] Playground
     - [ ] Error message mini-component.
-    - [ ] Linkmap mini-component.
     - [ ] Headings with id's.
     - [ ] Document multiplicative sizes.
 

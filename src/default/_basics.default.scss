@@ -11,22 +11,41 @@
 ///
 @mixin build-semantic-elements() {
   body {
-    background-color: var(--clr-bg-page);
+    background-color: var(--clr-bg-panel);
     color: var(--clr-txt-base);
     font-size: var(--fs0);
     line-height: var(--lh0);
   }
 
   main {
+    background-color: var(--clr-bg-page);
+
     > header,
     > footer {
       background-color: var(--clr-bg-panel);
       padding: var(--s-triple) 0 var(--s-one-and-half) 0;
     }
+
+    header {
+      margin-bottom: var(--s-one-and-half);
+    }
+
+    footer {
+      margin-top: var(--s-one-and-half);
+    }
   }
 
   em {
     font-style: italic;
+  }
+
+  ul,
+  ol {
+    margin: var(--s-one-and-half) 0;
+    > ul,
+    > ol {
+      margin: 0 0 0 var(--s-single);
+    }
   }
 }
 
@@ -52,6 +71,10 @@
     &:hover {
       color: var(--clr-txt-personality);
     }
+  }
+
+  code {
+    color: var(--clr-txt-personality);
   }
 
   p {

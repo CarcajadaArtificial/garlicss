@@ -141,20 +141,40 @@ section > article {
 }
 
 body {
-  background-color: var(--clr-bg-page);
+  background-color: var(--clr-bg-panel);
   color: var(--clr-txt-base);
   font-size: var(--fs0);
   line-height: var(--lh0);
 }
 
+main {
+  background-color: var(--clr-bg-page);
+}
 main > header,
 main > footer {
   background-color: var(--clr-bg-panel);
   padding: var(--s-triple) 0 var(--s-one-and-half) 0;
 }
+main header {
+  margin-bottom: var(--s-one-and-half);
+}
+main footer {
+  margin-top: var(--s-one-and-half);
+}
 
 em {
   font-style: italic;
+}
+
+ul,
+ol {
+  margin: var(--s-one-and-half) 0;
+}
+ul > ul,
+ul > ol,
+ol > ul,
+ol > ol {
+  margin: 0 0 0 var(--s-single);
 }
 
 h1,
@@ -172,6 +192,10 @@ a {
   cursor: pointer;
 }
 a:hover {
+  color: var(--clr-txt-personality);
+}
+
+code {
   color: var(--clr-txt-personality);
 }
 
