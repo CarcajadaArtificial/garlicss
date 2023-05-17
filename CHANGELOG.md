@@ -1,8 +1,10 @@
 # Changelog
 
-## `v0.2.34`
+## `v0.2.35`
 
-- Updated README
+- Minor updates
+  - `/src/_color.scss`
+  - `/src/_grid.scss`
   - `/README.md`
 
 ## Goals for `v0.3.0` - Color Palettes
@@ -18,8 +20,11 @@
     - [x] Generation of classes and css variables.
     - [x] Generation of themes
       - [x] Adaptability to dark mode.
-  - [] To-dos
+  - [ ] To-dos
     - [ ] (12) media-queries
+    - [ ] (8) grid
+    - [ ] (12) color
+    - [ ] (5) size
   - Media queries
     - [x] Configurable `screen` as a boolean variable.
     - [x] Basic media query builders that recive static em values instead of using the breakpoint-map.

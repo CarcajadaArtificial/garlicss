@@ -32,6 +32,8 @@
 ///
 /// @group color
 ///
+/// @todo Validate parameter types.
+///
 @mixin build-dual-theme($palette, $personality, $dark-bg, $light-bg) {
   @include build-theme($palette, $personality, $dark-bg);
   @include quick-mq('(prefers-color-scheme: light)') {
@@ -223,6 +225,7 @@
 ///
 /// @group color
 ///
+/// @todo Validate parameter types.
 /// @todo write documentation
 ///
 @function mix-until-contrasting($base, $mixer, $contraster, $min-contrast) {
@@ -470,6 +473,8 @@
 ///
 /// @group color
 ///
+/// @todo Validate parameter types.
+///
 @function color-list-filter($color-list, $callback, $params...) {
   $filtered-list: ();
 
@@ -540,6 +545,8 @@
 ///
 /// @group color
 ///
+/// @todo Validate parameter types.
+///
 @mixin build-entire-palette($palette, $use-variables: true) {
   @if $use-variables {
     :root {
@@ -558,6 +565,8 @@
 ///
 /// @group color
 ///
+/// @todo Validate parameter types.
+///
 @mixin build-color-variables($palette) {
   @each $name, $color in $palette {
     --clr-#{$name}: #{$color};
@@ -574,6 +583,8 @@
 ///   True: uses `var(--clr-#{$name})`. False: uses the actual color value in the palette.
 ///
 /// @group color
+///
+/// @todo Validate parameter types.
 ///
 @mixin build-color-backgrounds($palette, $use-variables: true) {
   @each $name, $color in $palette {
@@ -597,6 +608,8 @@
 ///   True: uses `var(--clr-#{$name})`. False: uses the actual color value in the palette.
 ///
 /// @group color
+///
+/// @todo Validate parameter types.
 ///
 @mixin build-color-text($palette, $use-variables: true) {
   @each $name, $color in $palette {

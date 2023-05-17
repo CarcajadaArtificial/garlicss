@@ -40,7 +40,7 @@ The intended use of this module is to store all the project's breakpoints in a m
 There are three noticeable design principles in this feature:
 1. Opting for "em" instead of "px" in CSS media queries stems from the need for responsive and flexible design that adapts to various devices and user preferences. Using "em" allows the design to scale based on the user's chosen font size, accommodating individuals with different visual needs and providing a more inclusive experience.
 2. The "screen" query is always added by default. This is because I believe that printed styles should be excluded. To change it to "all", set `$query-screen` to false.
-3. The value of 100em has one sixteenth of an em (1px) subtracted. This is because the value of `$until` is expected to be the beginning of the next media query. The subtracted value can be changed using the variable `$until-subtracted-amount`.
+3. The value of 100em has one sixteenth of an em (1px) subtracted. This is because the value of `$until` is expected to be the beginning of the next media query breakpoint. The subtracted value can be changed using the variable `$until-subtracted-amount`.
 
 #### Breakpoint map functions
 The next step is to have a breakpoint map, which is a list of breakpoints required for the project's design. It should look something like this:

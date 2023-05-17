@@ -34,6 +34,8 @@ $class-name-layout: 'layout' !default;
 ///
 /// @group grid
 ///
+/// @todo Validate parameter types.
+///
 @mixin build-grid($grid-schemas, $use-classes: false) {
   @include conditional-selector('.#{$class-name-grid}', 'section', $use-classes) {
     display: grid;
@@ -73,6 +75,9 @@ $class-name-layout: 'layout' !default;
 ///
 /// @group grid
 ///
+/// @todo Refactor parameters to a single map.
+/// @todo Validate parameter types.
+///
 @mixin grid-schema($cols, $gutter, $colwidth, $fixedcol, $width: min-content, $margin: auto) {
   gap: 0 $gutter;
   width: $width;
@@ -93,6 +98,8 @@ $class-name-layout: 'layout' !default;
 ///
 /// @group grid
 ///
+/// @todo Validate parameter types.
+///
 @mixin build-all-layouts($layout-schemas) {
   @each $name, $schema in $layout-schemas {
     .#{$class-name-layout}-#{$name} {
@@ -105,7 +112,7 @@ $class-name-layout: 'layout' !default;
 ///
 /// @group grid
 ///
-/// @todo check parameter types
+/// @todo Validate parameter types.
 ///
 @mixin build-layout($schema, $use-classes: false) {
   @if $use-classes {
@@ -128,6 +135,8 @@ $class-name-layout: 'layout' !default;
 ///
 /// @group grid
 ///
+/// @todo Validate parameter types.
+///
 @mixin layout-variations($variations) {
   @each $variation in $variations {
     @include quick-mq(map-get($variation, mq)) {
@@ -146,6 +155,8 @@ $class-name-layout: 'layout' !default;
 ///
 /// @group util
 ///
+/// @todo Validate parameter types.
+///
 @mixin grid-column($span, $offset: 0) {
   @if $offset == 0 {
     grid-column: span $span;
@@ -160,6 +171,8 @@ $class-name-layout: 'layout' !default;
 /// @param {list} $grid-schemas - This parameter contains the list of grid schemas, see more in the variable `$grid-schemas`.
 ///
 /// @group grid
+///
+/// @todo Validate parameter types.
 ///
 @mixin build-modules($grid-schemas) {
   $highest-col: 0;
