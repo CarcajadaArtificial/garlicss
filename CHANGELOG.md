@@ -1,11 +1,6 @@
 # Changelog
 
-## `v0.2.33`
-
-- `/src/_media-queries.scss`
-  - Added configurable variables
-  - Added the generic `media()` mixin and `query()` function.
-  - Refactored the code to avoid throw nesting.
+## `v0.2.34`
 
 - Updated README
   - `/README.md`
