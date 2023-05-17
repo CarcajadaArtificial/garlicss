@@ -1,6 +1,11 @@
 # Changelog
 
-## `v0.2.32`
+## `v0.2.33`
+
+- `/src/_media-queries.scss`
+  - Added configurable variables
+  - Added the generic `media()` mixin and `query()` function.
+  - Refactored the code to avoid throw nesting.
 
 - Updated README
   - `/README.md`
@@ -18,9 +23,11 @@
     - [x] Generation of classes and css variables.
     - [x] Generation of themes
       - [x] Adaptability to dark mode.
+  - [] To-dos
+    - [ ] (12) media-queries
   - Media queries
-    - [ ] Configurable `screen` as a boolean variable.
-    - [ ] Basic media query builders that recive static em values instead of using the breakpoint-map.
+    - [x] Configurable `screen` as a boolean variable.
+    - [x] Basic media query builders that recive static em values instead of using the breakpoint-map.
   - [x] Fixes
     - [x] Fix `<button disabled />` case.
     - [x] Fix grid layouts in mobile.

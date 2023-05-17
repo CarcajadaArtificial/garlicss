@@ -9,6 +9,49 @@
 @use '../lib/sass-door' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group media-queries
+///
+/// @todo Complete documentation
+///
+$query-screen: true !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group media-queries
+///
+/// @todo Complete documentation
+///
+$until-substracted-amount: 0.0625em !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group media-queries
+///
+/// @todo Validate parameter types.
+/// @todo Complete documentation
+///
+@function query($from: null, $until: null) {
+  $screen-section: '#{if($query-screen, "screen", "all")}';
+  $from-section: '#{if($from, " and (min-width: #{$from})", "")}';
+  $until-section: '#{if($until, " and (max-width: #{$until - $until-substracted-amount})", "")}';
+  @return '#{$screen-section}#{$from-section}#{$until-section}';
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group media-queries
+///
+/// @todo Validate parameter types.
+/// @todo Complete documentation
+///
+@mixin media($query) {
+  @include quick-mq($query) {
+    @content;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The `only-on` function is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoint-map` map. The function uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
 ///
 /// @param {string} $breakpoint-map
@@ -19,19 +62,21 @@
 ///
 /// @group media-queries
 ///
+/// @todo Validate parameter types.
+///
 @function only-on($breakpoint-map, $breakpoint) {
-  @if map.has-key($breakpoint-map, $breakpoint) {
-    $start: map.get($breakpoint-map, $breakpoint);
-    $end: map.get($breakpoint-map, map-next-key($breakpoint-map, $breakpoint));
-    @if $end == null {
-      @return 'screen and (min-width: #{$start})';
-    } @else if $start == 0em {
-      @return 'screen and (max-width: #{$end - 0.0625em})';
-    } @else {
-      @return 'screen and (min-width: #{$start}) and (max-width: #{$end - 0.0625em})';
-    }
-  } @else {
+  @if not map.has-key($breakpoint-map, $breakpoint) {
     @return throw(index-msg($breakpoint, '$breakpoints'));
+  }
+
+  $start: map.get($breakpoint-map, $breakpoint);
+  $end: map.get($breakpoint-map, map-next-key($breakpoint-map, $breakpoint));
+  @if $end == null {
+    @return query($start);
+  } @else if $start == 0em {
+    @return query($until: $end);
+  } @else {
+    @return query($start, $end);
   }
 }
 
@@ -46,12 +91,14 @@
 ///
 /// @group media-queries
 ///
+/// @todo Validate parameter types.
+///
 @function larger-than($breakpoint-map, $breakpoint) {
-  @if map.has-key($breakpoint-map, $breakpoint) {
-    @return 'screen and (min-width: #{map.get($breakpoint-map, $breakpoint)})';
-  } @else {
+  @if not map.has-key($breakpoint-map, $breakpoint) {
     @return throw(index-msg($breakpoint, '$breakpoints'));
   }
+
+  @return query(map.get($breakpoint-map, $breakpoint));
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -65,12 +112,14 @@
 ///
 /// @group media-queries
 ///
+/// @todo Validate parameter types.
+///
 @function smaller-than($breakpoint-map, $breakpoint) {
-  @if map.has-key($breakpoint-map, $breakpoint) {
-    @return 'screen and (max-width: #{map.get($breakpoint-map, $breakpoint) - 0.0625em})';
-  } @else {
+  @if not map.has-key($breakpoint-map, $breakpoint) {
     @return throw(index-msg($breakpoint, '$breakpoint-map'));
   }
+
+  @return query($until: map.get($breakpoint-map, $breakpoint));
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -87,6 +136,9 @@
 ///
 /// @group media-queries
 ///
+/// @todo Validate parameter types.
+/// @todo $breakpoint-start > $breakpoint-end.
+///
 @function between($breakpoint-map, $breakpoint-start, $breakpoint-end) {
   @if not map.has-key($breakpoint-map, $breakpoint-start) {
     @return throw(index-msg($breakpoint-start, '$breakpoint-map'));
@@ -94,11 +146,9 @@
     @return throw(index-msg($breakpoint-end, '$breakpoint-map'));
   } @else if $breakpoint-start == $breakpoint-end {
     @return throw(value-msg($breakpoint-end, 'different breakpoints'));
-  } @else {
-    $start-width: map.get($breakpoint-map, $breakpoint-start);
-    $end-width: map.get($breakpoint-map, $breakpoint-end) - 0.0625em;
-    @return 'screen and (min-width: #{$start-width}) and (max-width: #{$end-width})';
   }
+
+  @return query(map.get($breakpoint-map, $breakpoint-start), map.get($breakpoint-map, $breakpoint-end));
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -107,6 +157,8 @@
 /// @param {map} $query-map A map containing the media queries to turn into classes.
 ///
 /// @group media-queries
+///
+/// @todo Validate parameter types.
 ///
 @mixin build-queries($query-map) {
   @each $name, $query in $query-map {
