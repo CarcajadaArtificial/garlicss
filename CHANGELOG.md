@@ -1,10 +1,9 @@
 # Changelog
 
-## `v0.2.31`
+## `v0.2.32`
 
-- Added lists and footer styles
-  - `/src/default/_basics.default.scss`
-  - `/test/playground/index.html`
+- Updated README
+  - `/README.md`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -19,6 +18,9 @@
     - [x] Generation of classes and css variables.
     - [x] Generation of themes
       - [x] Adaptability to dark mode.
+  - Media queries
+    - [ ] Configurable `screen` as a boolean variable.
+    - [ ] Basic media query builders that recive static em values instead of using the breakpoint-map.
   - [x] Fixes
     - [x] Fix `<button disabled />` case.
     - [x] Fix grid layouts in mobile.
@@ -29,7 +31,7 @@
     - [x] Fix `_reset.scss` structure, move functions to their own files. (remove `build-basic-styles`)
   - [ ] Playground
     - [ ] Error message mini-component.
-    - [ ] Headings with id's.
+    - [x] Headings with id's.
     - [ ] Document multiplicative sizes.
 
 ## Goals for `v0.4.0` - Animation
