@@ -1,11 +1,15 @@
 # Changelog
 
-## `v0.2.35`
+## `v0.2.36`
 
-- Minor updates
-  - `/src/_color.scss`
-  - `/src/_grid.scss`
-  - `/README.md`
+- Updated playground
+  - `/.gitignore`
+  - `/package.json`
+  - `/test/playground/index.html`
+  - `/test/playground/style.css`
+
+- Fixed to-dos
+  - `/src/_media-queries.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -21,7 +25,7 @@
     - [x] Generation of themes
       - [x] Adaptability to dark mode.
   - [ ] To-dos
-    - [ ] (12) media-queries
+    - [ ] (8) media-queries
     - [ ] (8) grid
     - [ ] (12) color
     - [ ] (5) size

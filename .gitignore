@@ -1,5 +1,4 @@
 .DS_Store
-test/playground/result.css
 node_modules
 package-lock.json
 docs

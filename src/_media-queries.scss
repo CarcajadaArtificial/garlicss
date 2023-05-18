@@ -9,27 +9,37 @@
 @use '../lib/sass-door' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This variable controls what media type is targeted by default, "screen" (if true) or "all" (if
+/// false).
 ///
 /// @group media-queries
-///
-/// @todo Complete documentation
 ///
 $query-screen: true !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Every media query is built to avoid overlapping with one another. That's why all those values within
+/// the max-width media feature will have this amount subtracted. It's meant to symbolize the value of 1/
+/// 16, which happens to be 1px in relation to 1em.
 ///
 /// @group media-queries
-///
-/// @todo Complete documentation
 ///
 $until-substracted-amount: 0.0625em !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Generates a media query string.
+///
+/// @param {em|null} $from
+///   The minimum width value for the media query. If null, the minimum width will not be included.
+///
+/// @param {em|null} $until
+///   The maximum width value for the media query. If null, the maximum width will not be included.
+///
+/// @returns {string}
+///   The generated media query string.
 ///
 /// @group media-queries
 ///
 /// @todo Validate parameter types.
-/// @todo Complete documentation
 ///
 @function query($from: null, $until: null) {
   $screen-section: '#{if($query-screen, "screen", "all")}';
@@ -39,11 +49,18 @@ $until-substracted-amount: 0.0625em !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Applies a media query string. Useful for creating a query using the returned string of a function.
+/// `@include media(fn()) {}` replaces `@media #{fn()} {}`
+///
+/// @param {string} $query
+///   The media query string to apply.
+///
+/// @content
+///   The styles to apply within the media query.
 ///
 /// @group media-queries
 ///
 /// @todo Validate parameter types.
-/// @todo Complete documentation
 ///
 @mixin media($query) {
   @include quick-mq($query) {
