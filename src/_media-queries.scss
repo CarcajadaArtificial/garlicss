@@ -39,9 +39,14 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo Validate parameter types.
-///
 @function query($from: null, $until: null) {
+  @if (not check($from, ('em', 'null'))) {
+    @return throw(value-msg($from, 'em|null'));
+  }
+  @if (not check($until, ('em', 'null'))) {
+    @return throw(value-msg($until, 'em|null'));
+  }
+
   $screen-section: '#{if($query-screen, "screen", "all")}';
   $from-section: '#{if($from, " and (min-width: #{$from})", "")}';
   $until-section: '#{if($until, " and (max-width: #{$until - $until-substracted-amount})", "")}';
@@ -60,11 +65,11 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo Validate parameter types.
-///
 @mixin media($query) {
-  @include quick-mq($query) {
-    @content;
+  @if check($query, 'string') {
+    @include quick-mq($query) {
+      @content;
+    }
   }
 }
 

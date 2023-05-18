@@ -1,12 +1,6 @@
 # Changelog
 
-## `v0.2.36`
-
-- Updated playground
-  - `/.gitignore`
-  - `/package.json`
-  - `/test/playground/index.html`
-  - `/test/playground/style.css`
+## `v0.2.37`
 
 - Fixed to-dos
   - `/src/_media-queries.scss`
@@ -25,7 +19,7 @@
     - [x] Generation of themes
       - [x] Adaptability to dark mode.
   - [ ] To-dos
-    - [ ] (8) media-queries
+    - [ ] (6) media-queries
     - [ ] (8) grid
     - [ ] (12) color
     - [ ] (5) size
