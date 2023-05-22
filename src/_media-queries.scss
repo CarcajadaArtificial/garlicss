@@ -41,10 +41,12 @@ $until-substracted-amount: 0.0625em !default;
 ///
 @function query($from: null, $until: null) {
   @if (not check($from, ('em', 'null'))) {
-    @return throw(value-msg($from, 'em|null'));
+    $error: throw(value-msg($from, 'em|null'));
+    @return '';
   }
   @if (not check($until, ('em', 'null'))) {
-    @return throw(value-msg($until, 'em|null'));
+    $error: throw(value-msg($until, 'em|null'));
+    @return '';
   }
 
   $screen-section: '#{if($query-screen, "screen", "all")}';
@@ -74,9 +76,43 @@ $until-substracted-amount: 0.0625em !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This is an auxiliary function that helps all "string-producing-media-query-functions" refactor the
+/// parameter validation.
+///
+/// @param {map[em]} $breakpoint-map
+///   This is a dictionary of em values. The keys represent the names of the breakpoints.
+///
+/// @param {list[string]} $breakpoints...
+///   This list of arguments, contains the string values that represent names inside the
+///   `$breakpoint-map` dictionary.
+///
+/// @returns {boolean}
+///   True if the parameters pass the check, false if they don't.
+///
+/// @group media-queries
+///
+@function check-breakpoint-map($breakpoint-map, $breakpoints...) {
+  @if not check($breakpoint-map, 'em', true) {
+    $error: throw(value-msg($breakpoint-map, 'map[em]'));
+    @return false;
+  }
+  @each $breakpoint in $breakpoints {
+    @if not check($breakpoint, 'string') {
+      $error: throw(value-msg($breakpoint, 'string'));
+      @return false;
+    }
+    @if not map.has-key($breakpoint-map, $breakpoint) {
+      $error: throw(index-msg($breakpoint, '$breakpoints'));
+      @return false;
+    }
+  }
+  @return true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// The `only-on` function is a Sass utility that allows you to create media queries for specific breakpoints defined in the `$breakpoint-map` map. The function uses the @media rule to create a media query that applies the enclosed styles only when the specified breakpoint is active
 ///
-/// @param {string} $breakpoint-map
+/// @param {map[em]} $breakpoint-map
 ///   The map containing all the breakpoints.
 ///
 /// @param {string} $breakpoint
@@ -84,11 +120,9 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo Validate parameter types.
-///
 @function only-on($breakpoint-map, $breakpoint) {
-  @if not map.has-key($breakpoint-map, $breakpoint) {
-    @return throw(index-msg($breakpoint, '$breakpoints'));
+  @if not check-breakpoint-map($breakpoint-map, $breakpoint) {
+    @return '';
   }
 
   $start: map.get($breakpoint-map, $breakpoint);
@@ -105,7 +139,7 @@ $until-substracted-amount: 0.0625em !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function generates a media query with a `min-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens larger than a specific breakpoint.
 ///
-/// @param {string} $breakpoint-map
+/// @param {map[em]} $breakpoint-map
 ///   The map containing all the breakpoints.
 ///
 /// @param {string} $breakpoint
@@ -113,11 +147,9 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo Validate parameter types.
-///
 @function larger-than($breakpoint-map, $breakpoint) {
-  @if not map.has-key($breakpoint-map, $breakpoint) {
-    @return throw(index-msg($breakpoint, '$breakpoints'));
+  @if not check-breakpoint-map($breakpoint-map, $breakpoint) {
+    @return '';
   }
 
   @return query(map.get($breakpoint-map, $breakpoint));
@@ -126,7 +158,7 @@ $until-substracted-amount: 0.0625em !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function generates a media query with a `max-width` based on the value associated with the provided `$breakpoint` key in the `$breakpoints` map. It can be used to apply styles for screens smaller than a specific breakpoint.
 ///
-/// @param {string} $breakpoint-map
+/// @param {map[em]} $breakpoint-map
 ///   The map containing all the breakpoints.
 ///
 /// @param {string} $breakpoint
@@ -134,11 +166,9 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo Validate parameter types.
-///
 @function smaller-than($breakpoint-map, $breakpoint) {
-  @if not map.has-key($breakpoint-map, $breakpoint) {
-    @return throw(index-msg($breakpoint, '$breakpoint-map'));
+  @if not check-breakpoint-map($breakpoint-map, $breakpoint) {
+    @return '';
   }
 
   @return query($until: map.get($breakpoint-map, $breakpoint));
@@ -147,7 +177,7 @@ $until-substracted-amount: 0.0625em !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function generates media queries with the specified min-width and max-width values based on a `$breakpoints` map. It is designed to simplify the process of creating responsive styles by allowing developers to easily define media queries using named breakpoints instead of specific pixel values.
 ///
-/// @param {string} $breakpoint-map
+/// @param {map[em]} $breakpoint-map
 ///   The map containing all the breakpoints.
 ///
 /// @param {string} $breakpoint-start
@@ -158,16 +188,14 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo Validate parameter types.
 /// @todo $breakpoint-start > $breakpoint-end.
 ///
 @function between($breakpoint-map, $breakpoint-start, $breakpoint-end) {
-  @if not map.has-key($breakpoint-map, $breakpoint-start) {
-    @return throw(index-msg($breakpoint-start, '$breakpoint-map'));
-  } @else if not map.has-key($breakpoint-map, $breakpoint-end) {
-    @return throw(index-msg($breakpoint-end, '$breakpoint-map'));
+  @if not check-breakpoint-map($breakpoint-map, $breakpoint-start, $breakpoint-end) {
+    @return '';
   } @else if $breakpoint-start == $breakpoint-end {
-    @return throw(value-msg($breakpoint-end, 'different breakpoints'));
+    $error: throw(value-msg($breakpoint-end, 'different breakpoints'));
+    @return '';
   }
 
   @return query(map.get($breakpoint-map, $breakpoint-start), map.get($breakpoint-map, $breakpoint-end));
@@ -180,15 +208,15 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo Validate parameter types.
-///
 @mixin build-queries($query-map) {
-  @each $name, $query in $query-map {
-    .mq-#{$name} {
-      display: none;
+  @if not check($query-map, 'string', true) {
+    @each $name, $query in $query-map {
+      .mq-#{$name} {
+        display: none;
 
-      @media #{$query} {
-        display: block;
+        @media #{$query} {
+          display: block;
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 # Changelog
 
-## `v0.2.37`
+## `v0.2.38`
 
 - Fixed to-dos
   - `/src/_media-queries.scss`
@@ -19,7 +19,7 @@
     - [x] Generation of themes
       - [x] Adaptability to dark mode.
   - [ ] To-dos
-    - [ ] (6) media-queries
+    - [ ] (1) media-queries
     - [ ] (8) grid
     - [ ] (12) color
     - [ ] (5) size
