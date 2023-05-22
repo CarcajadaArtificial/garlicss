@@ -188,8 +188,6 @@ $until-substracted-amount: 0.0625em !default;
 ///
 /// @group media-queries
 ///
-/// @todo $breakpoint-start > $breakpoint-end.
-///
 @function between($breakpoint-map, $breakpoint-start, $breakpoint-end) {
   @if not check-breakpoint-map($breakpoint-map, $breakpoint-start, $breakpoint-end) {
     @return '';
@@ -198,7 +196,15 @@ $until-substracted-amount: 0.0625em !default;
     @return '';
   }
 
-  @return query(map.get($breakpoint-map, $breakpoint-start), map.get($breakpoint-map, $breakpoint-end));
+  $start-value: map.get($breakpoint-map, $breakpoint-start);
+  $end-value: map.get($breakpoint-map, $breakpoint-end);
+
+  @if $start-value >= $end-value {
+    $error: throw(value-msg($breakpoint-end, 'larger than the start-breakpoint'));
+    @return '';
+  }
+
+  @return query($start-value, $end-value);
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
