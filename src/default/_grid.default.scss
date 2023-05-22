@@ -25,6 +25,7 @@ $grid-schemas: (
     colwidth: 0,
     width: auto,
     margin: 0.8503100088rem,
+    fixedcol: false,
     mq: only-on($breakpoints, sm),
   ),
   (
@@ -33,6 +34,7 @@ $grid-schemas: (
     colwidth: 0,
     width: auto,
     margin: calc(23.13871222% - 134.488008342px),
+    fixedcol: false,
     mq: only-on($breakpoints, md),
   ),
   (

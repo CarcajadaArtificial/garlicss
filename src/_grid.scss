@@ -28,35 +28,57 @@ $class-name-grid: 'grid' !default;
 $class-name-layout: 'layout' !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+$i-grid-schema: (
+  cols: 'unitless',
+  gutter: (
+    'rem',
+    'pct',
+  ),
+  colwidth: (
+    0,
+    'rem',
+  ),
+  fixedcol: 'bool',
+  width: (
+    'auto',
+    'rem',
+    'null',
+  ),
+  mq: 'string',
+  margin: 'any',
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin creates the `.grid` CSS class using a list of grids schemas.
 ///
-/// @param {list} $grid-schemas - This parameter contains the list of grid schemas, see more in the variable `$grid-schemas`.
+/// @param {list} $grid-schemas
+///   This parameter contains the list of grid schemas, see more in the variable `$grid-schemas`.
 ///
 /// @group grid
 ///
-/// @todo Validate parameter types.
-///
 @mixin build-grid($grid-schemas, $use-classes: false) {
-  @include conditional-selector('.#{$class-name-grid}', 'section', $use-classes) {
-    display: grid;
-    @each $schema in $grid-schemas {
-      @include quick-mq(map-get($schema, mq)) {
-        @if map-get($schema, fixedcol) == true {
-          @include grid-schema(
-            $cols: map-get($schema, cols),
-            $gutter: map-get($schema, gutter),
-            $colwidth: map-get($schema, colwidth),
-            $fixedcol: true
-          );
-        } @else {
-          @include grid-schema(
-            $cols: map-get($schema, cols),
-            $gutter: map-get($schema, gutter),
-            $colwidth: map-get($schema, colwidth),
-            $fixedcol: false,
-            $width: map-get($schema, width),
-            $margin: map-get($schema, margin)
-          );
+  @if check($grid-schemas, $i-grid-schema, true) and check($use-classes, 'bool') {
+    @include conditional-selector('.#{$class-name-grid}', 'section', $use-classes) {
+      display: grid;
+      @each $schema in $grid-schemas {
+        @include quick-mq(map-get($schema, mq)) {
+          @if map-get($schema, fixedcol) == true {
+            @include grid-schema(
+              $cols: map-get($schema, cols),
+              $gutter: map-get($schema, gutter),
+              $colwidth: map-get($schema, colwidth),
+              $fixedcol: true
+            );
+          } @else {
+            @include grid-schema(
+              $cols: map-get($schema, cols),
+              $gutter: map-get($schema, gutter),
+              $colwidth: map-get($schema, colwidth),
+              $fixedcol: false,
+              $width: map-get($schema, width),
+              $margin: map-get($schema, margin)
+            );
+          }
         }
       }
     }
@@ -112,6 +134,7 @@ $class-name-layout: 'layout' !default;
 ///
 /// @group grid
 ///
+/// @todo Write documentation.
 /// @todo Validate parameter types.
 ///
 @mixin build-layout($schema, $use-classes: false) {
@@ -150,25 +173,29 @@ $class-name-layout: 'layout' !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin eases the use of the `grid-column` style.
 ///
-/// @param {unitless} $span - `grid-column: span $span;`
-/// @param {unitless} $offset - `grid-column: $offset/span $span;`
+/// @param {unitless} $span
+///   `grid-column: span $span;`
 ///
-/// @group util
+/// @param {unitless} $offset
+///   `grid-column: $offset/span $span;`
 ///
-/// @todo Validate parameter types.
+/// @group grid
 ///
 @mixin grid-column($span, $offset: 0) {
-  @if $offset == 0 {
-    grid-column: span $span;
-  } @else {
-    grid-column: $offset/span $span;
+  @if check($span, 'unitless') and check($offset, 'unitless') {
+    @if $offset == 0 {
+      grid-column: span $span;
+    } @else {
+      grid-column: $offset/span $span;
+    }
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin creates the `.layout-module-$span` CSS classes based on the grid schematic with the greatest number of columns.
 ///
-/// @param {list} $grid-schemas - This parameter contains the list of grid schemas, see more in the variable `$grid-schemas`.
+/// @param {list} $grid-schemas
+///   This parameter contains the list of grid schemas, see more in the variable `$grid-schemas`.
 ///
 /// @group grid
 ///

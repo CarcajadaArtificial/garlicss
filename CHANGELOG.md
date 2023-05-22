@@ -1,9 +1,17 @@
 # Changelog
 
-## `v0.2.39`
+## `v0.2.40`
 
-- Fixed to-dos
+- Refactored error handling
   - `/src/_media-queries.scss`
+
+- `/src/_grid.scss`
+  - Created the interface `$i-grid-schema`.
+  - Added parameter validation to the `build-grid` and `grid-column` mixins.
+  - Fixed a few lines of comments.
+
+- Renamed `fixed-col` to `fixedcol` for consistency.
+  - `/src/default/_grid.default.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

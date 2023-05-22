@@ -40,12 +40,7 @@ $until-substracted-amount: 0.0625em !default;
 /// @group media-queries
 ///
 @function query($from: null, $until: null) {
-  @if (not check($from, ('em', 'null'))) {
-    $error: throw(value-msg($from, 'em|null'));
-    @return '';
-  }
-  @if (not check($until, ('em', 'null'))) {
-    $error: throw(value-msg($until, 'em|null'));
+  @if not check($from, ('em', 'null')) or not check($until, ('em', 'null')) {
     @return '';
   }
 
@@ -93,16 +88,14 @@ $until-substracted-amount: 0.0625em !default;
 ///
 @function check-breakpoint-map($breakpoint-map, $breakpoints...) {
   @if not check($breakpoint-map, 'em', true) {
-    $error: throw(value-msg($breakpoint-map, 'map[em]'));
     @return false;
   }
   @each $breakpoint in $breakpoints {
     @if not check($breakpoint, 'string') {
-      $error: throw(value-msg($breakpoint, 'string'));
       @return false;
     }
     @if not map.has-key($breakpoint-map, $breakpoint) {
-      $error: throw(index-msg($breakpoint, '$breakpoints'));
+      $error: throw(index-msg($breakpoint, '$breakpoint-map'));
       @return false;
     }
   }
@@ -127,6 +120,7 @@ $until-substracted-amount: 0.0625em !default;
 
   $start: map.get($breakpoint-map, $breakpoint);
   $end: map.get($breakpoint-map, map-next-key($breakpoint-map, $breakpoint));
+
   @if $end == null {
     @return query($start);
   } @else if $start == 0em {
