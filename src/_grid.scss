@@ -28,6 +28,11 @@ $class-name-grid: 'grid' !default;
 $class-name-layout: 'layout' !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group grid
+///
+/// @todo Complete documentation
+///
 $i-grid-schema: (
   cols: 'unitless',
   gutter: (

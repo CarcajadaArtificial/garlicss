@@ -1,152 +1,80 @@
+@use 'sass:map' as *;
 @use 'true' as *;
 @use '../lib/sass-door' as *;
 @use '../index' as *;
 
-$breakpoints: (
-  sm: 0em,
-  md: 40em,
-  lg: 100em,
+$bp: (
+  a: 0em,
+  b: 20em,
+  c: 40em,
+  d: 60em,
+  e: 80em,
+);
+
+$media-queries: (
+  only-a: only-on($bp, 'a'),
+  only-b: only-on($bp, 'b'),
+  only-c: only-on($bp, 'c'),
+  only-d: only-on($bp, 'd'),
+  only-e: only-on($bp, 'e'),
+  larger-b: larger-than($bp, 'b'),
+  larger-c: larger-than($bp, 'c'),
+  larger-d: larger-than($bp, 'd'),
+  larger-e: larger-than($bp, 'e'),
+  smaller-b: smaller-than($bp, 'b'),
+  smaller-c: smaller-than($bp, 'c'),
+  smaller-d: smaller-than($bp, 'd'),
+  smaller-e: smaller-than($bp, 'e'),
+  between-a-b: between($bp, 'a', 'b'),
+  between-a-c: between($bp, 'a', 'c'),
+  between-a-d: between($bp, 'a', 'd'),
+  between-a-e: between($bp, 'a', 'e'),
+  between-b-c: between($bp, 'b', 'c'),
+  between-b-d: between($bp, 'b', 'd'),
+  between-b-e: between($bp, 'b', 'e'),
+  between-c-d: between($bp, 'c', 'd'),
+  between-c-e: between($bp, 'c', 'e'),
+  between-d-e: between($bp, 'd', 'e'),
+);
+
+$exceptional-media-queries: (
+  smaller-a: smaller-than($bp, 'a'),
+  larger-a: larger-than($bp, 'a'),
+);
+
+$result-strings: (
+  only-a: 'screen and (max-width: 19.9375em)',
+  only-b: 'screen and (min-width: 20em) and (max-width: 39.9375em)',
+  only-c: 'screen and (min-width: 40em) and (max-width: 59.9375em)',
+  only-d: 'screen and (min-width: 60em) and (max-width: 79.9375em)',
+  only-e: 'screen and (min-width: 80em)',
+  larger-a: 'screen and (min-width: 0em)',
+  larger-b: 'screen and (min-width: 20em)',
+  larger-c: 'screen and (min-width: 40em)',
+  larger-d: 'screen and (min-width: 60em)',
+  larger-e: 'screen and (min-width: 80em)',
+  smaller-b: 'screen and (max-width: 19.9375em)',
+  smaller-c: 'screen and (max-width: 39.9375em)',
+  smaller-d: 'screen and (max-width: 59.9375em)',
+  smaller-e: 'screen and (max-width: 79.9375em)',
+  between-a-b: 'screen and (max-width: 19.9375em)',
+  between-a-c: 'screen and (max-width: 39.9375em)',
+  between-a-d: 'screen and (max-width: 59.9375em)',
+  between-a-e: 'screen and (max-width: 79.9375em)',
+  between-b-c: 'screen and (min-width: 20em) and (max-width: 39.9375em)',
+  between-b-d: 'screen and (min-width: 20em) and (max-width: 59.9375em)',
+  between-b-e: 'screen and (min-width: 20em) and (max-width: 79.9375em)',
+  between-c-d: 'screen and (min-width: 40em) and (max-width: 59.9375em)',
+  between-c-e: 'screen and (min-width: 40em) and (max-width: 79.9375em)',
+  between-d-e: 'screen and (min-width: 60em) and (max-width: 79.9375em)',
 );
 
 @include test-module('media-queries') {
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // only-on($breakpoint) [Mixin]
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @include describe('only-on()') {
-    // Middle breakpoint
-    @include it('Creates a media query when the input is correct.') {
-      @include assert() {
-        @include output() {
-          @media #{only-on($breakpoints, md)} {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @media screen and (min-width: 40em) and (max-width: 99.9375em) {
-            display: block;
-          }
-        }
+  @include describe('Normal cases') {
+    @each $key, $query in $media-queries {
+      @include it('Tests for the key #{$key}') {
+        @include assert-equal($query, map-get($result-strings, $key));
       }
     }
-    // Smallest
-    @include it('Creates a max-width media query when the input is the smallest breakpoint.') {
-      @include assert() {
-        @include output() {
-          @media #{only-on($breakpoints, sm)} {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @media screen and (max-width: 39.9375em) {
-            display: block;
-          }
-        }
-      }
-    }
-    // Largest
-    @include it('Creates a min-width media query when the input is the largest breakpoint.') {
-      @include assert() {
-        @include output() {
-          @media #{only-on($breakpoints, lg)} {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @media screen and (min-width: 100em) {
-            display: block;
-          }
-        }
-      }
-    }
-    // Incorrect
-    // @include it('[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.') {
-    //   @include assert-equal(only-on(asdf), throw(index-msg(asdf, '$breakpoints')));
-    // }
-  }
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // larger-than($breakpoint) [Mixin]
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @include describe('larger-than()') {
-    // Correct
-    @include it('Creates a media query when the input is correct.') {
-      @include assert() {
-        @include output() {
-          @media #{larger-than($breakpoints, md)} {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @media screen and (min-width: 40em) {
-            display: block;
-          }
-        }
-      }
-    }
-    // Incorrect
-    // @include it('[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.') {
-    //   @include assert-equal(larger-than(asdf), throw(index-msg(asdf, '$breakpoints')));
-    // }
-  }
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // smaller-than($breakpoint) [Mixin]
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @include describe('smaller-than()') {
-    // Correct
-    @include it('Creates a media query when the input is correct.') {
-      @include assert() {
-        @include output() {
-          @media #{smaller-than($breakpoints, lg)} {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @media screen and (max-width: 99.9375em) {
-            display: block;
-          }
-        }
-      }
-    }
-    // Incorrect
-    // @include it('[Indexing Error] Throws when $breakpoint is not a key in $breakpoints.') {
-    //   @include assert-equal(smaller-than(asdf), throw(index-msg(asdf, '$breakpoints')));
-    // }
-  }
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // between($breakpoint) [Mixin]
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @include describe('between()') {
-    // Correct
-    @include it('Creates a media query when the input is correct.') {
-      @include assert() {
-        @include output() {
-          @media #{between($breakpoints, sm, lg)} {
-            display: block;
-          }
-        }
-
-        @include expect() {
-          @media screen and (min-width: 0em) and (max-width: 99.9375em) {
-            display: block;
-          }
-        }
-      }
-    }
-    // Incorrect start
-    // @include it('[Indexing Error] Throws when $breakpoint-start is not a key in $breakpoints.') {
-    //   @include assert-equal(between(asdf, md), throw(index-msg(asdf, '$breakpoints')));
-    // }
-    // // Incorrect start
-    // @include it('[Indexing Error] Throws when $breakpoint-end is not a key in $breakpoints.') {
-    //   @include assert-equal(between(sm, asdf), throw(index-msg(asdf, '$breakpoints')));
-    // }
-    // // Same value
-    // @include it('[Indexing Error] Throws when $breakpoint-start and $breakpoint-end are equal.') {
-    //   @include assert-equal(between(sm, sm), throw(value-msg(sm, 'different breakpoints')));
-    // }
   }
 }

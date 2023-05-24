@@ -44,9 +44,20 @@ $until-substracted-amount: 0.0625em !default;
     @return '';
   }
 
-  $screen-section: '#{if($query-screen, "screen", "all")}';
-  $from-section: '#{if($from, " and (min-width: #{$from})", "")}';
-  $until-section: '#{if($until, " and (max-width: #{$until - $until-substracted-amount})", "")}';
+  $screen-section: 'screen';
+  $from-section: '';
+  $until-section: '';
+
+  @if not $query-screen {
+    $screen-section: 'all';
+  }
+  @if $from and $from > 0 {
+    $from-section: ' and (min-width: #{$from})';
+  }
+  @if $until and $until > $until-substracted-amount {
+    $until-section: ' and (max-width: #{$until - $until-substracted-amount})';
+  }
+
   @return '#{$screen-section}#{$from-section}#{$until-section}';
 }
 
