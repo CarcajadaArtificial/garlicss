@@ -215,17 +215,18 @@ $until-substracted-amount: 0.0625em !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin generates CSS media queries based on a map of query names and corresponding query strings.
 ///
-/// @param {map} $query-map A map containing the media queries to turn into classes.
+/// @param {map} $query-map
+///   A map containing the media queries to turn into classes.
 ///
 /// @group media-queries
 ///
 @mixin build-queries($query-map) {
-  @if not check($query-map, 'string', true) {
+  @include check($query-map, 'string', true) {
     @each $name, $query in $query-map {
       .mq-#{$name} {
         display: none;
 
-        @media #{$query} {
+        @include quick-mq($query) {
           display: block;
         }
       }

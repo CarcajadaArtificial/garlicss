@@ -61,6 +61,8 @@ $i-grid-schema: (
 ///
 /// @group grid
 ///
+/// @todo Remove the global default variable `$class-name-grid` in favor of a parameter.
+///
 @mixin build-grid($grid-schemas, $use-classes: false) {
   @if check($grid-schemas, $i-grid-schema, true) and check($use-classes, 'bool') {
     @include conditional-selector('.#{$class-name-grid}', 'section', $use-classes) {
@@ -126,6 +128,7 @@ $i-grid-schema: (
 /// @group grid
 ///
 /// @todo Validate parameter types.
+/// @todo Remove the global default variable `$class-name-grid` in favor of a parameter.
 ///
 @mixin build-all-layouts($layout-schemas) {
   @each $name, $schema in $layout-schemas {
@@ -141,6 +144,7 @@ $i-grid-schema: (
 ///
 /// @todo Write documentation.
 /// @todo Validate parameter types.
+/// @todo Remove the global default variable `$class-name-grid` in favor of a parameter.
 ///
 @mixin build-layout($schema, $use-classes: false) {
   @if $use-classes {
@@ -205,6 +209,7 @@ $i-grid-schema: (
 /// @group grid
 ///
 /// @todo Validate parameter types.
+/// @todo Remove the global default variable `$class-name-grid` in favor of a parameter.
 ///
 @mixin build-modules($grid-schemas) {
   $highest-col: 0;

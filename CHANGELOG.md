@@ -1,15 +1,10 @@
 # Changelog
 
-## `v0.2.41`
-
-- Updated the `query()` function to support exceptional cases.
-  - `/src/_media-queries.scss`
-
-- Refactored entire unit testing module.
-  - `/test/_media-queries.test.scss`
+## `v0.2.42`
 
 - Minor updates
   - `/src/_grid.scss`
+  - `/src/_media-queries.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -26,7 +21,7 @@
       - [x] Adaptability to dark mode.
   - [ ] To-dos
     - [x] (0) media-queries
-    - [ ] (8) grid
+    - [ ] (12) grid
     - [ ] (12) color
     - [ ] (5) size
   - Media queries
