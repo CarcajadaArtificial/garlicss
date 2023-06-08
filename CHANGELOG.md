@@ -1,10 +1,10 @@
 # Changelog
 
-## `v0.2.42`
+## `v0.2.43`
 
-- Minor updates
-  - `/src/_grid.scss`
-  - `/src/_media-queries.scss`
+- Added Sass-Door as a git submodule
+  - `/lib/sass-door`
+  - `/.gitsubmodules`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
