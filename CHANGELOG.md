@@ -1,10 +1,16 @@
 # Changelog
 
-## `v0.2.43`
+## `v0.2.44`
 
-- Added Sass-Door as a git submodule
-  - `/lib/sass-door`
-  - `/.gitsubmodules`
+- Removed default SCSS submodules
+  - `/dist/style.css`
+  - `/dist/style.min.css`
+  - `/src/default/_basics.default.scss`
+  - `/src/default/_color.default.scss`
+  - `/src/default/_grid.default.scss`
+  - `/src/default/_media-queries.default.scss`
+  - `/src/default/_reset.default.scss`
+  - `/src/default/index.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
