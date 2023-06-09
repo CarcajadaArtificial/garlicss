@@ -1,16 +1,17 @@
 # Changelog
 
-## `v0.2.44`
+## `v0.2.45`
 
-- Removed default SCSS submodules
-  - `/dist/style.css`
-  - `/dist/style.min.css`
-  - `/src/default/_basics.default.scss`
-  - `/src/default/_color.default.scss`
-  - `/src/default/_grid.default.scss`
-  - `/src/default/_media-queries.default.scss`
-  - `/src/default/_reset.default.scss`
-  - `/src/default/index.scss`
+- Added SCSS basics submodule
+  - `/src/_basics.scss`
+  - `/src/index.scss`
+
+- Updated lib forwarding to a scss file inside src
+  - `/src/lib/sassdoor.scss`
+  - `/src/_color.scss`
+  - `/src/_grid.scss`
+  - `/src/_media-queries.scss`
+  - `/src/_size.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

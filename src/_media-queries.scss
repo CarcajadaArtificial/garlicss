@@ -6,7 +6,7 @@
 // =====================================================================================================
 @use 'sass:map';
 @use 'sass:list';
-@use '../lib/sass-door' as *;
+@use 'lib/sassdoor' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This variable controls what media type is targeted by default, "screen" (if true) or "all" (if
