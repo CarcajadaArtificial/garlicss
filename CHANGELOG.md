@@ -1,17 +1,11 @@
 # Changelog
 
-## `v0.2.45`
+## `v0.2.46`
 
-- Added SCSS basics submodule
-  - `/src/_basics.scss`
-  - `/src/index.scss`
-
-- Updated lib forwarding to a scss file inside src
-  - `/src/lib/sassdoor.scss`
+- Added the `create-theme()` function and the `build-dual-theme-classes()` mixin.
   - `/src/_color.scss`
-  - `/src/_grid.scss`
-  - `/src/_media-queries.scss`
-  - `/src/_size.scss`
+  - `/test/_color.test.scss`
+  - `/test/index.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
