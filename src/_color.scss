@@ -9,6 +9,7 @@
 @use 'sass:math';
 @use 'sass:meta';
 @use 'sass:color';
+@use 'sass:string';
 @use 'lib/sassdoor' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -34,15 +35,54 @@
 ///
 /// @todo Validate parameter types.
 ///
-@mixin build-dual-theme($palette, $personality, $dark-bg, $light-bg) {
-  @include build-theme($palette, $personality, $dark-bg);
-  @include quick-mq('(prefers-color-scheme: light)') {
-    @include build-theme($palette, $personality, $light-bg);
+@mixin build-dual-theme($palette, $personality, $dark-bg, $light-bg, $use-classes: false) {
+  $dark-theme: create-theme-map($palette, $personality, $dark-bg);
+  $light-theme: create-theme-map($palette, $personality, $light-bg);
+
+  @if $use-classes {
+    @include build-dual-theme-classes($dark-theme, $light-theme);
+  } @else {
+    @include map-to-styles($dark-theme, '--clr-');
+    @include quick-mq('(prefers-color-scheme: light)') {
+      @include map-to-styles($light-theme, '--clr-');
+    }
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This mixin simplifies the complex process of building a cohesive theme.
+/// This mixin creates individual utility classes for all colors inside a theme map.
+///
+/// @param {map} $dark-theme
+///   The basic theme map that will become classes.
+///
+/// @param {map} $light-theme
+///   This secondary theme map will be applied on an alternative color scheme.
+///
+/// @group color
+///
+/// @todo Validate parameters
+/// @todo Make the dark/light bias configurable.
+///
+@mixin build-dual-theme-classes($dark-theme, $light-theme) {
+  @each $name, $value in $dark-theme {
+    .clr-#{$name} {
+      @if substring-match($name, 'txt-', '^') {
+        color: $value;
+        @include quick-mq('(prefers-color-scheme: light)') {
+          color: map.get($light-theme, $name);
+        }
+      } @else if substring-match($name, 'bg', '^') {
+        background-color: $value;
+        @include quick-mq('(prefers-color-scheme: light)') {
+          background-color: map.get($light-theme, $name);
+        }
+      }
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function creates a standarized map of hex values that together build a coherent theme.
 ///
 /// @param {map} $palette
 ///   This map contains the list of colors available for theme generation. The keys must be the names of
@@ -54,88 +94,70 @@
 /// @param {string} $background
 ///   The name of the background of the website's body.
 ///
-/// @content
-///   This mixin will create a series of css variables that work as the theme's areas of effect.
+/// @return {map}
+///   A map containing all theme colors
 ///
 /// @group color
 ///
-@mixin build-theme($palette, $personality, $background) {
-  @if check-build-theme($palette, $personality, $background) {
-    $palette-hex-list: map-values(map-remove($palette, $personality, $background));
+/// @todo Validate parameter types.
+///
+@function create-theme-map($palette, $personality, $background) {
+  $palette-hex-list: map-values(map-remove($palette, $personality, $background));
 
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-personality: map-get($palette, $personality);
-    --clr-personality: #{$hex-personality};
+  // Arbitrary colors
+  $hex-personality: map-get($palette, $personality);
+  $hex-bg-page: map-get($palette, $background);
+  // Precalculated colors
+  $hex-bg-panel: color-list-reduce(
+    list-cut(color-list-sort($palette-hex-list, 'color-compare-euclidean', true, $hex-bg-page), 3),
+    'color-compare-hue',
+    $hex-bg-page
+  );
+  $hex-txt-base: color-list-reduce(
+    color-list-filter($palette-hex-list, 'color-is-contrasting', $hex-bg-panel, 7),
+    'color-compare-hue',
+    $hex-bg-page
+  );
+  $hex-txt-error: list.nth(
+    color-list-filter(
+      color-list-filter($palette-hex-list, 'color-is-red'),
+      'color-is-contrasting',
+      $hex-bg-page,
+      5
+    ),
+    1
+  );
+  // Contrast calculations
+  $txt-base-contrast-bg-page: color-get-contrast($hex-bg-page, $hex-txt-base);
 
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-bg-page: map-get($palette, $background);
-    --clr-bg-page: #{$hex-bg-page};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-txt-personality: color-list-reduce(
-      color-list-filter($palette-hex-list, 'color-is-contrasting', $hex-bg-page, 7),
-      'color-compare-euclidean',
-      $hex-personality
-    );
-    --clr-txt-personality: #{$hex-txt-personality};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-bg-panel: color-list-reduce(
-      list-cut(color-list-sort($palette-hex-list, 'color-compare-euclidean', true, $hex-bg-page), 3),
-      'color-compare-hue',
-      $hex-bg-page
-    );
-    --clr-bg-panel: #{$hex-bg-panel};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-txt-base: color-list-reduce(
-      color-list-filter($palette-hex-list, 'color-is-contrasting', $hex-bg-panel, 7),
-      'color-compare-hue',
-      $hex-bg-page
-    );
-    --clr-txt-base: #{$hex-txt-base};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-border: $hex-txt-base;
-    // --clr-border: #{$hex-border};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-txt-error: list.nth(
-      color-list-filter(
-        color-list-filter($palette-hex-list, 'color-is-red'),
-        'color-is-contrasting',
-        $hex-bg-page,
-        5
+  @return (
+    personality: $hex-personality,
+    bg-page: $hex-bg-page,
+    bg-panel: $hex-bg-panel,
+    txt-base: $hex-txt-base,
+    txt-error: $hex-txt-error,
+    txt-personality:
+      color-list-reduce(
+        color-list-filter($palette-hex-list, 'color-is-contrasting', $hex-bg-page, 7),
+        'color-compare-euclidean',
+        $hex-personality
       ),
-      1
-    );
-    --clr-txt-error: #{$hex-txt-error};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $txt-base-contrast-bg-page: color-get-contrast($hex-bg-page, $hex-txt-base);
-    $hex-bg-input: mix-until-contrasting(
-      $hex-personality,
-      $hex-bg-page,
-      $hex-txt-base,
-      $txt-base-contrast-bg-page * 0.5
-    );
-    --clr-bg-input: #{$hex-bg-input};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $hex-bg-disabled: mix-until-contrasting(
-      $hex-txt-base,
-      $hex-bg-page,
-      $hex-txt-base,
-      $txt-base-contrast-bg-page * 0.3
-    );
-    --clr-bg-disabled: #{$hex-bg-disabled};
-
-    //  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    $txt-error-contrast-bg-page: color-get-contrast($hex-bg-page, $hex-txt-error);
-    $contrast-goal: $txt-error-contrast-bg-page * 0.8;
-    $hex-bg-error: color.change($hex-txt-error, $lightness: color.lightness($hex-bg-panel));
-    --clr-bg-error: #{color.mix($hex-bg-error, $hex-bg-page, 70%)};
-  }
+    bg-input:
+      mix-until-contrasting(
+        $hex-personality,
+        $hex-bg-page,
+        $hex-txt-base,
+        $txt-base-contrast-bg-page * 0.5
+      ),
+    bg-disabled:
+      mix-until-contrasting($hex-txt-base, $hex-bg-page, $hex-txt-base, $txt-base-contrast-bg-page * 0.3),
+    bg-error:
+      color.mix(
+        color.change($hex-txt-error, $lightness: color.lightness($hex-bg-panel)),
+        $hex-bg-page,
+        70%
+      )
+  );
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

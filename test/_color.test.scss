@@ -1,0 +1,101 @@
+@use 'sass:map' as *;
+@use 'true' as *;
+@use '../lib/sass-door' as *;
+@use '../index' as *;
+
+$palette: (
+  nube: #dfd9ff,
+  vinca: #afbbfa,
+  cielo: #7aadf5,
+  azulejo: #1f84cc,
+  cobalto: #1262b3,
+  lapis: #000066,
+  marino: #030f33,
+  jade: #0f474d,
+  cedro: #00806a,
+  limon: #089969,
+  mota: #12b362,
+  musgo: #9eed77,
+  alien: #d0fa7d,
+  mantequilla: #f7ff99,
+  arena: #fff7cc,
+  tortilla: #ffea80,
+  flan: #fabb64,
+  ambar: #f59149,
+  ladrillo: #cc5f29,
+  arandano: #66050d,
+  manzana: #b31b34,
+  fresa: #e62e4d,
+  chicle: #f7577f,
+  bombon: #fc7ea8,
+  pastel: #fa96c8,
+  ajolote: #e9abf5,
+  princesa: #d0bbfa,
+  magia: #a37af5,
+  lavanda: #6246eb,
+  uva: #380899,
+  turquesa: #088199,
+  menta: #1fcccc,
+  hielo: #7ae0f5,
+  cajeta: #b36b24,
+  vino: #400020,
+  pulpo: #660546,
+  pitahaya: #b3128a,
+  borrador: #df76ba,
+  obsidiana: #0c0a0d,
+  chapopote: #241f26,
+  grafito: #3d3640,
+  hierro: #796c80,
+  acero: #aca1b3,
+  plata: #d5ced9,
+  papel: #eee6f2,
+  blanco: #ffffff,
+);
+
+$correct-dark-theme-map: (
+  personality: #089969,
+  bg-page: #0c0a0d,
+  bg-panel: #241f26,
+  txt-base: #eee6f2,
+  txt-personality: #12b362,
+  txt-error: #f7577f,
+  bg-input: #0a4c37,
+  bg-disabled: #666269,
+  bg-error: #320511,
+);
+
+$correct-light-theme-map: (
+  personality: #089969,
+  bg-page: #eee6f2,
+  bg-panel: #d5ced9,
+  txt-base: #0c0a0d,
+  txt-personality: #0f474d,
+  txt-error: #66050d,
+  bg-input: #5fb69d,
+  bg-disabled: #847f86,
+  bg-error: #f7bdc6,
+);
+
+@include test-module('color') {
+  @include describe('[f] create-theme-map()') {
+    @include describe('Dark theme') {
+      $dark-theme-map: create-theme-map($palette, 'limon', 'obsidiana');
+
+      @each $name, $hex in $correct-dark-theme-map {
+        @include it('Color "#{$name}"') {
+          @include assert-equal($hex, map-get($dark-theme-map, $name));
+        }
+      }
+    }
+
+    @include describe('Light theme') {
+      $light-theme-map: create-theme-map($palette, 'limon', 'papel');
+
+      @each $name, $hex in $correct-light-theme-map {
+        @include it('Color "#{$name}"') {
+          @include assert-equal($hex, map-get($light-theme-map, $name));
+        }
+      }
+    }
+  }
+}
