@@ -1,11 +1,14 @@
 # Changelog
 
-## `v0.2.46`
+## `v0.2.47`
 
-- Added the `create-theme()` function and the `build-dual-theme-classes()` mixin.
-  - `/src/_color.scss`
-  - `/test/_color.test.scss`
-  - `/test/index.scss`
+- `/src/_size.scss`
+  - Added the `calc-size-and-height()` and `create-size-schema()` functions.
+  - Added the `build-size-schema()`, `build-fonts()`, and `build-typography-classes()` mixins.
+
+- Minor updates
+  - `/test/playground/index.scss`
+  - `/lib/sass-door`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

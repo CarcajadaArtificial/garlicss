@@ -6,6 +6,8 @@
 // =====================================================================================================
 @use 'sass:map';
 @use 'sass:math';
+@use 'sass:meta';
+@use 'sass:list';
 @use 'lib/sassdoor' as *;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -56,7 +58,7 @@ $box-spaces: (
 /// of content on a page. It involves setting a base line height and then aligning all the elements on
 /// the page to that baseline, creating a sense of visual continuity.
 ///
-/// @group sizes
+/// @group size
 ///
 $vertical-rythm: 1.5rem !default;
 
@@ -66,13 +68,15 @@ $vertical-rythm: 1.5rem !default;
 /// @param {rem} $base [1rem]
 ///   The base value to multiply each box space by.
 ///
-/// @group sizes
+/// @group size
 ///
 /// @todo Parameter type validation.
 ///
 @mixin build-box-spaces($base: 1rem) {
-  @each $space, $multiplier in $box-spaces {
-    --s-#{$space}: #{map-get($box-spaces, $space) * $base};
+  :root {
+    @each $space, $multiplier in $box-spaces {
+      --s-#{$space}: #{map-get($box-spaces, $space) * $base};
+    }
   }
 }
 
@@ -95,7 +99,7 @@ $vertical-rythm: 1.5rem !default;
 ///   The ratio to use for the modular scale, can be a unitless integer or an index value of the
 ///   variable `$scales`.
 ///
-/// @group sizes
+/// @group size
 ///
 /// @todo Parameter type validation.
 /// @todo $from < $through validation.
@@ -106,6 +110,109 @@ $vertical-rythm: 1.5rem !default;
     $line-height: closest-line-height($font-size);
     --fs#{$i}: #{$font-size};
     --lh#{$i}: #{$line-height};
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This funcion is used when mapping a typography schema into `font-size` and `line-height` values.
+///
+/// @param {unitless} $step
+///   The step inside the modular scale that will determine the font-size.
+///
+/// @param {rem} $base
+///   The modular scale uses this value as a starting point.
+///
+/// @param {unitless} $ratio
+///   The proportion that defines how a modular scale grows.
+///
+/// @returns {list}
+///   Returns a list with a font-size and a line-height separated by a slash
+///
+/// @group size
+///
+/// @todo Parameter validation
+///
+@function calc-size-and-height($step, $base, $ratio) {
+  $size: modular-scale($step, $base, $ratio);
+  $height: closest-line-height($size);
+  @return list.join($size, $height, $separator: 'slash');
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin converts a list of modular scale steps to a map of font-size and line-height pairs.
+///
+/// @param {map} $schema
+///   A map containing the names of the text components and their size as steps in the modular scale.
+///
+/// @param {rem} $base
+///   The modular scale uses this value as a starting point.
+///
+/// @param {unitless} $ratio
+///   The proportion that defines how a modular scale grows.
+///
+/// @returns {map}
+///   A map with the same keys as `$schema` but with (font-size / line-height) pair values.
+///
+/// @group size
+///
+/// @todo Parameter validation
+///
+@function create-size-schema($schema, $base, $ratio) {
+  @return map-map($schema, meta.get-function('calc-size-and-height'), $base, $ratio);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates all CSS variables needed for the typography components sizes.
+///
+/// @param {map} $size-schema
+///   A map containing the names of the text components and their font size and line-height.
+///
+/// @param {string|null} $media-query
+///   This optional string aids in determining the media query behind the CSS variables.
+///
+/// @group size
+///
+/// @todo Parameter validation
+///
+@mixin build-size-schema($size-schema, $media-query: null) {
+  :root {
+    @include quick-mq($media-query) {
+      @include map-to-styles($size-schema, '--txt-');
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates all CSS variables needed for the font families in typographical components.
+///
+/// @param {map} $fonts
+///   A map containing the names of each font with the corresponding family list.
+///
+/// @group size
+///
+/// @todo Parameter validation
+///
+@mixin build-fonts($fonts) {
+  :root {
+    @include map-to-styles($fonts, '--font-');
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates the classes of typographical components using size and font CSS variables.
+///
+/// @param {map} $font-schema
+///   A map with every typographical component and their corresponding font.
+///
+/// @group size
+///
+/// @todo Parameter validation
+///
+@mixin build-typography-classes($font-schema) {
+  @each $component, $font-name in $font-schema {
+    .txt-#{$component} {
+      font: var(--txt-#{$component}) var(--font-#{$font-name});
+    }
   }
 }
 
@@ -125,7 +232,7 @@ $vertical-rythm: 1.5rem !default;
 ///   The ratio to use for the modular scale, can be a unitless integer or an index value of the
 ///   variable `$scales`.
 ///
-/// @group sizes
+/// @group size
 ///
 /// @todo Parameter type validation.
 ///
@@ -156,7 +263,7 @@ $vertical-rythm: 1.5rem !default;
 ///   The calculated line height value that is closest to the fixed line height (1.12 x font size) and
 ///   that is a multiple of the vertical rhythm.
 ///
-/// @group sizes
+/// @group size
 ///
 /// @todo Parameter type validation.
 ///
