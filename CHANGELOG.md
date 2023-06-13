@@ -1,14 +1,9 @@
 # Changelog
 
-## `v0.2.47`
-
-- `/src/_size.scss`
-  - Added the `calc-size-and-height()` and `create-size-schema()` functions.
-  - Added the `build-size-schema()`, `build-fonts()`, and `build-typography-classes()` mixins.
+## `v0.2.48`
 
 - Minor updates
-  - `/test/playground/index.scss`
-  - `/lib/sass-door`
+  - `/src/_grid.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

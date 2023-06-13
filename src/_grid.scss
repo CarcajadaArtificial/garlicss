@@ -130,10 +130,10 @@ $i-grid-schema: (
 /// @todo Validate parameter types.
 /// @todo Remove the global default variable `$class-name-grid` in favor of a parameter.
 ///
-@mixin build-all-layouts($layout-schemas) {
+@mixin build-all-layouts($layout-schemas, $use-classes: false) {
   @each $name, $schema in $layout-schemas {
     .#{$class-name-layout}-#{$name} {
-      @include build-layout($schema, false);
+      @include build-layout($schema, $use-classes);
     }
   }
 }
