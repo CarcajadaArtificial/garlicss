@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.2.48`
+## `v0.2.49`
 
-- Minor updates
-  - `/src/_grid.scss`
+- Fixed the `build-dual-theme()` mixin.
+  - `/src/_color.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build

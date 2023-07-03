@@ -38,14 +38,14 @@
 @mixin build-dual-theme($palette, $personality, $dark-bg, $light-bg, $use-classes: false) {
   $dark-theme: create-theme-map($palette, $personality, $dark-bg);
   $light-theme: create-theme-map($palette, $personality, $light-bg);
-
-  @if $use-classes {
-    @include build-dual-theme-classes($dark-theme, $light-theme);
-  } @else {
+  :root {
     @include map-to-styles($dark-theme, '--clr-');
     @include quick-mq('(prefers-color-scheme: light)') {
       @include map-to-styles($light-theme, '--clr-');
     }
+  }
+  @if $use-classes {
+    @include build-dual-theme-classes($dark-theme, $light-theme);
   }
 }
 
