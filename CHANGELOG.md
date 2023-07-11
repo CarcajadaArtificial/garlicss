@@ -1,8 +1,8 @@
 # Changelog
 
-## `v0.2.52`
+## `v0.2.53`
 
-- Removed sass-door submodule in favor of git subtree
+- Added sass-door as a git subtree
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
