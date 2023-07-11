@@ -1,6 +1,6 @@
 # Changelog
 
-## `v0.2.51`
+## `v0.2.52`
 
 - Removed sass-door submodule in favor of git subtree
 
