@@ -1,9 +1,8 @@
 # Changelog
 
-## `v0.2.50`
+## `v0.2.51`
 
-- Fixed `package.json` version difference
-  - `/package.json`
+- Removed sass-door submodule in favor of git subtree
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
