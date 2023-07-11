@@ -1,0 +1,964 @@
+//  _________________________________________________________________________________________________  //
+// |                                                                                                 | //
+// |      .oooooo..o                                  oooooooooo.                                    | //
+// |     d8P'    `Y8                                  `888'   `Y8b                                   | //
+// |     Y88bo.       .oooo.    .oooo.o  .oooo.o       888      888  .ooooo.   .ooooo.  oooo d8b     | //
+// |      `"Y8888o.  `P  )88b  d88(  "8 d88(  "8       888      888 d88' `88b d88' `88b `888""8P     | //
+// |          `"Y88b  .oP"888  `"Y88b.  `"Y88b.        888      888 888   888 888   888  888         | //
+// |     oo     .d8P d8(  888  o.  )88b o.  )88b       888     d88' 888   888 888   888  888         | //
+// |     8""88888P'  `Y888""8o 8""888P' 8""888P'      o888bood8P'   `Y8bod8P' `Y8bod8P' d888b        | //
+// |_________________________________________________________________________________________________| //
+// |_________________________________________________________________________________________________| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |_|___|___|__|  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |___|___|___||  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |_|___|___|__|  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |    ||   |  |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |    ||   |  |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |   O||   |0 |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |    ||   |  |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|__|____||__ |__|  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |LLL| |LLLLL|  |LLLLL|  |LLLLL|  |LLLLL|______________||  |LLLLL|  |LLLLL|  |LLLLL|  |LLLLL|  |LLL| //
+// |LLL| |LLLLL|  |LLLLL|  |LLLLL|  |LLL|______________|  |  |LLLLL|  |LLLLL|  |LLLLL|  |LLLLL|  |LLL| //
+// |LLL|_|LLLLL|__|LLLLL|__|LLLLL|__|L|______________|____|__|LLLLL|__|LLLLL|__|LLLLL|__|LLLLL|__|LLL| //
+//                                                                                                     //
+//                                                                Original ASCII Art By Sherry Stowers //
+// ___________________________________________________________________________________________________ //
+//
+// MIT License
+//
+// Copyright (c) 2023 Oscar Alfonso Guerrero Nuñez
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// ___________________________________________________________________________________________________ //
+
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
+
+// =====================================================================================================
+//   ___ _            _   _                 _
+//  / __| |_  ___ _ _| |_| |_  __ _ _ _  __| |___
+//  \__ \ ' \/ _ \ '_|  _| ' \/ _` | ' \/ _` (_-<
+//  |___/_||_\___/_|  \__|_||_\__,_|_||_\__,_/__/
+//
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v)` or `meta.type-of($v) == $t`.
+///
+/// @param {any} $v
+///   The value whose type is to be compared.
+///
+/// @param {string|null} $t [null]
+///   The expected type for the value.
+///
+/// @returns {bool|string}
+///   A bool for a type match confirmation.
+///
+/// @group shorthand
+///
+@function t-o($v, $t: null) {
+  @if $t == null {
+    @return meta.type-of($v);
+  } @else if meta.type-of($t) == 'string' {
+    @return meta.type-of($v) == $t;
+  } @else {
+    @return null;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `unit($v) == $v`
+///
+/// @param {any} $v
+///   The value whose unit of measurement is to be compared.
+///
+/// @param {string} $t
+///   The expected type for the value.
+///
+/// @returns {bool}
+///   A bool for a unit of measurement match confirmation.
+///
+/// @group shorthand
+///
+@function u($v, $u) {
+  @return unit($v) == $u;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.call($f, $p...);
+///
+/// @param {function} $f
+///   The function to be called
+///
+/// @param {arglist} $p
+///   The list of parameters to be passed to the function.
+///
+/// @returns {any}
+///   The returned value from calling $f.
+///
+/// @group shorthand
+///
+@function c($f, $p...) {
+  @return meta.call($f, $p...);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This is a short generic `length()` function.
+///
+/// @param {any} $v
+///   This value can by of any type.
+///
+/// @returns {number}
+///   Depending on the type of `$v` uses a different calculation for the length.
+///   - list: Returns `list.length($v)`
+///   - map: Returns `list.length(map.keys($v))`
+///   - string: Returns `string.length($v)`
+///   - null: Returns `0`
+///   - everything else: Returns `1`
+///
+/// @group shorthand
+///
+@function l($v) {
+  @if t-o($v, 'map') {
+    @return list.length(map.keys($v));
+  } @else if t-o($v, 'list') {
+    @return list.length($v);
+  } @else if t-o($v, 'string') {
+    @return string.length($v);
+  } @else if $v == null {
+    @return 0;
+  }
+
+  @return 1;
+}
+
+// =====================================================================================================
+//   _____ _
+//  |_   _| |_  _ _ _____ __ __
+//    | | | ' \| '_/ _ \ V  V /
+//    |_| |_||_|_| \___/\_/\_/
+//
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This variable sets the default value for whether error messages should be caught and displayed.
+/// It can be overritten to false to disable this feature.
+///
+/// @type bool
+///
+/// @group config
+///
+$catching-enabled: true !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This variable sets the name of the error custom property for the `throw()` mixin.
+///
+/// @type string
+///
+/// @group config
+///
+$mixin-style-name: '--scss-error' !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Simplifies error handling by generating a custom error message and throwing an exception.
+///
+/// @param {string} $message ['']
+///   The content of the message to be displayed.
+///
+/// @param {bool} $catch [$catching-enabled]
+///   Throws @error if true.
+///
+/// @returns {string}
+///   Returns the `$message` by default.
+///
+/// @group throw
+///
+@function throw($message: '', $catch: $catching-enabled) {
+  @if $catch {
+    @error $message;
+  }
+  @return $message;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin does what the function `throw()` does, but applied to a `--scss-error` property.
+///
+/// @param {string} $message -
+///   The content of the message to be displayed.
+///
+/// @param {bool} $catch [$catching-enabled]
+///   Throws @error if true.
+///
+/// @group throw
+///
+@mixin throw($message, $catch: $catching-enabled) {
+  @if $catch {
+    .#{$mixin-style-name} {
+      #{$mixin-style-name}: '#{throw($message, $catch)}';
+    }
+  }
+}
+
+// =====================================================================================================
+//   ___                   __  __
+//  | __|_ _ _ _ ___ _ _  |  \/  |___ ______ __ _ __ _ ___ ___
+//  | _|| '_| '_/ _ \ '_| | |\/| / -_|_-<_-</ _` / _` / -_|_-<
+//  |___|_| |_| \___/_|   |_|  |_\___/__/__/\__,_\__, \___/__/
+//                                               |___/
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates a `(Value Error)`, these are used for incorrect values (e.g. incorrect types, values out of
+/// a range, not null, a string with a wrong format, etc).
+///
+/// @param {string} $value
+///   The incorrect value.
+///
+/// @param {string} $expected
+///   A guide on what the correct value must be.
+///
+/// @group msg
+///
+@function value-msg($value, $expected) {
+  @return '(Value Error) The value #{to-string($value)} is invalid. Expected: #{to-string($expected)}';
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates an `(Indexing Error)`, these are used for missing keys or values that must be present on a
+/// map or a list.
+///
+/// @param {string} $key
+///   The key or value that wasn't found.
+///
+/// @param {string} $container
+///   The list or map where `$key` wasn't found.
+///
+/// @group msg
+///
+@function index-msg($key, $container) {
+  @return '(Indexing Error) The value #{to-string($key)} was not found inside #{to-string($container)}';
+}
+
+// =====================================================================================================
+//   _____                __   __    _ _    _      _   _
+//  |_   _|  _ _ __  ___  \ \ / /_ _| (_)__| |__ _| |_(_)___ _ _
+//    | || || | '_ \/ -_)  \ V / _` | | / _` / _` |  _| / _ \ ' \
+//    |_| \_, | .__/\___|   \_/\__,_|_|_\__,_\__,_|\__|_\___/_||_|
+//        |__/|_|
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// *This variable cannot be documented using Sassdoc, the "// prettier-ignore" line breaks the token
+// documentation and is unable to work.*
+//
+// This schema contains all the supported SCSS data types. There are two types of verifications:
+//   - t-o: meta.type-of()
+//   - u: unit()
+//
+// @type {map}
+//
+// @group type
+//
+// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: 'number'                   ),
+  color:          ( t-o: 'color'                    ),
+  calculation:    ( t-o: 'calculation'              ),
+  bool:           ( t-o: 'bool'                     ),
+  function:       ( t-o: 'function'                 ),
+  arglist:        ( t-o: 'arglist'                  ),
+  string:         ( t-o: 'string'                   ),
+  list:           ( t-o: 'list'                     ),
+  map:            ( t-o: 'map'                      ),
+  unitless:       ( t-o: 'number',      u: ''       ),
+  // Time
+  ms:             ( t-o: 'number',      u: 'ms'     ),
+  s:              ( t-o: 'number',      u: 's'      ),
+  // Angle
+  deg:            ( t-o: 'number',      u: 'deg'    ),
+  rad:            ( t-o: 'number',      u: 'rad'    ),
+  grad:           ( t-o: 'number',      u: 'grad'   ),
+  turn:           ( t-o: 'number',      u: 'turn'   ),
+  // Frecuency
+  Hz:             ( t-o: 'number',      u: 'Hz'     ),
+  kHz:            ( t-o: 'number',      u: 'kHz'    ),
+  // Relative Length
+  em:             ( t-o: 'number',      u: 'em'     ),
+  ex:             ( t-o: 'number',      u: 'ex'     ),
+  ch:             ( t-o: 'number',      u: 'ch'     ),
+  rem:            ( t-o: 'number',      u: 'rem'    ),
+  vw:             ( t-o: 'number',      u: 'vw'     ),
+  vh:             ( t-o: 'number',      u: 'vh'     ),
+  vmin:           ( t-o: 'number',      u: 'vmin'   ),
+  vmax:           ( t-o: 'number',      u: 'vmax'   ),
+  // Absolute length
+  cm:             ( t-o: 'number',      u: 'cm'     ),
+  mm:             ( t-o: 'number',      u: 'mm'     ),
+  in:             ( t-o: 'number',      u: 'in'     ),
+  px:             ( t-o: 'number',      u: 'px'     ),
+  pt:             ( t-o: 'number',      u: 'pt'     ),
+  pc:             ( t-o: 'number',      u: 'pc'     ),
+  // Percentage
+  pct:            ( t-o: 'number',      u: '%'      ),
+  // Resolution
+  dpi:            ( t-o: 'number',      u: 'dpi'    ),
+  dpcm:           ( t-o: 'number',      u: 'dpcm'   ),
+  dppx:           ( t-o: 'number',      u: 'dppx'   ),
+) !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-absolute-length-units: ('cm', 'mm', 'in', 'px', 'pt', 'pc');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-relative-length-units: ('em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-resolution-units: ('dpi', 'dpcm', 'dppx');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-frecuency-units: ('Hz', 'kHz');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-angle-units: ('deg', 'rad', 'grad', 'turn');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-time-units: ('ms', 's');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-length-units: list.join($type-absolute-length-units, $type-relative-length-units);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function varifies the individual type of a value and compares it to the selected type.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {any} $type
+///   The type the value must be to pass the check.
+///
+/// @returns {bool}
+///   True if the value passes the check, false if it doesn't.
+///
+/// @group type
+///
+@function check-individual-type($value, $type, $quiet: false) {
+  @if not map-has-key($type-check-schemas, $type) {
+    @if $value == null and ($type == 'null' or $type == null) {
+      @return true;
+    }
+    /// @todo Error handling
+    @return $value == $type;
+  } @else {
+    $type-check-schema: map-get($type-check-schemas, $type);
+    $typeof: map-get($type-check-schema, 't-o');
+    $unit: map-get($type-check-schema, 'u');
+
+    @if $typeof != null and not t-o($value, $typeof) {
+      @if not $quiet {
+        $error: throw(value-msg('#{to-string($value)} (type: #{t-o($value)})', $type));
+      }
+      @return false;
+    }
+    @if $unit != null and not u($value, $unit) {
+      @if not $quiet {
+        $error: throw(value-msg('#{to-string($value)} (unit: #{unit($value)})', $type));
+      }
+      @return false;
+    }
+  }
+  @return true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function verifies the type of a value and looks for a match on a list of posible types.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {list} $type-list
+///   The list of possible types for the value.
+///
+/// @returns {bool}
+///   True if the value passes the check, false if it doesn't.
+///
+/// @group type
+///
+@function check-union-type($value, $type-list) {
+  $match: false;
+  @each $type in $type-list {
+    @if check-individual-type($value, $type, true) {
+      $match: true;
+    }
+  }
+  @if not $match {
+    $error: throw(value-msg('#{to-string($value)} (type: #{t-o($value)})', $type-list));
+  }
+  @return $match;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function validates that map variables have the correct keys and value types.
+///
+/// @param {any} $map
+///   The map value that will be type verified.
+///
+/// @param {any} $interface
+///   A map that specifies the types and keys of `$map`.
+///
+/// @returns {bool}
+///   True if the value passes the check, false if it doesn't.
+///
+/// @group type
+/// .
+@function check-interface-type($map, $interface) {
+  @if not t-o($map, 'map') {
+    $error: throw(value-msg($map, 'map'));
+    @return false;
+  } @else if not l($map) == l($interface) {
+    $error: throw(value-msg(map.keys($map), map.keys($interface)));
+    @return false;
+  }
+
+  @each $key, $value in $map {
+    @if not check($value, map-get($interface, $key)) {
+      @return false;
+    }
+  }
+
+  @return true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Checks if the values in a list or map have a recurring type.
+///
+/// @param {any} $value
+///   The list or map to check for recurring type.
+///
+/// @param {any} $type
+///   The type that every item inside the list or map must be.
+///
+/// @returns {bool}
+///   Returns `true` if the values have a recurring type, otherwise `false`.
+///
+/// @group type
+///
+@function check-recurring-type($value, $type) {
+  @if t-o($value, 'list') and not t-o($type, 'map') {
+    @each $list-value in $value {
+      @if not check-individual-type($list-value, $type, true) {
+        @return false;
+      }
+    }
+    @return true;
+  } @else if t-o($value, 'list') and t-o($type, 'map') {
+    @each $list-value in $value {
+      @if not check-interface-type($list-value, $type) {
+        @debug $list-value;
+        @return false;
+      }
+    }
+    @return true;
+  } @else if t-o($value, 'map') {
+    @each $key, $map-value in $value {
+      @if not check-individual-type($map-value, $type, true) {
+        @return false;
+      }
+    }
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function verifies the type of a given value, ensuring type safety, by taking in two parameters
+/// the value to be checked and the expected type.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {any} $type
+///   The type the value must be to pass the check.
+///
+/// @param {bool} $recurrent-type [false]
+///   If this is true and `$value` is of type list or map, checks if every item matches `$type`.
+///
+/// @returns {bool}
+///   True if the value passes the check, false if it doesn't.
+///
+/// @group type
+///
+@function check($value, $type, $recurrent-type: false) {
+  @if $recurrent-type {
+    @if not t-o($recurrent-type, 'bool') {
+      $error: throw(value-msg($recurrent-type, 'bool'));
+      @return false;
+    } @else if not (t-o($value, 'list') or t-o($value, 'map')) {
+      $error: throw(value-msg($value, 'list or map, when $recurrent-type is true'));
+      @return false;
+    } @else {
+      @return check-recurring-type($value, $type);
+    }
+  } @else if t-o($type, 'list') {
+    @return check-union-type($value, $type);
+  } @else if t-o($type, 'map') {
+    @return check-interface-type($value, $type);
+  } @else {
+    @return check-individual-type($value, $type);
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin allows for type safety by checking the type of a given value against the expected type,
+/// and if the check passes, it executes the provided content. Otherwise, it triggers an error through
+/// a local css variable.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {any} $type
+///   The type the value must be to pass the check.
+///
+/// @param {bool} $recurrent-type [false]
+///   If this is true and `$value` is of type list or map, checks if every item matches `$type`.
+///
+/// @content
+///   Adds content if the value passes the check, adds a css error if it doesn't.
+///
+/// @group type
+///
+@mixin check($value, $type, $recurrent-type: false) {
+  @if check($value, $type, $recurrent-type) {
+    @content;
+  } @else {
+    @include throw(value-msg('#{to-string($value)}( type: #{t-o($value)})', $type));
+  }
+}
+
+// =====================================================================================================
+//   ___          _
+//  | _ ) __ _ __(_)__ ___
+//  | _ \/ _` (_-< / _(_-<
+//  |___/\__,_/__/_\__/__/
+//
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Turns the first letter of a word into uppercase.
+///
+/// @param {string} $str
+///   The word that is going to be capitalized.
+///
+/// @returns {string}
+///   The same string but capitalized. Returns `''` if `$str` is not valid.
+///
+/// @group basics
+///
+@function capitalize($str) {
+  @if not check($str, 'string') {
+    @return '';
+  }
+
+  @return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns the character value that corresponds with the separator "enum" built in sass.
+///
+/// @param {'comma'|'space'|'slash'} $separator
+///   The name of the separator that joins the items of a list.
+///
+/// @returns {','|' '|'/'|''}
+///   The character value corresponding to the separator name.
+///
+/// @group basics
+///
+@function separator-character($separator) {
+  @if not check($separator, ('comma', 'space', 'slash')) {
+    @return '';
+  }
+
+  @if ($separator == 'comma') {
+    @return ',';
+  } @else if($separator == 'space') {
+    @return ' ';
+  } @else if($separator == 'slash') {
+    @return '/';
+  }
+
+  @return '';
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function checks if a string contains ('*'), starts with ('^'), or ends with ('$') a substring.
+///
+/// @param {string} $string
+///   The string where the `$substring` must be matched.
+///
+/// @param {string} $substring
+///   The string that needs to be found insde `$string`.
+///
+/// @param {'^'|'$'|'*'} $selector
+///   The option that determines how must `$substring` be found inside `$string`.
+///
+/// @group basics
+///
+@function substring-match($string, $substring, $selector: '*') {
+  @if not
+    check($selector, ('^', '$', '*')) or not
+    check($string, 'string') or not
+    check($substring, 'string')
+  {
+    @return false;
+  }
+
+  $string-length: string.length($string);
+  $substring-length: string.length($substring);
+
+  @if $selector == '^' {
+    @return string.slice($string, 1, $substring-length) == $substring;
+  } @else if $selector == '$' {
+    @return string.slice($string, $string-length - $substring-length + 1) == $substring;
+  } @else {
+    @return string.index($string, $substring) != null;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function converts a value of any type into a string.
+///
+/// @param {any} $v
+///   A value of any type.
+///
+/// @returns {string}
+///   The value $v converted to string.
+///
+/// @group basics
+///
+/// @todo Cases for function, arglist and calculation type.
+///
+@function to-string($v) {
+  @if $v == null {
+    @return '';
+  } @else if t-o($v, 'string') {
+    @return $v;
+  } @else if t-o($v, 'number') or t-o($v, 'bool') or t-o($v, 'color') {
+    @return #{$v};
+  } @else if t-o($v, 'function') or t-o($v, 'arglist') or t-o($v, 'calculation') {
+    @return t-o($v);
+  } @else if t-o($v, 'list') {
+    $separator: separator-character(list.separator($v));
+    $acum: '(';
+    $count: 1;
+    $length: l($v);
+    @each $value in $v {
+      @if $count < $length {
+        $count: $count + 1;
+        $acum: '#{$acum}#{to-string($value)}#{$separator}';
+      } @else {
+        $acum: '#{$acum}#{to-string($value)}';
+      }
+    }
+    @return '#{$acum})';
+  } @else if t-o($v, 'map') {
+    $acum: '(';
+    $count: 1;
+    $length: l($v);
+    @each $key, $value in $v {
+      @if $count < $length {
+        $count: $count + 1;
+        $acum: '#{$acum}#{$key}:#{to-string($value)},';
+      } @else {
+        $acum: '#{$acum}#{$key}:#{to-string($value)}';
+      }
+    }
+    @return '#{$acum})';
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns the next key in a map given the current key. It throws an error if the current key is not
+/// found in the map.
+///
+/// @param {map} $map
+///   The map to be searched.
+///
+/// @param {string} $current-key
+///   The current key in the map.
+///
+/// @returns {-1|string|null}
+///   `string`: The key that is next.
+///   `null`: The current key is the last, so there is a null key next.
+///   `-1`: Invalid argument types or key not found.
+///
+/// @group basics
+///
+/// @todo Refactor parameter validation.
+///
+@function map-next-key($map, $current-key) {
+  @if check($map, 'map') and check($current-key, 'string') {
+    @if not(map.has-key($map, $current-key)) {
+      $error: throw(index-msg($current-key, '$map'));
+      @return -1;
+    }
+    $keys: map.keys($map);
+    $current-index: list.index($keys, $current-key);
+    @if $current-index == l($keys) {
+      @return null;
+    }
+    @return list.nth($keys, $current-index + 1);
+  }
+  @return -1;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Displays a map as a list of style values.
+///
+/// @param {map} $map
+///   This map's keys will become CSS properties with their corresponding map value.
+///
+/// @param {string} $prefix
+///   It helps to add strings like '--' when having CSS variables as a goal to display.
+///
+/// @group basics
+///
+@mixin map-to-styles($map, $prefix: '') {
+  @if check($map, 'map') and check($prefix, 'string') {
+    @each $key, $value in $map {
+      #{$prefix}#{$key}: #{$value};
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This funcion processes every value of a map using a callback function.
+///
+/// @param {map} $map
+///   The map whose values will be processed.
+///
+/// @param {string} $callback-name
+///   The name of the function that will process the values in `$map`.
+///
+/// @param {arglist} $args...
+///   Other arguments that will be passed to the callback function.
+///
+/// @returns {map}
+///   A map with the same keys as `$map` but all the values were processed by the callback function.
+///
+/// @group basics
+///
+/// @todo Paramter Validation
+/// @todo Verify the callback function exists.
+///
+@function map-map($map, $callback-name, $args...) {
+  $result-map: ();
+  @each $key, $value in $map {
+    $mapped-value: meta.call($callback-name, $value, $args...);
+    $result-map: map.set($result-map, $key, $mapped-value);
+  }
+  @return $result-map;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Removes the element at the given index from a list.
+///
+/// @param {list} $list
+///   The list from which to remove an element.
+///
+/// @param {unitless} $nth
+///   The index of the element to remove, negative indexes are allowed for counting from the end.
+///
+/// @returns {list}
+///   The new list with the element removed
+///
+/// @group basics
+///
+/// @todo Parameter validation
+///
+@function list-remove($list, $nth) {
+  $result: ();
+  $nth: if($nth < 0, l($list) + $nth + 1, $nth);
+  $bracketed: list.is-bracketed($list);
+  $separator: list.separator($list);
+  @for $i from 1 through l($list) {
+    @if $i != $nth {
+      $result: append($result, list.nth($list, $i));
+    }
+  }
+  @return join((), $result, $separator, $bracketed);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns a new list containing the first n elements of the given list.
+///
+/// @param {list} $list
+///   The original list.
+///
+/// @param {unitless} $nth
+///   The number of elements to include in the new list.
+///
+/// @returns {list}
+///   The new list containing the first n elements of the original list.
+///
+/// @group basics
+///
+/// @todo Parameter validation
+///
+@function list-cut($list, $nth) {
+  $new-list: ();
+
+  @for $i from 1 through $nth {
+    $new-list: append($new-list, nth($list, $i));
+  }
+
+  @return $new-list;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @param {list} $lists
+@function list-join-many($lists...) {
+  @if not check($lists, 'arglist') {
+    @return t-o($lists);
+  }
+
+  $joined-list: ();
+  @each $list in $lists {
+    $joined-list: list.join($joined-list, $list);
+  }
+  @return $joined-list;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin optionally applies a media query.
+///
+/// @param {string|null} $mq
+///   If this value is null, simply returns the content.
+///
+/// @group basics
+///
+@mixin quick-mq($mq) {
+  @if check($mq, (string, null)) {
+    @if $mq == null {
+      @content;
+    } @else {
+      @media #{$mq} {
+        @content;
+      }
+    }
+  } @else {
+    @include throw(value-msg($mq, 'string|null'));
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin optionally applies a pseudoclass.
+///
+/// @param {string|null} $psuedo
+///   If this value is null, simply returns the content.
+///
+/// @group basics
+///
+@mixin quick-pseudo($pseudo) {
+  @if check($pseudo, (string, null)) {
+    @if $pseudo == null {
+      @content;
+    } @else {
+      &#{$pseudo} {
+        @content;
+      }
+    }
+  } @else {
+    @include throw(value-msg($pseudo, 'string|null'));
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates a selector based on the value of the `$conditional` variable, applying the
+/// content to either `$a` or `$b` depending on the condition.
+///
+/// @param {string} $a
+///   The applied selector when $contitional is true.
+///
+/// @param {string} $b
+///   The applied selector when $contitional is false.
+///
+/// @param {bool} $conditional
+///   The conditional value that determines what selector will be applied.
+///
+/// @group basics
+///
+/// @todo Handle the exception path of the `check()` function.
+///
+@mixin conditional-selector($a, $b, $conditional) {
+  @if check($a, 'string') and check($b, 'string') and check($conditional, 'bool') {
+    @if $conditional {
+      #{$a} {
+        @content;
+      }
+    } @else {
+      #{$b} {
+        @content;
+      }
+    }
+  }
+}

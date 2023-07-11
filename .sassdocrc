@@ -1,0 +1,5 @@
+dest: docs/
+src: index.scss
+
+display:
+  access: public
