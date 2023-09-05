@@ -36,6 +36,6 @@ const downloadFile = (url, dest) => {
 };
 
 const sassdoorUrl = 'https://cdn.jsdelivr.net/gh/CarcajadaArtificial/sass-door/sassdoor.scss';
-const filePath = path.join(__dirname, 'lib', 'scss', 'sassdoor.scss');
+const filePath = path.join(__dirname, 'lib', 'sassdoor.scss');
 
 downloadFile(sassdoorUrl, filePath);
