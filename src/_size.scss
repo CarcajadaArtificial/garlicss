@@ -60,7 +60,7 @@ $box-spaces: (
 ///
 /// @group size
 ///
-$vertical-rythm: 1.5rem !default;
+$vertical-rhythm: 1.5rem !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Builds CSS custom properties for box spaces using a base value. `--s-name: X.XXXrem;`
@@ -84,7 +84,7 @@ $vertical-rythm: 1.5rem !default;
 /// Builds CSS custom properties for font sizes and line heights using the provided SCSS mixin. The font
 /// sizes (`--fsX: XX.Xrem`) are calculated using the `modular-scale` function on the `$base` parameter,
 /// while the line heights (`--lhX: XXrem`) are calculated using the `closest-line-height` function that
-/// leverages the `$vertical-rythm` variable.
+/// leverages the `$vertical-rhythm` variable.
 ///
 /// @param {unitless} $from [0]
 ///   Starting value of the loop, can be a negative value for proportionally shorter sizes.
@@ -268,10 +268,10 @@ $vertical-rythm: 1.5rem !default;
 /// @todo Parameter type validation.
 ///
 @function closest-line-height($font-size: 1rem) {
-  $result: $vertical-rythm;
+  $result: $vertical-rhythm;
 
   @while $result < ($font-size * 1.12) {
-    $result: $result + $vertical-rythm;
+    $result: $result + $vertical-rhythm;
   }
 
   @return $result;
