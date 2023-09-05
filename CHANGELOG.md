@@ -1,17 +1,14 @@
 # Changelog
 
-## `v0.3.0`
+## `v0.3.1`
 
-### Removed all traces of sassdoor
-  - `/.github/dep/sassdoor/*`
-
-### Removed sassdoc
-  - `/.sassdocrc`
+### Added the download script
+  - `/index.js`
 
 ### Minor updates
   - `/package.json`
-  - `/.vscode/settings.json`
-  - `/src/_size.scss`
+  - `/.gitignore`
+  - `/src/lib/sassdoor.scss`
 
 ## Goals for `v0.3.0` - Color Palettes
   - [x] Generate compressed css for build
@@ -36,12 +33,9 @@
     - [x] Headings with id's.
 
 ## Goals for `v0.4.0` - Animation
-  - [ ] Implement github template project schema.
+  - [x] Implement node file download using jsdelivr.
     - [x] Remove all traces of the sassdoor subtree.
-    - [ ] Create a new repo using sassdoor as a project template.
-    - [ ] Add the sassdoor remote repository.
-    - [ ] Migrate everything there.
-    - [ ] Do a test update in sassdoor and then fetch that update.
+    - [x] Develop the js script.
   - [ ] Features
     - [x] Generation of gradients.
     - [ ] Transition animations.
