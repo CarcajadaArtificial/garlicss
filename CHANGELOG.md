@@ -1,8 +1,10 @@
 # Changelog
 
-## `v0.3.2`
+## `v0.3.3`
 
-- Prepared the project to be imported as a scss library.
+- Removed classless builders from `basics.scss`
+- Readded `index.scss`
+- Included --load-path flag to import from node_modules.
 
 ## Goals for `v0.4.0` - Animation
   - [x] Implement node file download using jsdelivr.
