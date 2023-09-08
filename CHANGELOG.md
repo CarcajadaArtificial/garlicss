@@ -1,10 +1,8 @@
 # Changelog
 
-## `v0.3.3`
+## `v0.3.4`
 
-- Removed classless builders from `basics.scss`
-- Readded `index.scss`
-- Included --load-path flag to import from node_modules.
+- Updated `.gitignore` for the playground's .css files.
 
 ## Goals for `v0.4.0` - Animation
   - [x] Implement node file download using jsdelivr.
